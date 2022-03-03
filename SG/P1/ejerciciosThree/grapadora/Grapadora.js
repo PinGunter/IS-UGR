@@ -10,7 +10,7 @@ class Grapadora extends THREE.Object3D {
     this.createGUI(gui,titleGui);
     
     // El material se usa desde varios métodos. Por eso se alamacena en un atributo
-    this.material = new THREE.MeshPhongMaterial({color: 0xCF0000});
+    this.material = new THREE.MeshPhongMaterial({color: 0xff0099});
     
     // A la base no se accede desde ningún método. Se almacena en una variable local del constructor.
     var base = this.createBase();

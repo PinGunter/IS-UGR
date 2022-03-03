@@ -11,17 +11,18 @@ class MyBox extends THREE.Object3D {
     // Un Mesh se compone de geometría y material
     var boxGeom = new THREE.BoxBufferGeometry (1,1,1);
     // Como material se crea uno a partir de un color
-    var boxMat = new THREE.MeshPhongMaterial({color: 0xCF0000});
-    
+    this.boxColor = new THREE.Color(1,0,0);
+    this.boxMat = new THREE.MeshPhongMaterial({color: this.boxColor});
     // Ya podemos construir el Mesh
-    var box = new THREE.Mesh (boxGeom, boxMat);
+    this.box = new THREE.Mesh (boxGeom, this.boxMat);
     // Y añadirlo como hijo del Object3D (el this)
-    this.add (box);
+    this.add (this.box);
+
     
     // Las geometrías se crean centradas en el origen.
     // Como queremos que el sistema de referencia esté en la base,
     // subimos el Mesh de la caja la mitad de su altura
-    box.position.y = 0.5;
+    this.box.position.y = 0.5;
   }
   
   createGUI (gui,titleGui) {
@@ -39,6 +40,10 @@ class MyBox extends THREE.Object3D {
       posY : 0.0,
       posZ : 0.0,
       
+      r: 0.0,
+      g: 0.0,
+      b: 0.0,
+
       // Un botón para dejarlo todo en su posición inicial
       // Cuando se pulse se ejecutará esta función.
       reset : () => {
@@ -74,6 +79,11 @@ class MyBox extends THREE.Object3D {
     folder.add (this.guiControls, 'posZ', -20.0, 20.0, 0.1).name ('Posición Z : ').listen();
     
     folder.add (this.guiControls, 'reset').name ('[ Reset ]');
+
+    folder.add(this.guiControls, 'r', 0.0, 1, 0.01).name('R: ').listen();
+    folder.add(this.guiControls, 'g', 0.0, 1, 0.01).name('G: ').listen();
+    folder.add(this.guiControls, 'b', 0.0, 1, 0.01).name('B: ').listen();
+
   }
   
   update () {
@@ -87,6 +97,9 @@ class MyBox extends THREE.Object3D {
     this.position.set (this.guiControls.posX,this.guiControls.posY,this.guiControls.posZ);
     this.rotation.set (this.guiControls.rotX,this.guiControls.rotY,this.guiControls.rotZ);
     this.scale.set (this.guiControls.sizeX,this.guiControls.sizeY,this.guiControls.sizeZ);
+    this.guiControls.rotY = (this.guiControls.rotY + 0.01) % (Math.PI / 2);
+    // this.boxColor.setRGB(this.guiControls.r, this.guiControls.g, this.guiControls.b);
+    this.box.material.color.setRGB(this.guiControls.r, this.guiControls.g, this.guiControls.b);
   }
 }
 
