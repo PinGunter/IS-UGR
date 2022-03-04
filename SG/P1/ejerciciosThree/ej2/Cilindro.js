@@ -18,6 +18,7 @@ class Cilindro extends THREE.Object3D {
 
         this.eje = new THREE.AxesHelper(5);
 
+        this.position.set(0,-3,0);
         this.add(this.eje);
         this.add(this.cilindro);
         
@@ -35,8 +36,8 @@ class Cilindro extends THREE.Object3D {
         }
 
         var folder = gui.addFolder(titleGui);
-        folder.add(this.guiControls,'radioInf', 0,10,1).name("Radio Inferior").onChange( (value) => this.updateRadioInf(value));
-        folder.add(this.guiControls,'radioSup', 0,10,1).name("Radio Superio").onChange( (value) => this.updateRadioSup(value));
+        folder.add(this.guiControls,'radioInf', 0.1,3,0.1).name("Radio Inferior").onChange( (value) => this.updateRadioInf(value));
+        folder.add(this.guiControls,'radioSup', 0.1,3,0.1).name("Radio Superio").onChange( (value) => this.updateRadioSup(value));
         folder.add(this.guiControls,'altura', 0,10,1).name("Altura").onChange( (value) => this.updateAltura(value));
         folder.add(this.guiControls,'res', 0,15,1).name("Resolución").onChange( (value) => this.updateRes(value));
         folder.add (this.guiControls, 'autoRot').name('Rotación Automática').onChange ( (value) => this.autoRotate(value));
@@ -85,6 +86,7 @@ class Cilindro extends THREE.Object3D {
     }
 
     update(){
+        this.position.set(0,-3,0);
         this.cilindro.rotation.y += this.rotationSpeed;
     }
 }

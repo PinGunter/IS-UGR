@@ -10,7 +10,8 @@ import { Caja } from './Caja.js'
 import { Cono } from './Cono.js'
 import { Cilindro } from './Cilindro.js' 
 import { Esfera } from './Esfera.js'
-
+import { Toro } from './Toro.js'
+import { Icosaedro } from './Icosaedro.js'
  
 /// La clase fachada del modelo
 /**
@@ -50,11 +51,15 @@ class MyScene extends THREE.Scene {
     this.cono = new Cono(this.gui, "Controles del Cono");
     this.cilindro = new Cilindro (this.gui, "Controles del Cilindro")
     this.esfera = new Esfera(this.gui, "Controles de la Esfera");
+    this.toro = new Toro (this.gui, "Controles del Toro");
+    this.icosaedro = new Icosaedro(this.gui, "Controles del Icosaedro");
 
     this.add (this.caja);
     this.add (this.cono);
     this.add (this.cilindro);
     this.add (this.esfera);
+    this.add (this.toro);
+    this.add (this.icosaedro);
   }
   
   createCamera () {
@@ -189,6 +194,8 @@ class MyScene extends THREE.Scene {
     this.caja.update();
     this.cilindro.update();
     this.esfera.update();
+    this.toro.update();
+    this.icosaedro.update();
     
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".

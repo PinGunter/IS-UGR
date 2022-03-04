@@ -41,7 +41,7 @@ class Cono extends THREE.Object3D {
         folder.add (this.guiControls, 'axis').name('Ejes: ').onChange( (value) => this.setAxisVisible(value));
     }
 
-    reconstruir(geoNueva){
+    reconstruir(){
         this.cono.geometry.dispose();
         this.remove(this.cono);
         var geoNueva = new THREE.ConeBufferGeometry(this.radio, this.altura, this.res);
