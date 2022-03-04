@@ -38,11 +38,6 @@ class Caja extends THREE.Object3D{
 
     setAxisVisible (valor) {
         this.eje.visible = valor;
-      }
-
-    update(){
-        this.scale.set(this.guiControls.tamX, this.guiControls.tamY, this.guiControls.tamZ);
-        this.caja.rotation.y += this.rotationSpeed;
     }
 
     autoRotate(value){
@@ -51,6 +46,11 @@ class Caja extends THREE.Object3D{
         } else{
             this.rotationSpeed = 0;
         }
+    }
+
+    update(){
+        this.scale.set(this.guiControls.tamX, this.guiControls.tamY, this.guiControls.tamZ);
+        this.caja.rotation.y += this.rotationSpeed;
     }
 
 }

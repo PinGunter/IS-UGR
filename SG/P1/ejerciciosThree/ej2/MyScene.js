@@ -7,7 +7,7 @@ import { TrackballControls } from '../libs/TrackballControls.js'
 
 // Clases de mi proyecto
 
-import { Caja } from './Caja.js'
+import { Cono } from './Cono.js'
 
  
 /// La clase fachada del modelo
@@ -44,8 +44,8 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.caja = new Caja(this.gui, "Controles de la Caja");
-    this.add (this.caja);
+    this.cono = new Cono(this.gui, "Controles del Cono");
+    this.add (this.cono);
   }
   
   createCamera () {
@@ -176,7 +176,7 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
     
     // Se actualiza el resto del modelo
-    this.caja.update();
+    this.cono.update();
     
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".
