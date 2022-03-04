@@ -6,8 +6,10 @@ import { GUI } from '../libs/dat.gui.module.js'
 import { TrackballControls } from '../libs/TrackballControls.js'
 
 // Clases de mi proyecto
-
+import { Caja } from './Caja.js'
 import { Cono } from './Cono.js'
+import { Cilindro } from './Cilindro.js' 
+import { Esfera } from './Esfera.js'
 
  
 /// La clase fachada del modelo
@@ -44,8 +46,15 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
+    this.caja = new Caja(this.gui, "Controles de la Caja");
     this.cono = new Cono(this.gui, "Controles del Cono");
+    this.cilindro = new Cilindro (this.gui, "Controles del Cilindro")
+    this.esfera = new Esfera(this.gui, "Controles de la Esfera");
+
+    this.add (this.caja);
     this.add (this.cono);
+    this.add (this.cilindro);
+    this.add (this.esfera);
   }
   
   createCamera () {
@@ -55,9 +64,9 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (6, 3, 6);
+    this.camera.position.set (15,10,0);
     // Y hacia dónde mira
-    var look = new THREE.Vector3 (0,0,0);
+    var look = new THREE.Vector3 (0,2,0);
     this.camera.lookAt(look);
     this.add (this.camera);
     
@@ -177,6 +186,9 @@ class MyScene extends THREE.Scene {
     
     // Se actualiza el resto del modelo
     this.cono.update();
+    this.caja.update();
+    this.cilindro.update();
+    this.esfera.update();
     
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".

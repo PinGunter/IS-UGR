@@ -13,10 +13,10 @@ class Caja extends THREE.Object3D{
         this.caja = new THREE.Mesh(geoCaja,matCaja);
         this.eje = new THREE.AxesHelper(5);
 
+        this.position.set(0,0,7);
         this.add(this.caja);
         this.add(this.eje);
         this.rotationSpeed = 0.01;
-
     }
 
     createGUI(gui,titleGui){
@@ -49,7 +49,8 @@ class Caja extends THREE.Object3D{
     }
 
     update(){
-        this.scale.set(this.guiControls.tamX, this.guiControls.tamY, this.guiControls.tamZ);
+        this.position.set(0,0,7);
+        this.caja.scale.set(this.guiControls.tamX, this.guiControls.tamY, this.guiControls.tamZ);
         this.caja.rotation.y += this.rotationSpeed;
     }
 

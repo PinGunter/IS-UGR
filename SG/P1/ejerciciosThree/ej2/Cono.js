@@ -15,6 +15,7 @@ class Cono extends THREE.Object3D {
         this.matCono = new THREE.MeshNormalMaterial({flatShading: true});
         this.cono = new THREE.Mesh(geoCono,this.matCono);
         this.eje = new THREE.AxesHelper(5);
+        this.position.set(0,0,-7);
         
         this.add(this.eje);
         this.add(this.cono);
@@ -35,36 +36,32 @@ class Cono extends THREE.Object3D {
         var folder = gui.addFolder(titleGui);
         folder.add(this.guiControls,'radio',1,5,0.5).name("Radio").onChange( (value) => this.updateRadio(value));
         folder.add(this.guiControls,'altura',1,10,1).name("Altura").onChange( (value) => this.updateAltura(value));
-        folder.add(this.guiControls,'res',1,10,1).name("Resolución").onChange( (value) => this.updateRes(value));
+        folder.add(this.guiControls,'res',1,15,1).name("Resolución").onChange( (value) => this.updateRes(value));
         folder.add (this.guiControls, 'autoRot').name('Rotación Automática').onChange ( (value) => this.autoRotate(value));
         folder.add (this.guiControls, 'axis').name('Ejes: ').onChange( (value) => this.setAxisVisible(value));
     }
 
-    updateRadio(valor){
-        this.radio = valor;
+    reconstruir(geoNueva){
         this.cono.geometry.dispose();
         this.remove(this.cono);
         var geoNueva = new THREE.ConeBufferGeometry(this.radio, this.altura, this.res);
         this.cono = new THREE.Mesh(geoNueva, this.matCono);
         this.add(this.cono);
+    }
+
+    updateRadio(valor){
+        this.radio = valor;
+        this.reconstruir();        
     }
 
     updateAltura(valor){
         this.altura = valor;
-        this.cono.geometry.dispose();
-        this.remove(this.cono);
-        var geoNueva = new THREE.ConeBufferGeometry(this.radio, this.altura, this.res);
-        this.cono = new THREE.Mesh(geoNueva, this.matCono);
-        this.add(this.cono);
+        this.reconstruir();
     }
 
     updateRes(valor){
         this.res = valor;
-        this.cono.geometry.dispose();
-        this.remove(this.cono);
-        var geoNueva = new THREE.ConeBufferGeometry(this.radio, this.altura, this.res);
-        this.cono = new THREE.Mesh(geoNueva, this.matCono);
-        this.add(this.cono);
+        this.reconstruir();
     }
 
     setAxisVisible (valor) {
@@ -80,6 +77,7 @@ class Cono extends THREE.Object3D {
     }
 
     update(){
+        this.position.set(0,0,-7);
         this.cono.rotation.y += this.rotationSpeed;
     }
 }
