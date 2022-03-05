@@ -1,16 +1,26 @@
+body{
+    margin:0;
+}
+
 .header{
     width: 100%;
     height: auto;
+    display: inline-block;
+    border: 1px solid red;
 }
 
 .logo{
     width: 25%;
     height: auto;
+    display: inline-block;
+    border: 1px solid red;
 }
 
 .container-title-menu {
-    width: 75%;
+    width: 74%;
     height: auto;
+    display: inline-block;
+    border: 1px solid red;
 }
 
 .title{
