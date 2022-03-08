@@ -1,34 +1,95 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body{
     margin:0;
+    background-color: #07202a;
 }
 
 .header{
+    color:white;
     width: 100%;
-    height: auto;
-    display: inline-block;
-    border: 1px solid red;
+    height: 25%;
+    display: flex;
 }
 
 .logo{
+    float: left;
+    display: flex;
     width: 25%;
-    height: auto;
-    display: inline-block;
-    border: 1px solid red;
+    align-items: center;
 }
 
 .container-title-menu {
-    width: 74%;
+    width: 100%;
+    position: relative;
     height: auto;
-    display: inline-block;
-    border: 1px solid red;
 }
 
 .title{
     width: 100%;
-    height: auto;
 }
 
 .menu{
-    width: 100%;
-    height: auto;
+    background-color: #b82333;
 }
+.menu ul, .menu li{
+    margin: 0;
+    padding: 0;
+}
+
+.menu ul{
+    background: gray;
+    list-style: none;
+    width: 100%;
+}
+
+.menu li{
+    float:left;
+    position: relative;
+    width: auto;
+}
+
+.menu a{
+	background: #b82333;
+	color: #FFFFFF;
+	display: block;
+	font: bold 12px/20px;
+	padding: 15px 75px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+
+#submenu {
+    text-align: left;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 35px;
+	visibility: hidden;
+	z-index: 1;
+}
+
+li:hover ul#submenu {
+	opacity: 1;
+	top: 40px;	/* adjust this as per top nav padding top & bottom comes */
+    left: 0px;
+	visibility: visible;
+}
+#submenu li {
+	float: none;
+	width: 100%;
+}
+#submenu a:hover {
+	background: #641c23;
+}
+#submenu a {
+	background-color:#26202b;
+}
+
