@@ -12,20 +12,22 @@ header{
     background-color: crimson;
     display: flex;
     margin-top: 0px;
-    font-size: large;
-    /* padding-bottom: 15px; */
+    padding-bottom: 10px;
     flex-wrap: wrap;
+    /* justify-content: center; */
+    align-items: center;
 }
 
-.logo{
-    height: auto;
-}
+
 .logo-img{
-    width: 25%;
+    width: 35%;
+    align-items: center;
     height: auto;
 }
 
 .title-menu {
+    font-size: large;
     height: auto;
     text-align: center;
+    flex: 4;
 }
