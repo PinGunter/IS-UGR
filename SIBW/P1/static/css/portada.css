@@ -20,14 +20,41 @@ header{
 
 
 .logo-img{
-    width: 35%;
+    width: 10%;
     align-items: center;
     height: auto;
 }
 
 .title-menu {
-    font-size: large;
     height: auto;
     text-align: center;
     flex: 4;
+}
+.site-title{
+    font-size: 1.6vw;
+}
+
+a{
+    text-decoration: none;
+}
+
+nav a{
+    padding: 5px;
+}
+
+nav a:hover{
+    background-color: rgb(156, 15, 43);
+}
+
+.menu {
+    font-size: 1.2vw;
+    padding-bottom: 5px;
+}
+
+footer{
+    text-align: center;
+}
+
+.links a:hover{
+    text-decoration: underline;
 }
