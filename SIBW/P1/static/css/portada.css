@@ -52,7 +52,10 @@ nav a:hover{
 }
 
 footer{
+    background-color: #041116;
     text-align: center;
+    padding: 10px;
+    vertical-align: bottom;
 }
 
 .links a:hover{
