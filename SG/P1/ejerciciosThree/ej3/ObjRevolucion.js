@@ -24,12 +24,6 @@ class ObjRevolucion extends THREE.Object3D {
         this.puntos.push(new THREE.Vector3(0.3, 1.4, 0.0));
         this.puntos.push(new THREE.Vector3(0.0,1.4,0.0));
         
-        
-        if (gui != null && titleGui != null){
-            this.createGUI(gui, titleGui);
-        }
-
-
         // Creacion de la malla
 
         var geo = new THREE.LatheGeometry(this.puntos, this.resolution, 0, this.angle);
