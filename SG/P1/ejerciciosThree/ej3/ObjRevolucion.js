@@ -8,6 +8,8 @@ class ObjRevolucion extends THREE.Object3D {
 
         this.angle = Math.PI;
         this.resolution = 5;
+
+        this.createGUI(gui,titleGui);
        
         // Puntos que definen al peon
         this.puntos.push(new THREE.Vector3(0.0,-1.4,0.0));
