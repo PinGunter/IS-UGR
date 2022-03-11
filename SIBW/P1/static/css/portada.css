@@ -1,10 +1,10 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
+    color: black;
 }
 
 body{
-    background-color: #07202a;
+    /* background-color:; */
 
 }
 
@@ -60,4 +60,46 @@ footer{
 
 .links a:hover{
     text-decoration: underline;
+}
+
+.main-frame{
+    display: flex;
+}
+
+.productos{
+    display: grid;
+    width: 76%;
+    grid-template-columns: 33% 33% 33%;
+    padding: 20px;
+}
+
+.links{
+    border: yellow;
+    border-style: dotted;
+    margin: 0.4em;
+    width: 24%;
+    padding-top: 1em;
+    padding-left: 2em;
+}
+
+.suit-title{
+    text-align: center;
+    width: 80%;
+}
+
+.producto-individual{
+    margin: 0.4em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.imagen-producto {
+    width: 50%;
+    padding: 0.5vw;
+}
+
+.li-links{
+    /* list-style-type: none; */
 }
