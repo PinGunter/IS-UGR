@@ -4,22 +4,19 @@
 }
 
 :root{
-    --color1: white;
-    --color2: white ;
-    --color3: #2589BD;
-    --color4: #F7E733;
-    --color5: #F02D3A;
+    --blanco: white;
+    --negro: #242325;
 }
 
 body{
-    background-color:var(--color1);
-    color: black;
+    background-color:var(--blanco);
+    color: var(--negro);
     font-family: 'Courier New', Courier, monospace;
 }
 
 header{
     font-family: custom;
-    background-color: var(--color2);
+    background-color: var(--blanco);
     display: flex;
     margin: 1.6em;
     padding-top: 2em;
@@ -27,14 +24,15 @@ header{
     flex-wrap: wrap;
     /* justify-content: center; */
     align-items: center;
-    border-radius: 0.5em;
-    color: black;
-    border: #242325;
+    border-radius: 2em;
+    color: var(--negro);
+    border: var(--negro);
     border-style: dashed;
 }
 
 
 .logo-img{
+    margin-left: 4em;
     width: 10%;
     align-items: center;
     height: auto;
@@ -51,7 +49,7 @@ header{
 
 a{
     text-decoration: none;
-    color: black;
+    color: var(--negro);
 }
 
 nav a{
@@ -84,26 +82,35 @@ footer{
     grid-template-columns: 33% 33% 33%;
     padding: 20px;
     border-radius: 2em;
-    border-color: #242325;
+    border-color: var(--negro);
     border-style: dashed;
 }
 
 .links{
-    border: #242325;
+    border: var(--negro);
     border-style: dashed;
     border-width: 0.2em;
     margin: 1.6em;
     width: 24%;
     padding-top: 1em;
     padding-left: 2em;
-    background-color: var(--color2);
-    color: #041111;
+    background-color: var(--blanco);
+    color: var(--negro);
     border-radius: 2em;
 }
 
-.suit-title{
+.links span{
+    font-size: 1.2em;
+}
+
+.links a:hover{
+    text-decoration: underline;
+}
+
+.fruit-title{
     text-align: center;
     width: 80%;
+    font-weight: bold;
 }
 
 .producto-individual{
@@ -111,24 +118,23 @@ footer{
     display: flex;
     align-items: center;
     flex-direction: column;
-    border: #242325;
+    border: var(--negro);
     border-radius: 2em;
-    border-style: dashed;
-    background-color: var(--color2);
+    /* border-style: dashed; */
+    background-color: var(--blanco);
 }
 
+.producto-individual:hover{
+    transform: scale(1.1);
+}
 
 .imagen-producto {
     width: 50%;
     padding: 0.5vw;
 }
 
-.li-links{
-    /* list-style-type: none; */
-}
-
 nav a {
-  color: #000;
+  color: var(--negro);
   text-transform: uppercase;
   text-decoration: none;
   letter-spacing: 0.15em;
@@ -145,7 +151,7 @@ nav a:after {
   height: 2px;
   left: 50%;
   position: absolute;
-  background: #000;
+  background: var(--negro);
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
