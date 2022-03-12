@@ -89,7 +89,6 @@ footer{
 .links{
     border: var(--negro);
     border-style: dashed;
-    border-width: 0.2em;
     margin: 1.6em;
     width: 24%;
     padding-top: 1em;
