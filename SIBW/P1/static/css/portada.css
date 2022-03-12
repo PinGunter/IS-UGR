@@ -1,21 +1,36 @@
-* {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: black;
+@font-face {
+    font-family: custom;
+    src: url(../White\ Wonder.ttf);
+}
+
+:root{
+    --color1: white;
+    --color2: white ;
+    --color3: #2589BD;
+    --color4: #F7E733;
+    --color5: #F02D3A;
 }
 
 body{
-    /* background-color:; */
-
+    background-color:var(--color1);
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 header{
-    background-color: crimson;
+    font-family: custom;
+    background-color: var(--color2);
     display: flex;
-    margin-top: 0px;
-    padding-bottom: 10px;
+    margin: 1.6em;
+    padding-top: 2em;
+    padding-bottom: 2.5em;
     flex-wrap: wrap;
     /* justify-content: center; */
     align-items: center;
+    border-radius: 0.5em;
+    color: black;
+    border: #242325;
+    border-style: dashed;
 }
 
 
@@ -36,15 +51,13 @@ header{
 
 a{
     text-decoration: none;
+    color: black;
 }
 
 nav a{
     padding: 5px;
 }
 
-nav a:hover{
-    background-color: rgb(156, 15, 43);
-}
 
 .menu {
     font-size: 1.2vw;
@@ -52,34 +65,40 @@ nav a:hover{
 }
 
 footer{
-    background-color: #041116;
+    background-color: #20292c;
     text-align: center;
     padding: 10px;
     vertical-align: bottom;
+    color:white;
 }
 
-.links a:hover{
-    text-decoration: underline;
-}
 
 .main-frame{
     display: flex;
 }
 
 .productos{
+    margin: 1.6em;
     display: grid;
     width: 76%;
     grid-template-columns: 33% 33% 33%;
     padding: 20px;
+    border-radius: 2em;
+    border-color: #242325;
+    border-style: dashed;
 }
 
 .links{
-    border: yellow;
-    border-style: dotted;
-    margin: 0.4em;
+    border: #242325;
+    border-style: dashed;
+    border-width: 0.2em;
+    margin: 1.6em;
     width: 24%;
     padding-top: 1em;
     padding-left: 2em;
+    background-color: var(--color2);
+    color: #041111;
+    border-radius: 2em;
 }
 
 .suit-title{
@@ -92,6 +111,10 @@ footer{
     display: flex;
     align-items: center;
     flex-direction: column;
+    border: #242325;
+    border-radius: 2em;
+    border-style: dashed;
+    background-color: var(--color2);
 }
 
 
@@ -102,4 +125,31 @@ footer{
 
 .li-links{
     /* list-style-type: none; */
+}
+
+nav a {
+  color: #000;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  
+  display: inline-block;
+  padding: 15px 20px;
+  position: relative;
+}
+nav a:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #000;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+nav a:hover:after { 
+  width: 100%; 
+  left: 0; 
 }
