@@ -110,6 +110,10 @@ footer{
     font-size: 1.5em;
 }
 
+.descripcion p{
+    font-size: 1.2em;
+}
+
 .imagenes{
     display: flex;
     flex-direction: column;
@@ -166,4 +170,62 @@ nav a:after {
 nav a:hover:after { 
   width: 100%; 
   left: 0; 
+}
+
+
+figure{
+    width: 100%;
+    text-align: center;
+}
+
+.social{
+    display: flex;
+    padding: 1.2em;
+    align-items: center;
+}
+
+.print-btn{
+    background-color: var(--blanco); 
+    border: none; 
+    padding: 0.4em;
+    cursor: pointer; 
+    border-radius: 0.8em;
+    margin-left: 1%;
+}
+
+.print-btn:hover{
+    background-color: wheat;
+}
+
+.twt-btn{
+    background-color: #00acee; 
+    border: none; 
+    padding: 0.4em;
+    cursor: pointer; 
+    border-radius: 0.8em;
+    margin-right: 1%;
+}
+
+.twt-btn:hover{
+    background-color: #008abe;
+}
+
+.twt-btn a{
+    color: white !important;
+}
+
+.fb-btn{
+    background-color: #3b5998; 
+    border: none; 
+    padding: 0.4em;
+    cursor: pointer; 
+    border-radius: 0.8em;
+}
+
+.fb-btn a{
+    color: white;
+}
+
+.fb-btn:hover{
+    background-color: #2f477a;
 }
