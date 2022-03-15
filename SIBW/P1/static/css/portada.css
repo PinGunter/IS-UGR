@@ -6,17 +6,22 @@
 :root{
     --blanco: white;
     --negro: #242325;
+    --fondo: #c6f50f;
+    --secundario: #66cdaa;
+    --tercero: #ffa500;
+    --cuarto: #f67453;
+    --quinto: #f6c653;
 }
 
 body{
-    background-color:var(--blanco);
+    background-color:var(--fondo);
     color: var(--negro);
     font-family: 'Courier New', Courier, monospace;
 }
 
 header{
     font-family: custom;
-    background-color: var(--blanco);
+    background-color: var(--secundario);
     display: flex;
     margin: 1.6em;
     padding-top: 2em;
@@ -70,6 +75,9 @@ footer{
     color:white;
 }
 
+footer a{
+    color: wheat;
+}
 
 .main-frame{
     display: flex;
@@ -84,6 +92,7 @@ footer{
     border-radius: 2em;
     border-color: var(--negro);
     border-style: dashed;
+    background-color: var(--tercero);
 }
 
 .links{
@@ -93,7 +102,7 @@ footer{
     width: 24%;
     padding-top: 1em;
     padding-left: 2em;
-    background-color: var(--blanco);
+    background-color: var(--cuarto);
     color: var(--negro);
     border-radius: 2em;
 }
@@ -120,7 +129,7 @@ footer{
     border: var(--negro);
     border-radius: 2em;
     /* border-style: dashed; */
-    background-color: var(--blanco);
+    /* background-color: var(--blanco); */
 }
 
 .producto-individual:hover{

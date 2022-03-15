@@ -6,29 +6,26 @@
 :root{
     --blanco: white;
     --negro: #242325;
-    --fondo: #c6f50f;
+    --fondo: white;
     --secundario: #66cdaa;
     --tercero: #ffa500;
     --cuarto: #f67453;
     --quinto: #f6c653;
+    --fuente: 'Times New Roman', Times, serif;
 }
 
 body{
-    background-color:var(--fondo);
+    background-color:white;
     color: var(--negro);
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--fuente);
 }
 
 header{
-    font-family: custom;
-    background-color: var(--secundario);
-    display: flex;
-    margin: 1.6em;
+    font-family: var(--fuente);
+    background-color:white;
+    margin: auto;
     padding-top: 2em;
     padding-bottom: 2.5em;
-    flex-wrap: wrap;
-    /* justify-content: center; */
-    align-items: center;
     border-radius: 2em;
     color: var(--negro);
     border: var(--negro);
@@ -39,13 +36,12 @@ header{
 .logo-img{
     margin-left: 4em;
     width: 10%;
-    align-items: center;
     height: auto;
 }
 
 .title-menu {
     height: auto;
-    text-align: center;
+    text-align: left;
     flex: 4;
 }
 .site-title{
@@ -63,20 +59,17 @@ nav a{
 
 
 .menu {
+    display: none;
     font-size: 1.2vw;
     padding-bottom: 5px;
 }
 
 footer{
-    background-color: #20292c;
+    background-color:white;
     text-align: center;
     padding: 10px;
     vertical-align: bottom;
-    color:white;
-}
-
-footer a{
-    color: wheat;
+    color:black;
 }
 
 
@@ -87,20 +80,20 @@ footer a{
 
 .producto{
     margin: 1.6em;
-    width: 75%;
+    width: 100%;
     padding: 1em;
     padding-left: 2em;
     border-radius: 2em;
     border-color: var(--negro);
     border-style: dashed;
-    background-color: var(--tercero);
+    background-color:white;
     display: grid;
     grid-template-columns: 70% 30%;
 }
 
 .producto h1{
     font-size: 4em;
-    font-family: custom;
+    font-family: var(--fuente);
     margin: 0;
 }
 
@@ -129,13 +122,14 @@ footer a{
 }
 
 .links{
+    display: none;
     border: var(--negro);
     border-style: dashed;
     margin: 1.6em;
     width: 24%;
     padding-top: 1em;
     padding-left: 2em;
-    background-color: var(--cuarto);
+    background-color:white;
     color: var(--negro);
     border-radius: 2em;
 }
@@ -183,13 +177,13 @@ figure{
 }
 
 .social{
-    display: flex;
+    display: none;
     padding: 1.2em;
     align-items: center;
 }
 
 .print-btn{
-    background-color: var(--blanco); 
+    background-color:white;
     border: none; 
     padding: 0.4em;
     cursor: pointer; 
@@ -198,11 +192,11 @@ figure{
 }
 
 .print-btn:hover{
-    background-color: wheat;
+    background-color:white;
 }
 
 .twt-btn{
-    background-color: #00acee; 
+    background-color:white;
     border: none; 
     padding: 0.4em;
     cursor: pointer; 
@@ -211,7 +205,7 @@ figure{
 }
 
 .twt-btn:hover{
-    background-color: #008abe;
+    background-color:white;
 }
 
 .twt-btn a{
@@ -219,7 +213,7 @@ figure{
 }
 
 .fb-btn{
-    background-color: #3b5998; 
+    background-color:white;
     border: none; 
     padding: 0.4em;
     cursor: pointer; 
@@ -231,5 +225,5 @@ figure{
 }
 
 .fb-btn:hover{
-    background-color: #2f477a;
+    background-color:white;
 }
