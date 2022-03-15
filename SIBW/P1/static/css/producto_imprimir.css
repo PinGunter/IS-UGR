@@ -20,7 +20,7 @@ body{
     font-family: var(--fuente);
 }
 
-header{
+.header{
     font-family: var(--fuente);
     background-color:white;
     margin: auto;
@@ -29,7 +29,6 @@ header{
     border-radius: 2em;
     color: var(--negro);
     border: var(--negro);
-    border-style: dashed;
 }
 
 
@@ -40,6 +39,7 @@ header{
 }
 
 .title-menu {
+    display: none;
     height: auto;
     text-align: left;
     flex: 4;
@@ -53,18 +53,13 @@ a{
     color: var(--negro);
 }
 
-nav a{
-    padding: 5px;
-}
-
-
 .menu {
     display: none;
     font-size: 1.2vw;
     padding-bottom: 5px;
 }
 
-footer{
+.pie{
     background-color:white;
     text-align: center;
     padding: 10px;
@@ -171,7 +166,7 @@ nav a:hover:after {
 }
 
 
-figure{
+.imagenes figure{
     width: 100%;
     text-align: center;
 }

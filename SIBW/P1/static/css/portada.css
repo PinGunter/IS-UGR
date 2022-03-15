@@ -19,7 +19,7 @@ body{
     font-family: 'Courier New', Courier, monospace;
 }
 
-header{
+.header{
     font-family: custom;
     background-color: var(--secundario);
     display: flex;
@@ -57,9 +57,6 @@ a{
     color: var(--negro);
 }
 
-nav a{
-    padding: 5px;
-}
 
 
 .menu {
@@ -67,7 +64,7 @@ nav a{
     padding-bottom: 5px;
 }
 
-footer{
+.pie{
     background-color: #20292c;
     text-align: center;
     padding: 10px;
@@ -75,7 +72,7 @@ footer{
     color:white;
 }
 
-footer a{
+.pie a{
     color: wheat;
 }
 
