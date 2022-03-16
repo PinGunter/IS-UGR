@@ -24,25 +24,29 @@ body{
     font-family: var(--fuente);
     background-color:white;
     margin: auto;
-    padding-top: 2em;
-    padding-bottom: 2.5em;
-    border-radius: 2em;
     color: var(--negro);
     border: var(--negro);
+    align-items: center;
+    align-content: space-between;
+    display: flex;
+    flex-direction:column;
 }
 
 
 .logo-img{
-    margin-left: 4em;
-    width: 10%;
-    height: auto;
+    width: 5%;
+    order: 2;
+    align-self: center;
+
 }
 
 .title-menu {
-    display: none;
-    height: auto;
-    text-align: left;
-    flex: 4;
+    height: 5%;
+    text-align: center;
+    order: 1;
+    width: 100%;
+    margin: -2%;
+    padding: 0;
 }
 .site-title{
     font-size: 1.6vw;
@@ -65,10 +69,12 @@ a{
     padding: 10px;
     vertical-align: bottom;
     color:black;
+
 }
 
 
 .main-frame{
+    margin-top: 0%;
     display: flex;
 }
 
@@ -115,6 +121,24 @@ a{
 .imagenes img{
     width: 70%;
 }
+
+@media only screen and (min-width: 1300px){
+    .imagenes img{
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 1400px){
+    .imagenes img{
+        width: 50%;
+    }
+}
+@media only screen and (min-width: 1600px){
+    .imagenes img{
+        width: 4 0%;
+    }
+}
+
 
 .links{
     display: none;
