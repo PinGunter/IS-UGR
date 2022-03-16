@@ -42,10 +42,7 @@ class Esfera extends THREE.Object3D {
 
     reconstruir(){
         this.esfera.geometry.dispose();
-        this.remove(this.esfera);
-        var geoNueva = new THREE.SphereBufferGeometry(this.radio, this.resEcu, this.resMeri);
-        this.esfera = new THREE.Mesh(geoNueva, this.matEsfer);
-        this.add(this.esfera);
+        this.esfera.geometry = new THREE.SphereBufferGeometry(this.radio, this.resEcu, this.resMeri);
     }
 
     updateRadio(valor){

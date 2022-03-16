@@ -40,10 +40,7 @@ class Icosaedro extends THREE.Object3D {
 
     reconstruir(){
         this.icosaedro.geometry.dispose();
-        this.remove(this.icosaedro);
-        var geoNueva = new THREE.IcosahedronBufferGeometry(this.radio, this.subdiv);
-        this.icosaedro = new THREE.Mesh(geoNueva, this.matIco);
-        this.add(this.icosaedro);
+        this.icosaedro.geometry = new THREE.IcosahedronBufferGeometry(this.radio, this.subdiv);
     }
 
     updateRadio(valor){

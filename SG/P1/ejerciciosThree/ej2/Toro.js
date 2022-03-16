@@ -45,10 +45,7 @@ class Toro extends THREE.Object3D {
 
     reconstruir(){
         this.toro.geometry.dispose();
-        this.remove(this.toro);
-        var geoNueva = new THREE.TorusBufferGeometry(this.radioMain,this.radioTubo,this.resTubo,this.resToro);
-        this.toro = new THREE.Mesh(geoNueva, this.matToro);
-        this.add(this.toro);
+        this.toro.geometry = new THREE.TorusBufferGeometry(this.radioMain,this.radioTubo,this.resTubo,this.resToro);
     }
 
     updateRadioMain(valor){

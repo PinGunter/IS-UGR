@@ -59,11 +59,7 @@ class ObjRevolucion extends THREE.Object3D {
 
     reconstruir(){
         this.obj.geometry.dispose();
-        this.remove(this.obj);
-        var geoNueva = new THREE.LatheGeometry(this.puntos, this.resolution, 0, this.angle);        
-        this.obj = new THREE.Mesh(geoNueva, this.material);
-        this.obj.position.set(2.5,1.4,0);
-        this.add(this.obj);
+        this.obj.geometry = new THREE.LatheGeometry(this.puntos, this.resolution, 0, this.angle);        
 
     }
 

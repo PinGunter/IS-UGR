@@ -43,10 +43,7 @@ class Cono extends THREE.Object3D {
 
     reconstruir(){
         this.cono.geometry.dispose();
-        this.remove(this.cono);
-        var geoNueva = new THREE.ConeBufferGeometry(this.radio, this.altura, this.res);
-        this.cono = new THREE.Mesh(geoNueva, this.matCono);
-        this.add(this.cono);
+        this.cono.geometry = new THREE.ConeBufferGeometry(this.radio, this.altura, this.res);
     }
 
     updateRadio(valor){
