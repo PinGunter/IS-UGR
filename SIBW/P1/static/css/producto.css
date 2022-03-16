@@ -48,21 +48,37 @@ body{
     text-align: center;
     flex: 4;
 }
+
 .site-title{
-    font-size: 1.6vw;
+    font-size: 1.4em;
 }
+
+.menu {
+    font-size: 1em;
+    padding-bottom: 5px;
+}
+
+@media only screen and (min-width: 800px){
+    .menu{
+        font-size: 1.5em;
+        padding-bottom: 5px;
+    }
+    .site-title{
+        font-size: 2em;
+    }
+
+    .logo-img{
+        width: 15%;
+    }
+}
+
+
 
 a{
     text-decoration: none;
     color: var(--negro);
 }
 
-
-
-.menu {
-    font-size: 1.2vw;
-    padding-bottom: 5px;
-}
 
 .pie{
     background-color: #20292c;
@@ -123,6 +139,24 @@ a{
 
 .imagenes img{
     width: 70%;
+}
+
+
+@media only screen and (min-width: 1300px){
+    .imagenes img{
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 1400px){
+    .imagenes img{
+        width: 50%;
+    }
+}
+@media only screen and (min-width: 1600px){
+    .imagenes img{
+        width: 4 0%;
+    }
 }
 
 .links{

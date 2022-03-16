@@ -38,7 +38,7 @@ body{
 
 .logo-img{
     margin-left: 4em;
-    width: 10%;
+    width: 20%;
     align-items: center;
     height: auto;
 }
@@ -49,19 +49,32 @@ body{
     flex: 4;
 }
 .site-title{
-    font-size: 1.6vw;
+    font-size: 1.4em;
 }
+
+.menu {
+    font-size: 1em;
+    padding-bottom: 5px;
+}
+
+@media only screen and (min-width: 800px){
+    .menu{
+        font-size: 1.5em;
+        padding-bottom: 5px;
+    }
+    .site-title{
+        font-size: 2em;
+    }
+
+    .logo-img{
+        width: 15%;
+    }
+}
+
 
 a{
     text-decoration: none;
     color: var(--negro);
-}
-
-
-
-.menu {
-    font-size: 1.2vw;
-    padding-bottom: 5px;
 }
 
 .pie{
