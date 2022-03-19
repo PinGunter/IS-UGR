@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fruity Fruit</title>
+    <link rel="stylesheet" href="static/css/producto.css"/>
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="icon" type="image/png" href="static/img/logo.png"/>
+</head>
+
+<body>
+    <!-- Cabecera con logo, titulo y menu -->
+    <header class="header">
+        <!-- Logo 25%  -->
+        <img class="logo-img" src="static/img/logo.png"/>
+        <!-- Titulo + menu 75% aprox -->
+        <div class="title-menu">
+            <!-- Titulo 100% -->
+            <div class="site-title">
+                <h1><a href="portada.html">Fruity Fruit</h1></a>
+            </div>
+
+            <!-- Menu 100% -->
+            <nav class="menu">
+                <a href="portada.html">Inicio</a>
+                <a href="frutas.html">Frutas</a>
+                <a href="nosotros.html">Sobre Nosotros</a>
+            </nav>
+        </div>
+
+    </header>
+
+    <!-- Cuerpo principal de la pagina, incluye zona principal de productos y barra lateral -->
+    <!-- 100% width -->
+    <div class="main-frame">
+        <!-- Parte principal, con los contenidos de la tienda -->
+        <!-- 75% width -->
+        <section class="producto">
+            <!-- Informacion del producto (titulo, precio y descripcion) -->
+            <div class="info-producto">
+                <!-- Títulos, subtitulos y precio  -->
+                <section class="titulo-precio">
+                    <h1 class="product-name">Plátano</h1>
+                    <h2 class="brand">FreshProducts</h2>
+                    <h3 class="price">4€/kg</h3>
+                </section>
+                <!-- Descripcion del producto -->
+                <section class="descripcion">
+                    <p>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam nihil veritatis ab distinctio
+                        ea ex, necessitatibus eos cumque eligendi minima iure dicta molestiae! Accusamus, commodi
+                        aliquid voluptatibus deleniti dolores maxime.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea nobis ipsa quibusdam dignissimos
+                        beatae assumenda enim accusantium odit, a ipsum porro omnis exercitationem adipisci incidunt
+                        voluptatum molestiae error sed nam!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto autem consequatur, nisi ex
+                        nostrum debitis nobis praesentium! A minima natus excepturi ex debitis facilis autem vero
+                        deleniti fugiat, delectus eos?
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, quo delectus amet officia
+                        molestiae ad quibusdam, magni dolor asperiores temporibus repellat labore porro doloribus,
+                        maiores error beatae rerum impedit obcaecati!
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt magnam quisquam velit nisi
+                        minima quibusdam laborum aliquid, deleniti consequatur dignissimos porro rem officiis, dolor
+                        iure, veniam ex! Hic, nesciunt! Similique.
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, in. Corrupti quia illum
+                        culpa placeat, earum praesentium ad numquam neque in? Eveniet fugiat assumenda, reprehenderit
+                        laboriosam hic dolor maxime perspiciatis.
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non repudiandae dignissimos officiis
+                        corporis nesciunt suscipit omnis assumenda doloremque ipsam tempora tempore aliquid consequatur
+                        dolores dicta possimus, magnam nisi adipisci porro.
+                    </p>
+                </section>
+
+                <div class="social">
+                    <!-- Boton social twitter -->
+                    <button class="twt-btn">
+                        <a href="https://twitter.com/intent/tweet/">
+                        <i class="fa fa-twitter"></i> Tweet
+                    </a>
+                    </button>
+                    <!-- Boton social facebook -->
+                    <button class="fb-btn">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ffruity-fruit.com%2F&amp;src=sdkpreparse">
+                        <i class="fa fa-facebook"></i> Compartir
+                    </a>
+                    </button>
+                    <!-- Boton imprimir -->
+                    <button class="print-btn">
+                        <a href="producto_imprimir.html">
+                        <i class="fa fa-print"></i> Imprimir
+                    </a>
+                    </button>
+                </div>
+            </div>
+            <!-- Imagenes y botones sociales -->
+                <div class="imagenes">
+                    <figure>
+                        <img src="static/img/fruits/banana.png"/>
+                        <figcaption>Imagen 1</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="static/img/fruits/banana.png"/>
+                        <figcaption>Imagen 2</figcaption>
+                    </figure>
+                </div>
+
+        <!-- Sección de comentarios -->
+                <section class="comentarios">
+                    <h3>Comentarios</h3>
+                    <div class="comment-div">
+                        <span class="comment-date">18/03/2022</span>
+                        <span class="comment-author">Juan Pascal</span><br>
+                        <span class="comment-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab velit, totam repellendus ad adipisci aperiam asperiores accusamus enim ipsum qui, mollitia voluptates minima facere voluptas in! Beatae quasi ad libero.</span>
+                    </div>
+
+                    <div class="comment-div">
+                        <span class="comment-date">21/03/2022</span>
+                        <span class="comment-author">Irene Kujo</span><br>
+                        <span class="comment-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab velit, totam repellendus ad adipisci aperiam asperiores accusamus enim ipsum qui, mollitia voluptates minima facere voluptas in! Beatae quasi ad libero.</span>
+                    </div>
+
+
+                    <form>
+                        <label for="nombre-form">Nombre</label><br>
+                        <input type="text" id="nombre-form" name="nombre-form"><br>
+                        <label for="email-form">Email</label><br>
+                        <input type="text" id="email-form" name="email-form"><br>  
+                    </form>
+                </section>
+
+        </section> <!-- Fin producto principal-->
+
+        <!-- Sección lateral -->
+        <aside class="links">
+            <h2 class="links-title">
+                Enlaces de interés
+            </h2>
+            <li class="li-links">
+                <span><a href="https://es.wikipedia.org/wiki/Fruta_tropical">Wikipedia</a></span>
+            </li>
+            <li class="li-links">
+                <span><a
+                        href="https://www.ocu.org/alimentacion/alimentos/calculadora/calendario-de-frutas-y-verduras/calendario-de-frutas">Calendario
+                        de Frutas</a></span>
+            </li>
+
+            <h2 class="links-title">
+                Sobre este producto
+            </h2>
+            <li class="li-links">
+                <span><a href="marca.html">Página de la marca</a></span>
+            </li>
+            <li class="li-links">
+                <span><a href="masinfo.html">Más información</a></span>
+            </li>
+        </aside>
+    </div>
+
+
+
+
+</body>
+<!-- Pie de pagina -->
+<footer class="pie">
+    <p>
+        AVISO: Ninguna fruta hosteada en el sitio web es apta para el consumo
+    </p>
+
+    <p>
+        &#169 Todos los derechos reservados | Propietario: Salvador Romero Cortés &lt; <a href="mailto:salvaromero@correo.ugr.es">salvaromero@correo.ugr.es</a> &gt;
+    </p>
+</footer>
+
+</html>

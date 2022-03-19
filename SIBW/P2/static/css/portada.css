@@ -1,0 +1,179 @@
+@font-face {
+    font-family: custom;
+    src: url(../White\ Wonder.ttf);
+}
+
+:root{
+    --blanco: white;
+    --negro: #242325;
+    --fondo: #c6f50f;
+    --secundario: #66cdaa;
+    --tercero: #ffa500;
+    --cuarto: #f67453;
+    --quinto: #f6c653;
+}
+
+body{
+    background-color:var(--fondo);
+    color: var(--negro);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.header{
+    font-family: custom;
+    background-color: var(--secundario);
+    display: flex;
+    margin: 1.6em;
+    padding-top: 2em;
+    padding-bottom: 2.5em;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    align-items: center;
+    border-radius: 2em;
+    color: var(--negro);
+    border: var(--negro);
+    border-style: dashed;
+}
+
+
+.logo-img{
+    margin-left: 4em;
+    width: 20%;
+    align-items: center;
+    height: auto;
+}
+
+.title-menu {
+    height: auto;
+    text-align: center;
+    flex: 4;
+}
+.site-title{
+    font-size: 1.4em;
+}
+
+.menu {
+    font-size: 1em;
+    padding-bottom: 5px;
+}
+
+@media only screen and (min-width: 800px){
+    .menu{
+        font-size: 1.5em;
+        padding-bottom: 5px;
+    }
+    .site-title{
+        font-size: 2em;
+    }
+
+    .logo-img{
+        width: 15%;
+    }
+}
+
+
+a{
+    text-decoration: none;
+    color: var(--negro);
+}
+
+.pie{
+    background-color: #20292c;
+    text-align: center;
+    padding: 10px;
+    vertical-align: bottom;
+    color:white;
+}
+
+.pie a{
+    color: wheat;
+}
+
+.main-frame{
+    display: flex;
+}
+
+.productos{
+    margin: 1.6em;
+    display: grid;
+    width: 76%;
+    grid-template-columns: 33% 33% 33%;
+    padding: 20px;
+    border-radius: 2em;
+    border-color: var(--negro);
+    border-style: dashed;
+    background-color: var(--tercero);
+}
+
+.links{
+    border: var(--negro);
+    border-style: dashed;
+    margin: 1.6em;
+    width: 24%;
+    padding-top: 1em;
+    padding-left: 2em;
+    background-color: var(--cuarto);
+    color: var(--negro);
+    border-radius: 2em;
+}
+
+.links span{
+    font-size: 1.2em;
+}
+
+.links a:hover{
+    text-decoration: underline;
+}
+
+.fruit-title{
+    text-align: center;
+    width: 80%;
+    font-weight: bold;
+}
+
+.producto-individual{
+    margin: 0.4em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: var(--negro);
+    border-radius: 2em;
+    /* border-style: dashed; */
+    /* background-color: var(--blanco); */
+}
+
+.producto-individual:hover{
+    transform: scale(1.1);
+}
+
+.imagen-producto {
+    width: 50%;
+    padding: 0.5vw;
+}
+
+nav a {
+  color: var(--negro);
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  
+  display: inline-block;
+  padding: 15px 20px;
+  position: relative;
+}
+nav a:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: var(--negro);
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+nav a:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
