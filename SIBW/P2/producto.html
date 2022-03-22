@@ -7,6 +7,7 @@
     <!-- iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="icon" type="image/png" href="static/img/logo.png"/>
+    <script type="text/javascript" src="static/js/comentarios.js"></script>
 </head>
 
 <body>
@@ -92,6 +93,8 @@
                     </a>
                     </button>
                 </div>
+
+                <button id="toggle-comments" onclick="mostrarComentarios()"><a><i class="fa fa-comment"> Ver comentarios</i></a></button>
             </div>
             <!-- Imagenes y botones sociales -->
                 <div class="imagenes">
@@ -106,7 +109,7 @@
                 </div>
 
         <!-- Sección de comentarios -->
-                <section class="comentarios">
+                <section class="comentarios-no-visibles" id="seccion-comentarios">
                     <h3>Comentarios</h3>
                     <div class="comment-div">
                         <span class="comment-date">18/03/2022</span>
@@ -121,11 +124,15 @@
                     </div>
 
 
-                    <form>
+                    <form class="formulario">
+                        <label id="title-form">Escribe tu Comentario</label><br><br>
                         <label for="nombre-form">Nombre</label><br>
                         <input type="text" id="nombre-form" name="nombre-form"><br>
                         <label for="email-form">Email</label><br>
                         <input type="text" id="email-form" name="email-form"><br>  
+                        <label for="comment-form">Comentario</label><br>
+                        <textarea id="comment-form"></textarea>
+                        <button id="send-form"><i class="fa fa-send"> Enviar</i></button>
                     </form>
                 </section>
 

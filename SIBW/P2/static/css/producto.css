@@ -267,7 +267,12 @@ nav a:hover:after {
 
 /* Comentarios */
 
-.comentarios{
+.comentarios-no-visibles{
+    font-size: 1.3em;
+    display: none;
+}
+
+.comentarios-visibles{
     font-size: 1.3em;
 }
 
@@ -286,4 +291,48 @@ nav a:hover:after {
     border-style: dashed;
     padding: 0.4em;
     border-width: 0.1em;
+}
+
+.formulario{
+    padding-bottom: 1.2em;
+    font-size: 1em;
+    border: black;
+    border-radius: 0.8em;
+    border-style: dashed;
+    padding: 1em;
+    background-color: var(--secundario);
+}
+
+.formulario label{
+    margin-top: 1em;
+}
+
+.formulario input{
+    width: 22em;
+}
+
+.formulario textarea{
+    resize: vertical;
+    width: 100%;
+}
+
+h5{
+    padding: 0;
+}
+
+#title-form{
+    padding-top: 3em;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#send-form{
+    margin-top: 1em;
+    font-size: 0.7em;
+}
+
+#toggle-comments{
+    font-size: 1.3em;
+    background-color: white;
+    margin-left: 1em;
 }
