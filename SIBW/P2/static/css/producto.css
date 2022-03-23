@@ -331,8 +331,12 @@ h5{
     font-size: 0.7em;
 }
 
-#toggle-comments{
-    font-size: 1.3em;
+.boton-comentarios{
+    font-size: 1em;
     background-color: white;
     margin-left: 1em;
-}
+    width: auto;
+    padding: 0.3em;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
