@@ -5,11 +5,9 @@ class Trebol extends THREE.Object3D{
         super();
         
         var trebolShape = new THREE.Shape();
-        trebolShape.moveTo(0,4);
-        trebolShape.quadraticCurveTo(0,0,4,0);
-        trebolShape.quadraticCurveTo(10,0,7.5,5.4);
-        trebolShape.quadraticCurveTo(4.5,9,2,7.2);
-        trebolShape.quadraticCurveTo(12,14.7,0,16);
+        trebolShape.arc(2,2,4,Math.PI,2*Math.PI+2);
+        trebolShape.arc(-2,4,4,3*Math.PI/2+0.7,3*Math.PI+0.9)
+        trebolShape.arc(-2,-4,4)
 
         const geometry = new THREE.ExtrudeGeometry( trebolShape, {depth: 0.1});
         this.trebol = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial({color: "blue"}) );
