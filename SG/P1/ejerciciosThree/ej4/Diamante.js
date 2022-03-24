@@ -18,8 +18,8 @@ class Diamante extends THREE.Object3D {
     }
 
     update(){
-        // this.diamante.rotation.y += 0.01;
-        // this.rotation.z -= 0.01;
+        this.diamante.rotation.y += 0.01;
+        this.rotation.z -= 0.01;
 
     }
 }

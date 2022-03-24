@@ -25,9 +25,8 @@ class Pica extends THREE.Object3D {
     }
 
     update(){
-        // this.padre.rotation.z -= 0.01;
-        // this.padre.position.x = 4;
-        // this.picaCompleta.rotation.y += 0.01;
+        this.padre.rotation.z -= 0.01;
+        this.picaCompleta.rotation.y += 0.01;
     }
 }
 

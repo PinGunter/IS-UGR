@@ -24,9 +24,8 @@ class Corazon extends THREE.Object3D {
     }
 
     update(){
-        // this.corazon.rotation.y += 0.01;
-        // this.padre.rotation.z -= 0.01;
-        // this.padre.position.x = 4;
+        this.corazon.rotation.y += 0.01;
+        this.padre.rotation.z -= 0.01;
     }
 }
 

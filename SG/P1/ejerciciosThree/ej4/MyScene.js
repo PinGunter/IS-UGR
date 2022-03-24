@@ -6,10 +6,7 @@ import { GUI } from '../libs/dat.gui.module.js'
 import { TrackballControls } from '../libs/TrackballControls.js'
 
 // Clases de mi proyecto
-import { Corazon } from './Corazon.js'
-import { Diamante } from './Diamante.js'
-import { Pica } from './Pica.js'
-import { Trebol } from './Trebol.js'
+import { Cartas } from './Cartas.js'
  
 /// La clase fachada del modelo
 /**
@@ -45,17 +42,8 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.corazon = new Corazon();
-    this.diamante = new Diamante();
-    this.pica = new Pica();
-    this.trebol = new Trebol();
-    this.add(this.trebol);
-    // this.pica.position.set(-3,2,0);
-    // this.add(this.pica);
-    // this.corazon.position.set(-3,-3,0);
-    // this.add(this.corazon);
-    // this.diamante.position.set(3,3,0);
-    // this.add(this.diamante);
+    this.cartas = new Cartas();
+    this.add(this.cartas);
   }
   
   createCamera () {
@@ -186,10 +174,7 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
     
     // Se actualiza el resto del modelo
-    this.corazon.update();
-    this.diamante.update();
-    this.pica.update();
-    this.trebol.update();
+    this.cartas.update();
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".
     // Si no existiera esta línea,  update()  se ejecutaría solo la primera vez.
