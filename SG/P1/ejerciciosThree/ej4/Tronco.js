@@ -15,8 +15,10 @@ class Tronco extends THREE.Object3D {
 
         //Creamos la geometria, material y objeto
         var geo = new THREE.LatheGeometry(this.puntos);
+        geo.translate(0,-1.5,0)
         var mat = new THREE.MeshPhongMaterial({color: matColor});
         this.tronco = new THREE.Mesh(geo,mat);
+        this.tronco.scale.set(0.2,0.2,0.2);
         this.add(this.tronco);
     }
 

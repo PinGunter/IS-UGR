@@ -15,14 +15,18 @@ class Corazon extends THREE.Object3D {
         
         const geometry = new THREE.ExtrudeGeometry( corazonShape, {depth: 0.1});
         geometry.translate(-2,-1.7,0);
-        geometry.rotateY(Math.PI/2);
-        this.mesh = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial({color: "red"}) );
-        this.mesh.scale.set(0.6,0.6,0.6);
-        this.add(this.mesh);
+        this.corazon = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial({color: "red"}) );
+        this.corazon.scale.set(0.6,0.6,0.6);
+        this.padre = new THREE.Object3D();
+        this.padre.add(this.corazon);
+        this.add(this.padre);
+
     }
 
     update(){
-        this.mesh.rotation.y += 0.01;
+        // this.corazon.rotation.y += 0.01;
+        // this.padre.rotation.z -= 0.01;
+        // this.padre.position.x = 4;
     }
 }
 

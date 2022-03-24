@@ -8,6 +8,8 @@ import { TrackballControls } from '../libs/TrackballControls.js'
 // Clases de mi proyecto
 import { Corazon } from './Corazon.js'
 import { Diamante } from './Diamante.js'
+import { Pica } from './Pica.js'
+import { Trebol } from './Trebol.js'
  
 /// La clase fachada del modelo
 /**
@@ -45,10 +47,15 @@ class MyScene extends THREE.Scene {
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
     this.corazon = new Corazon();
     this.diamante = new Diamante();
-    this.corazon.position.set(-3,-3,0);
-    this.add(this.corazon);
-    this.diamante.position.set(3,3,0);
-    this.add(this.diamante);
+    this.pica = new Pica();
+    this.trebol = new Trebol();
+    this.add(this.trebol);
+    // this.pica.position.set(-3,2,0);
+    // this.add(this.pica);
+    // this.corazon.position.set(-3,-3,0);
+    // this.add(this.corazon);
+    // this.diamante.position.set(3,3,0);
+    // this.add(this.diamante);
   }
   
   createCamera () {
@@ -58,7 +65,7 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (0,15,10);
+    this.camera.position.set (0,0,20);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,2,0);
     this.camera.lookAt(look);
@@ -181,6 +188,8 @@ class MyScene extends THREE.Scene {
     // Se actualiza el resto del modelo
     this.corazon.update();
     this.diamante.update();
+    this.pica.update();
+    this.trebol.update();
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".
     // Si no existiera esta línea,  update()  se ejecutaría solo la primera vez.

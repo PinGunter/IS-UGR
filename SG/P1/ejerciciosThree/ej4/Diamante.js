@@ -13,12 +13,13 @@ class Diamante extends THREE.Object3D {
 
         var material = new THREE.MeshPhongMaterial({color: "red"})
         this.diamante = new THREE.Mesh(geometry, material);
-        this.diamante.position.set(0,-1,0);
         this.add(this.diamante);
+        this.position.y = -1;
     }
 
     update(){
-        this.diamante.rotation.y += 0.01;
+        // this.diamante.rotation.y += 0.01;
+        // this.rotation.z -= 0.01;
 
     }
 }
