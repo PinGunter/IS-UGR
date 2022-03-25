@@ -14,7 +14,7 @@ class Cartas extends THREE.Object3D{
 
         this.pica.position.set(-3,3,0);
         this.corazon.position.set(-3,-3,0);
-        this.diamante.position.set(3,3,0);
+        this.diamante.position.set(2.7,2.7,0);
         this.trebol.position.set(3,-3,0);
         this.trebol.scale.set(1.2,1.2,1.2);
 

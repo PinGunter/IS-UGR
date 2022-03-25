@@ -11,6 +11,7 @@
     --tercero: #ffa500;
     --cuarto: #f67453;
     --quinto: #f6c653;
+    --comment: #96c9dc;
 }
 
 body{
@@ -99,6 +100,7 @@ a{
 
 
 .producto{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 1.6em;
     width: 75%;
     padding: 1em;
@@ -107,6 +109,9 @@ a{
     border-color: var(--negro);
     border-style: dashed;
     background-color: var(--tercero);
+}
+
+.grid-principal{
     display: grid;
     grid-template-columns: 70% 30%;
 }
@@ -270,10 +275,14 @@ nav a:hover:after {
 .comentarios-no-visibles{
     font-size: 1.3em;
     display: none;
+    width: 100%;
 }
 
 .comentarios-visibles{
     font-size: 1.3em;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    grid-template-columns:max-content;
 }
 
 .comment-date{
@@ -291,29 +300,39 @@ nav a:hover:after {
     border-style: dashed;
     padding: 0.4em;
     border-width: 0.1em;
+    background-color: var(--comment);
 }
 
 .formulario{
-    padding-bottom: 1.2em;
-    font-size: 1em;
     border: black;
     border-radius: 0.8em;
     border-style: dashed;
     padding: 1em;
-    background-color: var(--secundario);
+    padding-right: 1.5em;
+    background-color: var(--comment);
 }
 
 .formulario label{
     margin-top: 1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .formulario input{
     width: 22em;
+    margin: 1em 1em 1em 0em;
+    font-size: 0.7em;
+    padding: 0.5em;
+
 }
 
 .formulario textarea{
     resize: vertical;
+    height: 10em;
     width: 100%;
+    font-size: 1em;
+    padding: 0.5em;
+    margin-top: 1em;
+    margin-right: 1em;
 }
 
 h5{
