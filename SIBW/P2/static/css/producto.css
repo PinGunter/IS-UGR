@@ -358,4 +358,11 @@ h5{
     padding: 0.3em;
     cursor: pointer;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+}
+
+.mensaje-error{
+    color: red;
+    background-color: rgb(255, 232, 232);
+    padding: 0.3em;
+    border-radius: 0.2em;
+}    
