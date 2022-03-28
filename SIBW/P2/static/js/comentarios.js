@@ -32,6 +32,8 @@ function checkForm() {
     var nombreCorrecto = !(/^ *$/.test(nombre) || !nombre); // regex para comprobar si es solo espacios en blanco
     var email = document.getElementById("email-form").value;
     var emailCorrecto = /.*@.+\..+/.test(email);
+    var comentario = document.getElementById("comment-form").value;
+    var comentarioCorrecto = !(/^ *$/.test(comentario) || !comentario);
     if (!nombreCorrecto) {
         var elementoError = crearError("El nombre no puede ser vacío");
         document.getElementById("nombre-form").insertAdjacentElement("afterend", elementoError);
@@ -42,7 +44,12 @@ function checkForm() {
         document.getElementById("email-form").insertAdjacentElement("afterend", elementoError);
     }
 
-    return nombreCorrecto && emailCorrecto;
+    if (!comentarioCorrecto) {
+        var elementoError = crearError("El comentario no puede ser vacío");
+        document.getElementById("send-form").insertAdjacentElement("afterend", elementoError);
+    }
+
+    return nombreCorrecto && emailCorrecto  && comentarioCorrecto;
 }
 
 function censurarComentarios(){
