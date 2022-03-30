@@ -35,6 +35,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('   restaVectores( v1,  v2)')
     print('   productoVectorial( v1,  v2)')
     print('   productoEscalar( v1, double num2)')
+    print('  double determinante( matriz)')
     print('')
     sys.exit(0)
 
@@ -179,6 +180,12 @@ elif cmd == 'productoEscalar':
         print('productoEscalar requires 2 args')
         sys.exit(1)
     pp.pprint(client.productoEscalar(eval(args[0]), eval(args[1]),))
+
+elif cmd == 'determinante':
+    if len(args) != 1:
+        print('determinante requires 1 args')
+        sys.exit(1)
+    pp.pprint(client.determinante(eval(args[0]),))
 
 else:
     print('Unrecognized method %s' % cmd)

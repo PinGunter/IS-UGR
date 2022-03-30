@@ -9,6 +9,7 @@ service Calculadora{
    list<double> sumaVectores(1:list<double> v1, 2:list<double> v2),
    list<double> restaVectores(1:list<double> v1, 2:list<double> v2),
    list<double> productoVectorial(1:list<double> v1, 2:list<double> v2),
-   list<double> productoEscalar(1:list<double> v1, 2:double num2)
+   list<double> productoEscalar(1:list<double> v1, 2:double num2),
+   double determinante(1:list<double> matriz)
 
 }
