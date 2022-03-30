@@ -40,6 +40,43 @@ class CalculadoraHandler:
         print("división (con decimales) entre " + str(n1) +  " y " +  str(n2))
         return n1 / n2
 
+    def modulo(self, n1, n2):
+        print("modulo entre {} y {}".format(n1,n2))
+        return n1 % n2
+
+    def sumaVectores(self, v1, v2):
+        print("sumando", v1, "con", v2)
+        vRes = v1
+        for i in range(len(v2)):
+            if i < len(vRes):
+                vRes[i] += v2[i]
+            else:
+                vRes.append(v2[i])
+        return vRes
+
+    def restaVectores(self, v1, v2):
+        print("restando", v1, "con", v2)
+        vRes = v1
+        for i in range(len(v2)):
+            if i < len(vRes):
+                vRes[i] -= v2[i]
+            else:
+                vRes.append(-v2[i])
+        return vRes
+
+    def productoVectorial(self, v1, v2):
+        vRes = [-1,-1,-1]
+        vRes[0] = v1[1]*v2[2] - v1[2]*v2[1]
+        vRes[1] = v1[2]*v2[0] - v1[0]*v2[2]
+        vRes[2] = v1[0]*v2[1] - v1[1]*v2[0]
+        return vRes
+    
+    def productoEscalar(self, v1, num2):
+        vRes = []
+        for i in v1:
+            vRes.append(i*num2)
+        return vRes
+
 
 if __name__ == "__main__":
     handler = CalculadoraHandler()
