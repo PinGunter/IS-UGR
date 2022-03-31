@@ -20,8 +20,8 @@ class ColumnaCorazon extends THREE.Object3D{
                 new THREE.Vector3( 10, 0,0 )
             ]
         );
-        const geometry = new THREE.ExtrudeGeometry( corazonShape, {extrudePath: curva});
-        geometry.scale(0.1,0.4,0.4);
+        const geometry = new THREE.ExtrudeGeometry( corazonShape, {extrudePath: curva, steps: 50, curveSegments: 4});
+        geometry.scale(0.4,0.4,0.4);
         geometry.translate(0.23,-0.2,-0.03)
         geometry.rotateZ(Math.PI / 100);
         this.corazon = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial({color: "green"}) );
