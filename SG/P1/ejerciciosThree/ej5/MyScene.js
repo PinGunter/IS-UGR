@@ -42,7 +42,8 @@ class MyScene extends THREE.Scene {
     
     // Por último creamos el modelo.
     this.taza = new Taza();
-    // this.add(this.taza);
+    this.taza.position.set(-10,5,0);
+    this.add(this.taza);
 
     this.piezaL = new PiezaL();
     this.add(this.piezaL);
