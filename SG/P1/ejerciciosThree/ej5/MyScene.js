@@ -8,6 +8,7 @@ import { TrackballControls } from '../libs/TrackballControls.js'
 // Clases de mi proyecto
 import { Taza } from './Taza.js';
 import { PiezaL } from './piezaL.js';
+import { Tuerca } from './Tuerca.js';
 
 /// La clase fachada del modelo
 /**
@@ -47,6 +48,10 @@ class MyScene extends THREE.Scene {
 
     this.piezaL = new PiezaL();
     this.add(this.piezaL);
+
+    this.tuerca = new Tuerca();
+    this.tuerca.position.set(10,0,0);
+    this.add(this.tuerca);
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
 
@@ -59,9 +64,9 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (0,0,20);
+    this.camera.position.set (0,20,30);
     // Y hacia dónde mira
-    var look = new THREE.Vector3 (0,2,0);
+    var look = new THREE.Vector3 (0,0,0);
     this.camera.lookAt(look);
     this.add (this.camera);
     
@@ -182,6 +187,7 @@ class MyScene extends THREE.Scene {
     // Se actualiza el resto del modelo
     this.taza.update();
     this.piezaL.update();
+    this.tuerca.update();
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".
     // Si no existiera esta línea,  update()  se ejecutaría solo la primera vez.
