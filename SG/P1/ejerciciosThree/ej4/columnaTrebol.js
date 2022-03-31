@@ -5,11 +5,11 @@ class ColumnaTrebol extends THREE.Object3D{
         super();
         var curva = new THREE.CatmullRomCurve3(
             [
-                new THREE.Vector3(9,-6.7,0),
-                new THREE.Vector3(1,0.6,0),
-                new THREE.Vector3(10.6,7.88,0),
-                new THREE.Vector3(2.7,11.1,0),
-                new THREE.Vector3(5,1,0)
+                new THREE.Vector3( -10, 0 ,10 ),
+                new THREE.Vector3( -5, 5,10 ),
+                new THREE.Vector3( 0, 0,10 ),
+                new THREE.Vector3( 5, -5,10 ),
+                new THREE.Vector3( 10, 0,0 )
             ]
         );
         var trebolShape = new THREE.Shape();
@@ -21,14 +21,15 @@ class ColumnaTrebol extends THREE.Object3D{
         geometry.scale(0.1,0.1,0.1);
         geometry.translate(0.23,-0.2,-0.03)
         geometry.rotateZ(Math.PI / 100);
-        this.trebol = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial({color: "blue"}) );
+        this.trebol = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial({color: "green"}) );
 
         
         this.add(this.trebol);
     }
 
     update(){
-
+        this.rotation.z += 0.01;
+        this.rotation.y += 0.01;
     }
 }
 
