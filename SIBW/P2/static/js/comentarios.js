@@ -23,7 +23,7 @@ function checkForm() {
     //Borramos mensajes de error que hayamos podido encontrar antes
     var erroresAnteriores = document.getElementsByClassName("mensaje-error");
     var n_errores = erroresAnteriores.length
-    for (var i=0; i < n_errores; i++){
+    for (var i = 0; i < n_errores; i++) {
         erroresAnteriores[0].remove();
     }
 
@@ -49,27 +49,29 @@ function checkForm() {
         document.getElementById("send-form").insertAdjacentElement("afterend", elementoError);
     }
 
-    return nombreCorrecto && emailCorrecto  && comentarioCorrecto;
+    return nombreCorrecto && emailCorrecto && comentarioCorrecto;
 }
 
-function censurarComentarios(){
-    var palabrasFeotas = ["pene", "puta", "puto", "polla", "estupido", "tonto", "mierda", "coño", "follar", "cago"];
-    palabrasFeotas.forEach (
-        palabra => this.value = this.value.replace(new RegExp(palabra,"i") ,palabra.replace(/./gi, "*"))
-    );
+function censurarComentarios(event) {
+    if (event.key === " ") {
+        var palabrasFeotas = ["pene", "puta", "puto", "polla", "estupido", "tonto", "mierda", "coño", "follar", "cago"];
+        palabrasFeotas.forEach(
+            palabra => this.value = this.value.replace(new RegExp(palabra, "i"), palabra.replace(/./gi, "*"))
+        );
+    }
 }
 
-function numMenor10(num){
+function numMenor10(num) {
     res = num
-    if (num < 10){
+    if (num < 10) {
         res = `0${num}`;
     }
     return res;
 }
 
-function crearComentario(nombre, comentario, fecha){
-    if (fecha === undefined){
-         fecha = new Date();
+function crearComentario(nombre, comentario, fecha) {
+    if (fecha === undefined) {
+        fecha = new Date();
     }
 
     //div que contiene el resto de elementos
@@ -90,7 +92,7 @@ function crearComentario(nombre, comentario, fecha){
     hora = numMenor10(hora);
     min = numMenor10(min);
     sec = numMenor10(sec);
-    
+
 
     spanFecha.innerHTML = `<i class=\"fa fa-calendar\"></i> ${dia}/${mes}/${anio} - ${hora}:${min}:${sec}`;
 
@@ -116,15 +118,15 @@ function crearComentario(nombre, comentario, fecha){
 }
 
 function enviarComentario() {
-    if (checkForm()){
+    if (checkForm()) {
         //censurar por ultima vez por si la ultima palabra es una palabra "fea"
         const eventoCensurar = new KeyboardEvent("keydown");
         document.getElementById("comment-form").dispatchEvent(eventoCensurar);
         // añadir comentario
         var textoComentario = document.getElementById("comment-form").value;
         var usuario = document.getElementById("nombre-form").value;
-    
-        var elementoComentario = crearComentario(usuario,textoComentario);
+
+        var elementoComentario = crearComentario(usuario, textoComentario);
         var seccionComentarios = document.getElementById("lista-comentarios");
         seccionComentarios.insertBefore(elementoComentario, seccionComentarios.firstChild);
     }
@@ -136,6 +138,6 @@ botonComentarios.addEventListener("click", mostrarComentarios);
 botonEnviar = document.getElementById("send-form");
 botonEnviar.addEventListener("click", enviarComentario);
 seccionComentarios = document.getElementById("comment-form");
-seccionComentarios.addEventListener("keydown",censurarComentarios);
+seccionComentarios.addEventListener("keydown", censurarComentarios);
 
 
