@@ -10,15 +10,13 @@
 static struct timeval TIMEOUT = { 25, 0 };
 
 double *
-sumar_1(double num1, double num2,  CLIENT *clnt)
+sumar_1(pareja_double arg1,  CLIENT *clnt)
 {
-	sumar_1_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	arg.num1 = num1;
-	arg.num2 = num2;
-	if (clnt_call (clnt, SUMAR, (xdrproc_t) xdr_sumar_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, SUMAR,
+		(xdrproc_t) xdr_pareja_double, (caddr_t) &arg1,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -27,15 +25,13 @@ sumar_1(double num1, double num2,  CLIENT *clnt)
 }
 
 double *
-restar_1(double num1, double num2,  CLIENT *clnt)
+restar_1(pareja_double arg1,  CLIENT *clnt)
 {
-	restar_1_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	arg.num1 = num1;
-	arg.num2 = num2;
-	if (clnt_call (clnt, RESTAR, (xdrproc_t) xdr_restar_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, RESTAR,
+		(xdrproc_t) xdr_pareja_double, (caddr_t) &arg1,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -44,15 +40,13 @@ restar_1(double num1, double num2,  CLIENT *clnt)
 }
 
 double *
-multiplicar_1(double num1, double num2,  CLIENT *clnt)
+multiplicar_1(pareja_double arg1,  CLIENT *clnt)
 {
-	multiplicar_1_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	arg.num1 = num1;
-	arg.num2 = num2;
-	if (clnt_call (clnt, MULTIPLICAR, (xdrproc_t) xdr_multiplicar_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, MULTIPLICAR,
+		(xdrproc_t) xdr_pareja_double, (caddr_t) &arg1,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -61,15 +55,13 @@ multiplicar_1(double num1, double num2,  CLIENT *clnt)
 }
 
 double *
-dividir_1(double num1, double num2,  CLIENT *clnt)
+dividir_1(pareja_double arg1,  CLIENT *clnt)
 {
-	dividir_1_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	arg.num1 = num1;
-	arg.num2 = num2;
-	if (clnt_call (clnt, DIVIDIR, (xdrproc_t) xdr_dividir_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, DIVIDIR,
+		(xdrproc_t) xdr_pareja_double, (caddr_t) &arg1,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -77,17 +69,120 @@ dividir_1(double num1, double num2,  CLIENT *clnt)
 	return (&clnt_res);
 }
 
-double *
-divisionentera_1(int num1, int num2,  CLIENT *clnt)
+int *
+divisionentera_1(pareja_int arg1,  CLIENT *clnt)
 {
-	divisionentera_1_argument arg;
-	static double clnt_res;
+	static int clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	arg.num1 = num1;
-	arg.num2 = num2;
-	if (clnt_call (clnt, DIVISIONENTERA, (xdrproc_t) xdr_divisionentera_1_argument, (caddr_t) &arg,
-		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
+	if (clnt_call (clnt, DIVISIONENTERA,
+		(xdrproc_t) xdr_pareja_int, (caddr_t) &arg1,
+		(xdrproc_t) xdr_int, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+int *
+modulo_1(pareja_int arg1,  CLIENT *clnt)
+{
+	static int clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, MODULO,
+		(xdrproc_t) xdr_pareja_int, (caddr_t) &arg1,
+		(xdrproc_t) xdr_int, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+vec3 *
+sumavec3_1(pareja_vec3 arg1,  CLIENT *clnt)
+{
+	static vec3 clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, SUMAVEC3,
+		(xdrproc_t) xdr_pareja_vec3, (caddr_t) &arg1,
+		(xdrproc_t) xdr_vec3, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+vec2 *
+sumavec2_1(pareja_vec2 arg1,  CLIENT *clnt)
+{
+	static vec2 clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, SUMAVEC2,
+		(xdrproc_t) xdr_pareja_vec2, (caddr_t) &arg1,
+		(xdrproc_t) xdr_vec2, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+vec3 *
+restavec3_1(pareja_vec3 arg1,  CLIENT *clnt)
+{
+	static vec3 clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, RESTAVEC3,
+		(xdrproc_t) xdr_pareja_vec3, (caddr_t) &arg1,
+		(xdrproc_t) xdr_vec3, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+vec2 *
+restavec2_1(pareja_vec2 arg1,  CLIENT *clnt)
+{
+	static vec2 clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, RESTAVEC2,
+		(xdrproc_t) xdr_pareja_vec2, (caddr_t) &arg1,
+		(xdrproc_t) xdr_vec2, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+vec2 *
+pescalar2_1(vec2escalar arg1,  CLIENT *clnt)
+{
+	static vec2 clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, PESCALAR2,
+		(xdrproc_t) xdr_vec2escalar, (caddr_t) &arg1,
+		(xdrproc_t) xdr_vec2, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}
+
+vec3 *
+pescalar3_1(vec3escalar arg1,  CLIENT *clnt)
+{
+	static vec3 clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, PESCALAR3,
+		(xdrproc_t) xdr_vec3escalar, (caddr_t) &arg1,
+		(xdrproc_t) xdr_vec3, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
 	}

@@ -14,20 +14,20 @@ void imprimirAyuda()
 
 vec3 leerVec3()
 {
-	printf("Introduce las 3 componentes del vector: (separadas por un salto de linea) ");
+	printf("Introduce las 3 componentes del vector: ");
 	vec3 vector;
-	scanf("%lf", &vector.x);
-	scanf("%lf", &vector.y);
-	scanf("%lf", &vector.z);
+	vector.x = scanf("%f");
+	vector.y = scanf("%f");
+	vector.z = scanf("%f");
 	return vector;
 }
 
 vec2 leerVec2()
 {
-	printf("Introduce las 2 componentes del vector: (separadas por un salto de linea) ");
+	printf("Introduce las 2 componentes del vector: ");
 	vec2 vector;
-	scanf("%lf", &vector.x);
-	scanf("%lf", &vector.y);
+	vector.x = scanf("%f");
+	vector.y = scanf("%f");
 	return vector;
 }
 
@@ -42,19 +42,17 @@ int main(int argc, char **argv)
 	char operacion;
 	double num1, num2;
 
-	if (argc != 5 && argc != 3)
+	if (argc != 5 || argc != 3)
 	{
 		printf("Error de ejecución\n");
 		imprimirAyuda();
 		exit(-1);
 	}
-	int avanzado = (strcmp(argv[2], "-a") == 0) ? 1 : 0;
+	int avanzado = (argv[3] == "-a") ? 1 : 0;
 	host = argv[1];
-	if (avanzado == 0){
-		num1 = atof(argv[2]);
-		num2 = atof(argv[4]);
-		operacion = argv[3][0];
-	}
+	num1 = atof(argv[2]);
+	num2 = atof(argv[4]);
+	operacion = argv[3][0];
 #ifndef DEBUG
 	clnt = clnt_create(host, CALCULADORA, CALCVER, "udp");
 	if (clnt == NULL)
@@ -63,7 +61,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 #endif /* DEBUG */
-	if (avanzado == 0)
+	if (avanzado == 1)
 	{
 		switch (operacion)
 		{
@@ -111,7 +109,7 @@ int main(int argc, char **argv)
 
 		if (result != NULL)
 		{
-			printf("Resultado de %f %c %f = %f\n", num1, operacion, num2, *result);
+			printf("Resultado de %2f %c %2f = %2f\n", num1, operacion, num2, *result);
 		}
 		else if (result_int != NULL)
 		{
@@ -121,84 +119,67 @@ int main(int argc, char **argv)
 	else
 	{
 		printf("Bienvenido al modo avanzado\nSelecciona una operacion:\n1. Suma de vectores\n2. Resta de vectores\n3. Producto escalar\n");
-		int eleccion;
-		scanf("%i", &eleccion);
-		vec3 * resultv3;
-		vec2 * resultv2;
-		pareja_vec2 p_v2;
-		pareja_vec3 p_v3;
+		int eleccion = scanf("%i");
+		vec3 v3_1, v3_2;
+		vec2 v2_1, v2_2;
 		int tipo_vector = 3;
-		double escalar;
-		vec3escalar v3e;
-		vec2escalar v2e;
 
 		do
 		{
 			printf("Selecciona la dimensión del vector (2 o 3): ");
-			scanf("%i", &tipo_vector);
-			if (tipo_vector != 2 && tipo_vector != 3)
+			tipo_vector = scanf("%i");
+			if (tipo_vector != 2 || tipo_vector != 3)
 			{
 				printf("Dimensión no válida\n");
 			}
-		} while (tipo_vector != 2 && tipo_vector != 3);
+		} while (tipo_vector == 2 || tipo_vector == 3);
 
 		switch (eleccion)
 		{
 		case 1: 
 			if (tipo_vector == 2){
 				printf("Leyendo vector 1\n");
-				p_v2.v1 = leerVec2();
+				v2_1 = leerVec2();
 				printf("Leyendo vector 2\n");
-				p_v2.v2 = leerVec2();
-				resultv2 = sumavec2_1(p_v2,clnt);
+				v2_2 = leerVec2();
 			} else{
 				printf("Leyendo vector 1\n");
-				p_v3.v1 = leerVec3();
+				v3_1 = leerVec3();
 				printf("Leyendo vector 2\n");
-				p_v3.v2 = leerVec3();
-				resultv3 = sumavec3_1(p_v3, clnt);
+				v3_2 = leerVec3();
 			}
 			break;
 		case 2:
 			if (tipo_vector == 2){
 				printf("Leyendo vector 1\n");
-				p_v2.v1 = leerVec2();
+				v2_1 = leerVec2();
 				printf("Leyendo vector 2\n");
-				p_v2.v2 = leerVec2();
-				resultv2 = restavec2_1(p_v2,clnt);
+				v2_2 = leerVec2();
 			} else{
 				printf("Leyendo vector 1\n");
-				p_v3.v1 = leerVec3();
+				v3_1 = leerVec3();
 				printf("Leyendo vector 2\n");
-				p_v3.v2 = leerVec3();
-				resultv3 = restavec3_1(p_v3, clnt);
+				v3_2 = leerVec3();
 			}
 			break;
 		case 3:
+			double escalar;
 			if (tipo_vector == 2){
 				printf("Leyendo vector\n");
-				v2e.v = leerVec2();
+				v2_1 = leerVec2();
 				printf("Introduce el escalar:\n");
-				scanf("%lf", &v2e.escalar);
-				resultv2 = pescalar2_1(v2e, clnt);
+				escalar = scanf("%f");
 			} else{
 				printf("Leyendo vector\n");
-				v3e.v = leerVec3();
+				v3_1 = leerVec3();
 				printf("Introduce el escalar:\n");
-				scanf("%lf", &v3e.escalar);
-				resultv3 = pescalar3_1(v3e, clnt);
+				escalar = scanf("%f");
 			}
 			break;
 		default:
 			printf("Error, no es una opción válida\n");
 			exit(-1);
 			break;
-		}
-
-		if (tipo_vector == 2){
-			printf("Resultado de la operacion con vectores: {%f, %f}\n", resultv2->x, resultv2->y);
-		} else{
-			printf("Resultado de la operacion con vectores: {%f, %f, %f}\n", resultv3->x, resultv3->y, resultv3->z);
 		}
 	}
 #ifndef DEBUG

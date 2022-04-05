@@ -17,44 +17,93 @@
 #endif
 
 static double *
-_sumar_1 (sumar_1_argument *argp, struct svc_req *rqstp)
+_sumar_1 (pareja_double  *argp, struct svc_req *rqstp)
 {
-	return (sumar_1_svc(argp->num1, argp->num2, rqstp));
+	return (sumar_1_svc(*argp, rqstp));
 }
 
 static double *
-_restar_1 (restar_1_argument *argp, struct svc_req *rqstp)
+_restar_1 (pareja_double  *argp, struct svc_req *rqstp)
 {
-	return (restar_1_svc(argp->num1, argp->num2, rqstp));
+	return (restar_1_svc(*argp, rqstp));
 }
 
 static double *
-_multiplicar_1 (multiplicar_1_argument *argp, struct svc_req *rqstp)
+_multiplicar_1 (pareja_double  *argp, struct svc_req *rqstp)
 {
-	return (multiplicar_1_svc(argp->num1, argp->num2, rqstp));
+	return (multiplicar_1_svc(*argp, rqstp));
 }
 
 static double *
-_dividir_1 (dividir_1_argument *argp, struct svc_req *rqstp)
+_dividir_1 (pareja_double  *argp, struct svc_req *rqstp)
 {
-	return (dividir_1_svc(argp->num1, argp->num2, rqstp));
+	return (dividir_1_svc(*argp, rqstp));
 }
 
-static double *
-_divisionentera_1 (divisionentera_1_argument *argp, struct svc_req *rqstp)
+static int *
+_divisionentera_1 (pareja_int  *argp, struct svc_req *rqstp)
 {
-	return (divisionentera_1_svc(argp->num1, argp->num2, rqstp));
+	return (divisionentera_1_svc(*argp, rqstp));
+}
+
+static int *
+_modulo_1 (pareja_int  *argp, struct svc_req *rqstp)
+{
+	return (modulo_1_svc(*argp, rqstp));
+}
+
+static vec3 *
+_sumavec3_1 (pareja_vec3  *argp, struct svc_req *rqstp)
+{
+	return (sumavec3_1_svc(*argp, rqstp));
+}
+
+static vec2 *
+_sumavec2_1 (pareja_vec2  *argp, struct svc_req *rqstp)
+{
+	return (sumavec2_1_svc(*argp, rqstp));
+}
+
+static vec3 *
+_restavec3_1 (pareja_vec3  *argp, struct svc_req *rqstp)
+{
+	return (restavec3_1_svc(*argp, rqstp));
+}
+
+static vec2 *
+_restavec2_1 (pareja_vec2  *argp, struct svc_req *rqstp)
+{
+	return (restavec2_1_svc(*argp, rqstp));
+}
+
+static vec2 *
+_pescalar2_1 (vec2escalar  *argp, struct svc_req *rqstp)
+{
+	return (pescalar2_1_svc(*argp, rqstp));
+}
+
+static vec3 *
+_pescalar3_1 (vec3escalar  *argp, struct svc_req *rqstp)
+{
+	return (pescalar3_1_svc(*argp, rqstp));
 }
 
 static void
 calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		sumar_1_argument sumar_1_arg;
-		restar_1_argument restar_1_arg;
-		multiplicar_1_argument multiplicar_1_arg;
-		dividir_1_argument dividir_1_arg;
-		divisionentera_1_argument divisionentera_1_arg;
+		pareja_double sumar_1_arg;
+		pareja_double restar_1_arg;
+		pareja_double multiplicar_1_arg;
+		pareja_double dividir_1_arg;
+		pareja_int divisionentera_1_arg;
+		pareja_int modulo_1_arg;
+		pareja_vec3 sumavec3_1_arg;
+		pareja_vec2 sumavec2_1_arg;
+		pareja_vec3 restavec3_1_arg;
+		pareja_vec2 restavec2_1_arg;
+		vec2escalar pescalar2_1_arg;
+		vec3escalar pescalar3_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -66,33 +115,75 @@ calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		return;
 
 	case SUMAR:
-		_xdr_argument = (xdrproc_t) xdr_sumar_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_pareja_double;
 		_xdr_result = (xdrproc_t) xdr_double;
 		local = (char *(*)(char *, struct svc_req *)) _sumar_1;
 		break;
 
 	case RESTAR:
-		_xdr_argument = (xdrproc_t) xdr_restar_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_pareja_double;
 		_xdr_result = (xdrproc_t) xdr_double;
 		local = (char *(*)(char *, struct svc_req *)) _restar_1;
 		break;
 
 	case MULTIPLICAR:
-		_xdr_argument = (xdrproc_t) xdr_multiplicar_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_pareja_double;
 		_xdr_result = (xdrproc_t) xdr_double;
 		local = (char *(*)(char *, struct svc_req *)) _multiplicar_1;
 		break;
 
 	case DIVIDIR:
-		_xdr_argument = (xdrproc_t) xdr_dividir_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_pareja_double;
 		_xdr_result = (xdrproc_t) xdr_double;
 		local = (char *(*)(char *, struct svc_req *)) _dividir_1;
 		break;
 
 	case DIVISIONENTERA:
-		_xdr_argument = (xdrproc_t) xdr_divisionentera_1_argument;
-		_xdr_result = (xdrproc_t) xdr_double;
+		_xdr_argument = (xdrproc_t) xdr_pareja_int;
+		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) _divisionentera_1;
+		break;
+
+	case MODULO:
+		_xdr_argument = (xdrproc_t) xdr_pareja_int;
+		_xdr_result = (xdrproc_t) xdr_int;
+		local = (char *(*)(char *, struct svc_req *)) _modulo_1;
+		break;
+
+	case SUMAVEC3:
+		_xdr_argument = (xdrproc_t) xdr_pareja_vec3;
+		_xdr_result = (xdrproc_t) xdr_vec3;
+		local = (char *(*)(char *, struct svc_req *)) _sumavec3_1;
+		break;
+
+	case SUMAVEC2:
+		_xdr_argument = (xdrproc_t) xdr_pareja_vec2;
+		_xdr_result = (xdrproc_t) xdr_vec2;
+		local = (char *(*)(char *, struct svc_req *)) _sumavec2_1;
+		break;
+
+	case RESTAVEC3:
+		_xdr_argument = (xdrproc_t) xdr_pareja_vec3;
+		_xdr_result = (xdrproc_t) xdr_vec3;
+		local = (char *(*)(char *, struct svc_req *)) _restavec3_1;
+		break;
+
+	case RESTAVEC2:
+		_xdr_argument = (xdrproc_t) xdr_pareja_vec2;
+		_xdr_result = (xdrproc_t) xdr_vec2;
+		local = (char *(*)(char *, struct svc_req *)) _restavec2_1;
+		break;
+
+	case PESCALAR2:
+		_xdr_argument = (xdrproc_t) xdr_vec2escalar;
+		_xdr_result = (xdrproc_t) xdr_vec2;
+		local = (char *(*)(char *, struct svc_req *)) _pescalar2_1;
+		break;
+
+	case PESCALAR3:
+		_xdr_argument = (xdrproc_t) xdr_vec3escalar;
+		_xdr_result = (xdrproc_t) xdr_vec3;
+		local = (char *(*)(char *, struct svc_req *)) _pescalar3_1;
 		break;
 
 	default:
