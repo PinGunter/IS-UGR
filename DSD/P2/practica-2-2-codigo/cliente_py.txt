@@ -80,8 +80,8 @@ else:
     modoAvanzado = False
 
 if not modoAvanzado:
-    num1 = int(sys.argv[1])
-    num2 = int(sys.argv[3])
+    num1 = float(sys.argv[1])
+    num2 = float(sys.argv[3])
     operador = sys.argv[2]
 
     operadorValido = True

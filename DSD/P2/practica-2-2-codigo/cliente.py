@@ -50,14 +50,25 @@ def leerVectores(predef=-1):
         print("Introduciendo vectores de dimension ", n)
     v1 = []
     v2 = []
-    print("Introduce los valores del primer vector (separados por un salto de línea):")
+    print("Introduce los valores del primer vector (separados por un salto de línea):\n")
     for i in range(n):
         v1.append(float(input()))
 
-    print("Introduce los valores del segundo vector (separados por un salto de línea):")
+    print("Introduce los valores del segundo vector (separados por un salto de línea):\n")
     for i in range(n):
         v2.append(float(input()))
     return v1,v2
+
+def leerMatriz(dimension=-1):
+    if dimension == -1:
+        n = int(input("Introduce la dimensión de la matriz: "))
+    else:
+        n = dimension
+    mat = []
+    print("Introduce los valores de la matriz en orden por filas (separados por un salto de línea):\n")
+    for i in range(n):
+        mat.append(float(input()))
+    return mat
 
 if len(sys.argv) != 4 and not(len(sys.argv) == 2 and sys.argv[1] == "-a"):
     imprimirAyuda()
@@ -69,8 +80,8 @@ else:
     modoAvanzado = False
 
 if not modoAvanzado:
-    num1 = int(sys.argv[1])
-    num2 = int(sys.argv[3])
+    num1 = float(sys.argv[1])
+    num2 = float(sys.argv[3])
     operador = sys.argv[2]
 
     operadorValido = True
@@ -106,9 +117,10 @@ else:
     2. Resta de vectores
     3. Producto escalar
     4. Producto vectorial
+    5. Determinante de una matriz
     ''')
-    operacion = int(input("Introduce un número [1-4] para seleccionar la operación\n"))
-    if operacion >= 1 and operacion <= 4:
+    operacion = int(input("Introduce un número [1-5] para seleccionar la operación\n"))
+    if operacion >= 1 and operacion <= 5:
         res = []
         if operacion == 1:
             v1, v2 = leerVectores()
@@ -123,7 +135,15 @@ else:
         elif operacion == 4:
             v1, v2 = leerVectores(3)
             res = client.productoVectorial(v1,v2)
-
+        elif operacion == 5:
+            res = -1
+            dimension = int(input("Introduce la dimensión de la matriz (1, 2 o 3): "))
+            if dimension < 1 or dimension > 3:
+                print("No es una dimensión válida")
+                exit(-1)
+            else:
+                mat  = leerMatriz(dimension*dimension)
+                res = client.determinante(mat)
 
     print("El resultado de la operación es", res)
 transport.close()
