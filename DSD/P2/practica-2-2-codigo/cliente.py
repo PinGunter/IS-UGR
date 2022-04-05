@@ -95,9 +95,9 @@ if not modoAvanzado:
     elif operador == "/":
         resultado = client.division(num1,num2)
     elif operador == "//":
-        resultado = client.divisionEntera(num1,num2)
+        resultado = client.divisionEntera(int(num1),int(num2))
     elif operador == "%":
-        resultado = client.modulo(num1,num2)
+        resultado = client.modulo(int(num1),int(num2))
     else:
         operadorValido = False
 
