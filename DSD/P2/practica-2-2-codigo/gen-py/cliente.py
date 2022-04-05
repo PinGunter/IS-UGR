@@ -24,7 +24,7 @@ La ejecución del programa básico consiste en <programa> <num1> <operador> <num
 Los operadores disponibles son:
     1. + para la suma
     2. - para la resta
-    3. * para el producto
+    3. x para el producto
     4. / para la división decimal
     5. // para la división entera
     6. % para el módulo
@@ -90,7 +90,7 @@ if not modoAvanzado:
         resultado = client.suma(num1,num2)
     elif operador == "-":
         resultado = client.resta(num1,num2)
-    elif operador == "*":
+    elif operador == "x":
         resultado = client.multiplicacion(num1,num2)
     elif operador == "/":
         resultado = client.division(num1,num2)
