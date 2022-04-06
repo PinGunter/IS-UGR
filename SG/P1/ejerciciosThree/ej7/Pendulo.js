@@ -49,21 +49,25 @@ class Pendulo extends THREE.Object3D{
         // segundo pendulo
         //pendulo
         var segundoGeo = new THREE.BoxGeometry(1,this.longitudSegundo,1);
+        segundoGeo.translate(0,-this.longitudSegundo/2,0);
         var matSegundo = new THREE.MeshPhongMaterial({color: "blue"});
         this.segundo = new THREE.Mesh(segundoGeo, matSegundo);
-        this.segundo.position.set(0,-this.longitudSegundo/2 +1,0);
+        this.segundo.position.set(0,+1,0);
         // tuerca
         var tuerca2geo = new THREE.CylinderGeometry(0.5,0.5,1.3);
         tuerca2geo.rotateX(Math.PI/2);
         var matTuerca2 = new THREE.MeshPhongMaterial({color: "green"});
         this.tuerca2 = new THREE.Mesh(tuerca2geo, matTuerca2);
 
-        this.pendulo2 = new THREE.Object3D();
-        this.pendulo2.add(this.segundo);
-        this.pendulo2.add(this.tuerca2);
-        this.pendulo2.position.set(0,-this.alturaCaja/2-0.1*this.longitudPendulo,1.5);
-        this.add(this.pendulo2);
+        this.pendulo2escalado = new THREE.Object3D();
+        this.pendulo2escalado.add(this.segundo);
+        this.pendulo2escalado.add(this.tuerca2);
+        this.pendulo2escalado.position.set(0,0,1.5);
 
+        this.pendulo2 = new THREE.Object3D();
+        this.pendulo2.add(this.pendulo2escalado);
+        this.pendulo2.position.set(0,-this.alturaCaja/2-0.1*this.longitudPendulo,0);
+        this.add(this.pendulo2);
 
     }
 
@@ -73,9 +77,12 @@ class Pendulo extends THREE.Object3D{
         this.cajaMedio.scale.y = escalado;
         this.cajaVInf.position.set(0,-this.alturaCaja/2 - this.guiControlsPrimero.longitud,0);
         
-        var escalado2 =1;
-        this.pendulo2.rotation.set(0,0,this.guiControlsSegundo.rotacion);
+        var escalado2 = this.guiControlsSegundo.longitud / this.longitudSegundo;
+        this.pendulo2escalado.rotation.set(0,0,this.guiControlsSegundo.giro);
         this.segundo.scale.y = escalado2;
+        this.pendulo2.position.set(0,-0.1*this.guiControlsSegundo.posicion*this.guiControlsPrimero.longitud,0);
+        console.log(-0.1*this.guiControlsSegundo.posicion*this.guiControlsPrimero.longitud)
+
     }
 
     createGUI(gui, tit1, tit2){
@@ -97,7 +104,7 @@ class Pendulo extends THREE.Object3D{
         var carpetaSegundo = gui.addFolder(tit2);
         carpetaSegundo.add(this.guiControlsSegundo,'longitud',10,20,1).name("Longitud").listen();
         carpetaSegundo.add(this.guiControlsSegundo, 'posicion', 10, 90, 1).name("Posicion %: ").listen();
-        carpetaSegundo.add(this.guiControlsSegundo, 'giro', -Math.PI, Math.PI, 0.05).name("Giro: ").listen();
+        carpetaSegundo.add(this.guiControlsSegundo, 'giro', -Math.PI/4, Math.PI/4, 0.05).name("Giro: ").listen();
     }
 }
 
