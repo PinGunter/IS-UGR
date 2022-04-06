@@ -63,7 +63,8 @@ class PenduloSuperior extends THREE.Object3D{
 
     updateLongitud(value){
         this.longitudPendulo = value;
-        this.cajaMedio.scale.set(1,this.longitudPendulo,1);
+        this.cajaMedio.geometry.dispose();
+        this.cajaMedio.geometry = new THREE.BoxGeometry(2,this.longitudPendulo,2);
     }
 
     updateRotacion(value){
