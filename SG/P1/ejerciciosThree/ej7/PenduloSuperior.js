@@ -60,12 +60,15 @@ class PenduloSuperior extends THREE.Object3D{
 
     updateLongitud(value){
         this.longitudPendulo = value;
-        this.cajaMedio.geometry.dispose();
-        this.cajaMedio.geometry = new THREE.BoxGeometry(2,this.longitudPendulo,2);
-        var desplazamiento = -this.alturaCaja/2 - this.longitudPendulo/2;
-        this.cajaFlex.position.set(0,desplazamiento,0);
-        desplazamiento = -this.alturaCaja - this.longitudPendulo;
-        this.cajaVInf.position.set(0,desplazamiento,0);
+        this.cajaFlex.scale.y = this.longitudPendulo;
+        this.cajaFlex.translateY(this.longitudPendulo);
+        this.cajaVInf.translateY(this.longitudPendulo);
+        // this.cajaMedio.geometry.dispose();
+        // this.cajaMedio.geometry = new THREE.BoxGeometry(2,this.longitudPendulo,2);
+        // var desplazamiento = -this.alturaCaja/2 - this.longitudPendulo/2;
+        // this.cajaFlex.position.set(0,desplazamiento,0);
+        // desplazamiento = -this.alturaCaja - this.longitudPendulo;
+        // this.cajaVInf.position.set(0,desplazamiento,0);
     }
 
     updateRotacion(value){
