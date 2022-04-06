@@ -22,29 +22,34 @@ class PenduloSuperior extends THREE.Object3D{
         this.cajaVSup = new THREE.Mesh(cajaVSupGeo, cajaVSupMat);
 
         // Caja roja flexible
-        var desplazamiento = -this.alturaCaja/2 - this.longitudPendulo/2;
-        var cajaFlexGeo = new THREE.BoxGeometry(2,this.longitudPendulo,2);
-        var cajaFlexMat = new THREE.MeshPhongMaterial({color: "red"});
-        this.cajaMedio = new THREE.Mesh(cajaFlexGeo,cajaFlexMat);
-        this.cajaFlex = new THREE.Object3D();
-        this.cajaFlex.add(this.cajaMedio);
-        this.cajaFlex.position.set(0,desplazamiento,0);
+        var cajaMedioGeo = new THREE.BoxGeometry(2,this.longitudPendulo,2);
+        var cajaMedioMat = new THREE.MeshPhongMaterial({color: "red"});
+        cajaMedioGeo.translate(0,-this.longitudPendulo/2,0);
+        this.cajaMedio = new THREE.Mesh(cajaMedioGeo,cajaMedioMat);
 
         // Caja verde inferior
-        desplazamiento = -this.alturaCaja - this.longitudPendulo;
+        var desplazamiento = -this.alturaCaja/2 - this.longitudPendulo;
         var cajaVInfGeo = new THREE.BoxGeometry(2,this.alturaCaja,2);
         var cajaVInfMat = new THREE.MeshPhongMaterial({color: "green"});
         this.cajaVInf = new THREE.Mesh(cajaVInfGeo, cajaVInfMat);
         this.cajaVInf.position.set(0,desplazamiento,0);
 
+
+        this.objFlex = new THREE.Object3D();
+        this.objFlex.add(this.cajaMedio);
+        this.objFlex.add(this.cajaVInf);
+        this.objFlex.translateY(-this.alturaCaja/2);
+
         this.add(this.tuerca);
         this.add(this.cajaVSup);
-        this.add(this.cajaFlex);
-        this.add(this.cajaVInf);
+        this.add(this.objFlex);
     }
 
     update(){
-
+        var escalado = this.guiControls.longitud / this.longitudPendulo;
+        this.rotation.set(0,0,this.guiControls.rotacion);
+        this.cajaMedio.scale.y = escalado;
+        this.cajaVInf.position.set(0,-this.alturaCaja/2 - this.guiControls.longitud,0);
     }
 
     createGUI(gui, titleGUI){
@@ -54,21 +59,14 @@ class PenduloSuperior extends THREE.Object3D{
         }
 
         var folder = gui.addFolder(titleGUI);
-        folder.add(this.guiControls, 'longitud', 5, 10, 1).name("Longitud: ").onChange( (value) => {this.updateLongitud(value)});
-        folder.add(this.guiControls, 'rotacion', -Math.PI/4, Math.PI/4, 0.05).name("Rotacion: ").onChange( (value) => {this.updateRotacion(value)});
+        folder.add(this.guiControls, 'longitud', 5, 10, 1).name("Longitud: ").listen();
+        folder.add(this.guiControls, 'rotacion', -Math.PI/4, Math.PI/4, 0.05).name("Rotacion: ").listen();
     }
 
     updateLongitud(value){
-        this.longitudPendulo = value;
-        this.cajaFlex.scale.y = this.longitudPendulo;
-        this.cajaFlex.translateY(this.longitudPendulo);
-        this.cajaVInf.translateY(this.longitudPendulo);
-        // this.cajaMedio.geometry.dispose();
-        // this.cajaMedio.geometry = new THREE.BoxGeometry(2,this.longitudPendulo,2);
-        // var desplazamiento = -this.alturaCaja/2 - this.longitudPendulo/2;
-        // this.cajaFlex.position.set(0,desplazamiento,0);
-        // desplazamiento = -this.alturaCaja - this.longitudPendulo;
-        // this.cajaVInf.position.set(0,desplazamiento,0);
+        console.log(`Value: ${value} || Escalado: ${escalado}`);
+        this.cajaMedio.scale.y = escalado;
+        this.cajaVInf.position.set(0,-value,0);
     }
 
     updateRotacion(value){
