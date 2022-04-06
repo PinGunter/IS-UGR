@@ -44,10 +44,7 @@ class PenduloSuperior extends THREE.Object3D{
     }
 
     update(){
-        var desplazamiento = -this.alturaCaja/2 - this.longitudPendulo/2;
-        this.cajaFlex.position.set(0,desplazamiento,0);
-        desplazamiento = -this.alturaCaja - this.longitudPendulo;
-        this.cajaVInf.position.set(0,desplazamiento,0);
+
     }
 
     createGUI(gui, titleGUI){
@@ -65,6 +62,10 @@ class PenduloSuperior extends THREE.Object3D{
         this.longitudPendulo = value;
         this.cajaMedio.geometry.dispose();
         this.cajaMedio.geometry = new THREE.BoxGeometry(2,this.longitudPendulo,2);
+        var desplazamiento = -this.alturaCaja/2 - this.longitudPendulo/2;
+        this.cajaFlex.position.set(0,desplazamiento,0);
+        desplazamiento = -this.alturaCaja - this.longitudPendulo;
+        this.cajaVInf.position.set(0,desplazamiento,0);
     }
 
     updateRotacion(value){
