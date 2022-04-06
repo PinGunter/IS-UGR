@@ -80,8 +80,9 @@ class Pendulo extends THREE.Object3D{
         var escalado2 = this.guiControlsSegundo.longitud / this.longitudSegundo;
         this.pendulo2escalado.rotation.set(0,0,this.guiControlsSegundo.giro);
         this.segundo.scale.y = escalado2;
-        this.pendulo2.position.set(0,-0.1*this.guiControlsSegundo.posicion*this.guiControlsPrimero.longitud,0);
-        console.log(-0.1*this.guiControlsSegundo.posicion*this.guiControlsPrimero.longitud)
+        var posicionCorregida = 0.01*this.guiControlsSegundo.posicion;
+        console.log(posicionCorregida)
+        this.pendulo2.position.set(0,-posicionCorregida*this.guiControlsPrimero.longitud-this.alturaCaja/2,0);
 
     }
 
