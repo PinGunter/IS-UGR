@@ -31,7 +31,7 @@ class Recorrido extends THREE.Object3D{
         this.add(this.trayectoriaDer)
 
         var geoNave = new THREE.ConeGeometry(0.5,1,3);
-        var matNave = new THREE.MeshToonMaterial({color: 0x83EEFF});
+        var matNave = new THREE.MeshToonMaterial({color: 0xFFFFFF});
         this.nave = new THREE.Mesh(geoNave, matNave);
         this.nave.rotateX(Math.PI/2);
 
