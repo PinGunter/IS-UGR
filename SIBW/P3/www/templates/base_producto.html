@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block css %}
+static/css/producto.css
+{% endblock %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+        <section class="producto">
+            <div class="grid-principal">
+                <!-- Informacion del producto (titulo, precio y descripcion) -->
+                <div class="info-producto">
+                    {% block producto_principal %}
+                    {% endblock %}
+                    <div class="social">
+                        <!-- Boton social twitter -->
+                        <button class="twt-btn">
+                            <a href="https://twitter.com/intent/tweet/">
+                                <i class="fa fa-twitter"></i> Tweet
+                            </a>
+                        </button>
+                        <!-- Boton social facebook -->
+                        <button class="fb-btn">
+                            <a
+                                href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ffruity-fruit.com%2F&amp;src=sdkpreparse">
+                                <i class="fa fa-facebook"></i> Compartir
+                            </a>
+                        </button>
+                        <!-- Boton imprimir -->
+                        <button class="print-btn">
+                            <a href="imprimir.php?pid={{producto.id}}">
+                                <i class="fa fa-print"></i> Imprimir
+                            </a>
+                        </button>
+                    </div>
+
+                    <button class="boton-comentarios" id="toggle-comments"><a><i class="fa fa-comment"></i> Mostrar
+                            comentarios</a></button>
+                </div>
+                {% block imagenes %}
+                {% endblock %}
+            </div>
+            <!-- Sección de comentarios -->
+            <section class="comentarios-no-visibles" id="seccion-comentarios">
+                <h3>Comentarios</h3>
+                <section id="lista-comentarios">
+                    {% block comentarios %}
+                    {% endblock %}
+                </section>
+
+
+                <form class="formulario">
+                    <label id="title-form">Escribe tu Comentario</label><br>
+                    <br><label for="nombre-form">Nombre</label><br>
+                    <input type="text" id="nombre-form" name="nombre-form">
+                    <br><label for="email-form">Email</label><br>
+                    <input type="text" id="email-form" name="email-form">
+                    <br><label for="comment-form">Comentario</label>
+                    <br><textarea id="comment-form"></textarea>
+                    <input type="button" id="send-form" value="Enviar">
+                </form>
+            </section>
+
+        </section> <!-- Fin producto principal-->
+{% endblock %}
+
+{% block extraFooter %}
+<script type="text/javascript" src="static/js/comentarios.js"></script>
+{% endblock %}

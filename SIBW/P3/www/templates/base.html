@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruity Fruit</title>
+    <link rel="stylesheet" href="{% block css %}{% endblock %}"/>
+    <link rel="icon" type="image/png" href="static/img/logo.png"/>
+    {% block extraHeader %}
+    {% endblock %}
+
+</head>
+<body>
+<!-- Cabecera con logo, titulo y menu -->
+    <header class="header">
+        <!-- Logo 25%  -->
+        <img class="logo-img" src="static/img/logo.png"/>
+        <!-- Titulo + menu 75% aprox -->
+        <div class="title-menu">
+            <!-- Titulo 100% -->
+            <div class ="site-title">
+                <h1><a href="/">Fruity Fruit</h1></a>
+            </div>
+
+            <!-- Menu 100% -->
+            <nav class="menu">
+                <a href="/">Inicio</a> 
+                <a href="frutas.php">Frutas</a>
+                <a href="nosotros.php">Sobre Nosotros</a>
+            </nav>
+        </div>
+
+    </header>   
+
+    <!-- Cuerpo principal de la pagina, incluye zona principal de productos y barra lateral -->
+    <!-- 100% width -->
+    <div class="main-frame">
+        <!-- Parte principal, con los contenidos de la tienda -->
+        <!-- 75% width -->
+        {% block principal %}
+        {% endblock %}
+
+        <aside class="links">
+            <h2 class="links-title">
+                Enlaces de interés
+            </h2>
+            <li class="li-links">
+                <span><a href="https://es.wikipedia.org/wiki/Fruta_tropical">Wikipedia</a></span>
+            </li>
+            <li class="li-links">
+                <span><a href="https://www.ocu.org/alimentacion/alimentos/calculadora/calendario-de-frutas-y-verduras/calendario-de-frutas">Calendario de Frutas</a></span>
+            </li>
+        </aside>
+    </div>
+ 
+
+    
+</body>
+    <!-- Pie de pagina -->
+<footer class="pie">
+    <p>
+        AVISO: Ninguna fruta hosteada en el sitio web es apta para el consumo
+    </p>
+
+    <p>
+        &#169 Todos los derechos reservados | Propietario: Salvador Romero Cortés &lt; <a href="mailto:salvaromero@correo.ugr.es">salvaromero@correo.ugr.es</a> &gt;
+    </p>
+    {% block extraFooter %}
+    {% endblock %}
+</footer>
+</html>

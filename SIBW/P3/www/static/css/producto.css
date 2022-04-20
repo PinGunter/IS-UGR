@@ -1,0 +1,368 @@
+@font-face {
+    font-family: custom;
+    src: url(../fonts/White\ Wonder.ttf);
+}
+
+:root{
+    --blanco: white;
+    --negro: #242325;
+    --fondo: #c6f50f;
+    --secundario: #66cdaa;
+    --tercero: #ffa500;
+    --cuarto: #f67453;
+    --quinto: #f6c653;
+    --comment: #96c9dc;
+}
+
+body{
+    background-color:var(--fondo);
+    color: var(--negro);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.header{
+    font-family: custom;
+    background-color: var(--secundario);
+    display: flex;
+    margin: 1.6em;
+    padding-top: 2em;
+    padding-bottom: 2.5em;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    align-items: center;
+    border-radius: 2em;
+    color: var(--negro);
+    border: var(--negro);
+    border-style: dashed;
+}
+
+
+.logo-img{
+    margin-left: 4em;
+    width: 10%;
+    align-items: center;
+    height: auto;
+}
+
+.title-menu {
+    height: auto;
+    text-align: center;
+    flex: 4;
+}
+
+.site-title{
+    font-size: 1.4em;
+}
+
+.menu {
+    font-size: 1em;
+    padding-bottom: 5px;
+}
+
+@media only screen and (min-width: 800px){
+    .menu{
+        font-size: 1.5em;
+        padding-bottom: 5px;
+    }
+    .site-title{
+        font-size: 2em;
+    }
+
+    .logo-img{
+        width: 15%;
+    }
+}
+
+
+
+a{
+    text-decoration: none;
+    color: var(--negro);
+}
+
+
+.pie{
+    background-color: #20292c;
+    text-align: center;
+    padding: 10px;
+    vertical-align: bottom;
+    color:white;
+}
+
+.pie a{
+    color: wheat;
+}
+
+
+.main-frame{
+    display: flex;
+}
+
+
+.producto{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 1.6em;
+    width: 75%;
+    padding: 1em;
+    padding-left: 2em;
+    border-radius: 2em;
+    border-color: var(--negro);
+    border-style: dashed;
+    background-color: var(--tercero);
+}
+
+.grid-principal{
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.producto h1{
+    font-size: 4em;
+    font-family: custom;
+    margin: 0;
+}
+
+.producto h2{
+    font-style: italic;
+    font-size: 1.7em;
+    margin: 0;
+}
+
+.producto h3{
+    font-size: 1.5em;
+}
+
+.descripcion p{
+    font-size: 1.3em;
+}
+
+.imagenes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imagenes img{
+    width: 70%;
+}
+
+
+@media only screen and (min-width: 1300px){
+    .imagenes img{
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 1400px){
+    .imagenes img{
+        width: 50%;
+    }
+}
+@media only screen and (min-width: 1600px){
+    .imagenes img{
+        width: 4 0%;
+    }
+}
+
+.links{
+    border: var(--negro);
+    border-style: dashed;
+    margin: 1.6em;
+    width: 24%;
+    padding-top: 1em;
+    padding-left: 2em;
+    background-color: var(--cuarto);
+    color: var(--negro);
+    border-radius: 2em;
+}
+
+.links span{
+    font-size: 1.2em;
+}
+
+.links a:hover{
+    text-decoration: underline;
+}
+
+
+nav a {
+  color: var(--negro);
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  
+  display: inline-block;
+  padding: 15px 20px;
+  position: relative;
+}
+nav a:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: var(--negro);
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+nav a:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+
+
+.imagenes figure{
+    width: 100%;
+    text-align: center;
+}
+
+.social{
+    display: flex;
+    padding: 1.2em;
+    align-items: center;
+}
+
+.print-btn{
+    background-color: var(--blanco); 
+    border: none; 
+    padding: 0.4em;
+    cursor: pointer; 
+    border-radius: 0.8em;
+    margin-left: 1%;
+}
+
+.print-btn:hover{
+    background-color: wheat;
+}
+
+.twt-btn{
+    background-color: #00acee; 
+    border: none; 
+    padding: 0.4em;
+    cursor: pointer; 
+    border-radius: 0.8em;
+    margin-right: 1%;
+}
+
+.twt-btn:hover{
+    background-color: #008abe;
+}
+
+.twt-btn a{
+    color: white !important;
+}
+
+.fb-btn{
+    background-color: #3b5998; 
+    border: none; 
+    padding: 0.4em;
+    cursor: pointer; 
+    border-radius: 0.8em;
+}
+
+.fb-btn a{
+    color: white;
+}
+
+.fb-btn:hover{
+    background-color: #2f477a;
+}
+
+/* Comentarios */
+
+.comentarios-no-visibles{
+    font-size: 1.3em;
+    display: none;
+    width: 100%;
+}
+
+.comentarios-visibles{
+    font-size: 1.3em;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    grid-template-columns:max-content;
+}
+
+.comment-date{
+    font-style: italic;
+}
+
+.comment-author{
+    font-weight: bold;
+}
+
+.comment-div{
+    margin-bottom: 1em;
+    border: black;
+    border-radius: 0.6em;
+    border-style: dashed;
+    padding: 0.4em;
+    border-width: 0.1em;
+    background-color: var(--comment);
+}
+
+.formulario{
+    border: black;
+    border-radius: 0.8em;
+    border-style: dashed;
+    padding: 1em;
+    padding-right: 1.5em;
+    background-color: var(--comment);
+}
+
+.formulario label{
+    margin-top: 1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.formulario input{
+    width: 22em;
+    margin: 1em 1em 1em 0em;
+    font-size: 0.7em;
+    padding: 0.5em;
+
+}
+
+.formulario textarea{
+    resize: vertical;
+    height: 10em;
+    width: 100%;
+    font-size: 1em;
+    padding: 0.5em;
+    margin-top: 1em;
+    margin-right: 1em;
+}
+
+h5{
+    padding: 0;
+}
+
+#title-form{
+    padding-top: 3em;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#send-form{
+    margin-top: 1em;
+    font-size: 0.7em;
+}
+
+.boton-comentarios{
+    font-size: 1em;
+    background-color: white;
+    margin-left: 1em;
+    width: auto;
+    padding: 0.3em;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mensaje-error{
+    color: red;
+    background-color: rgb(255, 232, 232);
+    padding: 0.3em;
+    border-radius: 0.2em;
+}    
