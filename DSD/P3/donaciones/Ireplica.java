@@ -1,7 +1,8 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.server.RemoteServer;
 
-public interface ireplica extends Remote {
+public interface Ireplica extends Remote {
     /**
      * Metodo para obtener el número de clientes registrados
      */
@@ -18,11 +19,22 @@ public interface ireplica extends Remote {
 
     public boolean usuarioRegistrado(String user) throws RemoteException;
 
+    /**
+     * metodo para iniciar el registro del usuario
+     */
+
+    public void iniciarRegistro(String user) throws RemoteException;
 
     /**
      * metodo para registrar un usuario en la replica
      */
     public void registrarUsuario(String user) throws RemoteException;
+
+    /**
+     * metodo para identificar a un usuario
+     */
+
+    public boolean identificarUsuario(String user) throws RemoteException;
 
     /**
      * metodo para que un usuario done dinero
@@ -32,22 +44,26 @@ public interface ireplica extends Remote {
     /**
      * metodo para obtener la primera replica libre
      */
-    public ireplica getReplicaDisponible() throws RemoteException;
+    public Ireplica getReplicaDisponible() throws RemoteException;
 
     /**
      * metodo para encontrar una replica por su id
      */
-    public ireplica getReplica(int id) throws RemoteException;
+    public Ireplica getReplica(int id) throws RemoteException;
 
     /**
      * metodo para buscar un usuario entre las replicas
      */
-    public ireplica buscarUsuario(String user) throws RemoteException;
+    public Ireplica buscarUsuario(String user) throws RemoteException;
 
     /**
      * metodo para obtener la replica en funcion del nombre
      */
-    public ireplica getReplica(String nombre) throws RemoteException;
+    public Ireplica getReplica(String nombre) throws RemoteException;
 
+    /**
+     * metodo para obtener el id de la replica
+     */
+    public int getId() throws RemoteException;
 
 }
