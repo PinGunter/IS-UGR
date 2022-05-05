@@ -1,5 +1,6 @@
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -14,32 +15,46 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     private float total;
     private ArrayList<String> nombreReplicas;
     private ArrayList<Ireplica> replicas;
-    static Registry registro = null;
+    private Registry registro = null;
+    public boolean fuiCreadora = false;
 
-    Replica(int id, ArrayList<String> replicas) throws RemoteException {
+    Replica(int id) throws RemoteException {
         this.id = id;
         total = 0;
         clientes = new HashMap<String, Float>();
-        this.nombreReplicas = replicas;
+        this.nombreReplicas = new ArrayList<String>();
         this.replicas = new ArrayList<Ireplica>();
-        for (String nombre : nombreReplicas) {
-            this.replicas.add(getReplica(nombre));
+
+        try {
+            registro = LocateRegistry.createRegistry(1099);
+            Naming.rebind("replica" + id, this);
+            fuiCreadora = true;
+        } catch (RemoteException | MalformedURLException e) {
+            registro = LocateRegistry.getRegistry(1099);
+            try {
+                Naming.rebind("replica" + id, this);
+            } catch (MalformedURLException e1) {
+                System.err.println("Error creando replica");
+            }
         }
 
-        if (Replica.registro == null){
-            try{
-                Replica.registro = LocateRegistry.createRegistry(1099);
-                Naming.rebind("replica"+id, this);
-            } catch (RemoteException | MalformedURLException e) {
-                System.out.println("Exception: " + e.getMessage());
-            }
-        } else{
-            try {
-                Naming.rebind("replica"+id, this);
-            } catch (RemoteException | MalformedURLException e) {
-                System.out.println("Exception: " + e.getMessage());
+    }
+
+    @Override
+    public String getStringReplicas() {
+        String info = "Mis réplicas son: \n[";
+        for (Ireplica replica : replicas) {
+            if (replica != null) {
+                try {
+                    info += String.valueOf(replica.getId()) + ", ";
+                } catch (RemoteException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
+        info += "]";
+        return info;
     }
 
     @Override
@@ -114,8 +129,13 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
 
     @Override
     public Ireplica getReplica(String nombre) throws RemoteException {
-        // TODO Auto-generated method stub
-        return null;
+        Ireplica r;
+        try {
+            r = (Ireplica) registro.lookup(nombre);
+        } catch (Exception e) {
+            r = null;
+        }
+        return r;
     }
 
     @Override
@@ -129,6 +149,39 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     @Override
     public int getId() throws RemoteException {
         return id;
+    }
+
+    @Override
+    public void addReplica(String nombreReplica) throws RemoteException {
+        Ireplica r = getReplica(nombreReplica);
+        if (!nombreReplicas.contains(nombreReplica) && !("replica" + id).equals(nombreReplica)) {
+            nombreReplicas.add(nombreReplica);
+            replicas.add(r);
+            System.out.println("Nueva replica añadida: " + r.getId());
+            System.out.println(getStringReplicas());
+        
+            if (!r.tieneReplica("replica" + id) && !("replica" + id).equals(nombreReplica)) {
+                System.out.println("Auto-añadiendome a la replica anterior...");
+                r.addReplica("replica" + id);
+            }
+
+            System.out.println("Propagando nueva replicas a las anteriores...");
+            for (Ireplica replica : replicas){
+                replica.addReplica(nombreReplica);
+            }
+        }
+    }
+
+    @Override
+    public boolean tieneReplica(String nombreReplica) throws RemoteException {
+        return nombreReplicas.contains(nombreReplica);
+    }
+
+    @Override
+    public String identificarse() throws RemoteException {
+        String info = "Soy réplica " + id + " y tengo " + clientes.size() + " clientes\n";
+        info += getStringReplicas();
+        return info;
     }
 
 }

@@ -1,3 +1,4 @@
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.RemoteServer;
@@ -58,12 +59,34 @@ public interface Ireplica extends Remote {
 
     /**
      * metodo para obtener la replica en funcion del nombre
+     * @throws NotBoundException
      */
-    public Ireplica getReplica(String nombre) throws RemoteException;
+    public Ireplica getReplica(String nombre) throws RemoteException, NotBoundException;
 
     /**
      * metodo para obtener el id de la replica
      */
     public int getId() throws RemoteException;
+
+    /**
+     * toString
+     */
+    public String getStringReplicas() throws RemoteException;
+
+    /**
+     * metodo para saber si tenemos una replica
+    */
+    public boolean tieneReplica(String nombreReplica) throws RemoteException;
+
+    /**
+     * Metodo para añadir una replica
+     */
+    public void addReplica(String nombreReplica) throws RemoteException;
+
+    /**
+     * metodo para identificarse
+     */
+
+     public String identificarse() throws RemoteException;
 
 }
