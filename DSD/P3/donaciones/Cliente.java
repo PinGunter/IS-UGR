@@ -17,10 +17,20 @@ public class Cliente {
             Registry registro = LocateRegistry.getRegistry(1099);
             System.out.println("Introduce la replica a la que quiere conectarse: ");
             String[] replicas = registro.list();
-            for (int i = 0; i < replicas.length; i++) {
-                System.out.println(i + " - " + replicas[i]);
+            boolean replicaValida = false;
+            int replica = 0;
+            while (!replicaValida) {
+                for (int i = 0; i < replicas.length; i++) {
+                    System.out.println(i + " - " + replicas[i]);
+                }
+                replica = scanner.nextInt();
+                if (replica >= 0 && replica < replicas.length) {
+                    replicaValida = true;
+                } else {
+                    System.out.println("Introduce una replica valida");
+                }
             }
-            int replica = scanner.nextInt();
+
             System.out.println("Conectando a replica...");
             Ireplica r = (Ireplica) registro.lookup(replicas[replica]);
             replicaOriginal = (Ireplica) registro.lookup(replicas[replica]);

@@ -20,28 +20,65 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     public boolean fuiCreadora = false;
     private String clienteActual;
 
-    Replica(int id) throws RemoteException {
-        this.id = id;
+    void init() {
         clienteActual = "";
         total = 0;
         clientes = new HashMap<String, String>();
         donacionesClientes = new HashMap<String, Float>();
         this.nombreReplicas = new ArrayList<String>();
         this.replicas = new ArrayList<Ireplica>();
+    }
 
-        try {
-            registro = LocateRegistry.createRegistry(1099);
-            Naming.rebind("replica" + id, this);
-            fuiCreadora = true;
-        } catch (RemoteException | MalformedURLException e) {
-            registro = LocateRegistry.getRegistry(1099);
-            try {
-                Naming.rebind("replica" + id, this);
-            } catch (MalformedURLException e1) {
-                System.err.println("Error creando replica");
+    int getIdDisponible() throws RemoteException {
+        String nombres[] = registro.list();
+        int idDisponible = 0;
+        for (int i = 0; i < nombres.length; i++) {
+            if (nombres[i].equals("replica" + idDisponible)) {
+                idDisponible++;
             }
         }
+        return idDisponible;
+    }
 
+    void registrarEnRegistro() throws RemoteException {
+        try {
+            if (fuiCreadora) {
+                Naming.rebind("replica" + id, this);
+            } else {
+                String[] nombres = registro.list();
+                for (String n : nombres) {
+                    if (n.contains("replica" + id)) {
+                        throw new RemoteException("Ya existe una replica con ese nombre");
+                    }
+                }
+                Naming.rebind("replica" + id, this);
+            }
+        } catch (MalformedURLException e) {
+            System.out.println("Error al registrar replica en el registry");
+        }
+    }
+
+    void localizarRegistro() throws RemoteException {
+        try {
+            registro = LocateRegistry.createRegistry(1099);
+            fuiCreadora = true;
+        } catch (RemoteException e) {
+            registro = LocateRegistry.getRegistry(1099);
+        }
+    }
+
+    Replica() throws RemoteException {
+        init();
+        localizarRegistro();
+        this.id = getIdDisponible();
+        registrarEnRegistro();
+    }
+
+    Replica(int id) throws RemoteException {
+        this.id = id;
+        init();
+        localizarRegistro();
+        registrarEnRegistro();
     }
 
     @Override
@@ -74,7 +111,7 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     @Override
     public float getTotalGlobal() throws RemoteException {
         float suma = -1;
-        if (puedeComprobarTotal()) { 
+        if (puedeComprobarTotal()) {
             suma = total;
             for (Ireplica replica : replicas) {
                 if (replica != null) {
@@ -104,7 +141,8 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
             replicaUser = buscarUsuario(user);
             if (replicaUser == null) { // es decir, que no haya ninguna replica donde este registrado
                 Ireplica replicaDisponible = getReplicaDisponible();
-                System.out.println("El usuario no esta registrado, registrando en replica " + replicaDisponible.getId());
+                System.out
+                        .println("El usuario no esta registrado, registrando en replica " + replicaDisponible.getId());
                 replicaDisponible.registrarUsuario(user, passwd);
                 replicaUser = replicaDisponible;
             } else { // si existe en otra replica, hay error
@@ -123,7 +161,7 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
 
     @Override
     public boolean donar(float cantidad) throws RemoteException {
-        if (cantidad > 0f){
+        if (cantidad > 0f) {
             donacionesClientes.put(clienteActual, donacionesClientes.get(clienteActual) + cantidad);
             total += cantidad;
             System.out.println("El usuario " + clienteActual + " ha donado " + cantidad + "€");
@@ -186,7 +224,8 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
             }
         } else {
             replicaUser = buscarUsuario(user);
-            System.out.println("El usuario no esta registrado en esta replica, redirigiendo a "  + (replicaUser == null ? "ninguna" : "replica " + replicaUser.getId()));
+            System.out.println("El usuario no esta registrado en esta replica, redirigiendo a "
+                    + (replicaUser == null ? "ninguna" : "replica " + replicaUser.getId()));
             if (replicaUser != null) {
                 if (!replicaUser.identificarUsuario(user, passwd)) {
                     replicaUser = null;
@@ -248,6 +287,16 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     @Override
     public boolean puedeComprobarTotal() throws RemoteException {
         return donacionesClientes.get(clienteActual) > 0f;
+    }
+
+    @Override
+    public void conectarReplicas() throws RemoteException {
+        if (!fuiCreadora) {
+            String[] nombres = registro.list();
+            if (nombres.length > 0)
+                addReplica(nombres[0]);
+        }
+
     }
 
 }

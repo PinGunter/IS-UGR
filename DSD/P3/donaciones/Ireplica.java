@@ -54,6 +54,11 @@ public interface Ireplica extends Remote {
     public boolean donar(float cantidad) throws RemoteException;
 
     /**
+     * metodo para localizar y conectarse a las replicas anteriores
+     */
+    public void conectarReplicas() throws RemoteException;
+
+    /**
      * metodo para obtener la primera replica libre
      */
     public Ireplica getReplicaDisponible() throws RemoteException;
