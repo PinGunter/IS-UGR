@@ -8,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Replica extends UnicastRemoteObject implements Ireplica {
+public class Replica extends UnicastRemoteObject implements Ireplica, IClienteServidor {
 
     private int id;
     private HashMap<String, String> clientes;
@@ -52,6 +52,7 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
                     }
                 }
                 Naming.rebind("replica" + id, this);
+                conectarReplicas();
             }
         } catch (MalformedURLException e) {
             System.out.println("Error al registrar replica en el registry");
@@ -62,7 +63,10 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
         try {
             registro = LocateRegistry.createRegistry(1099);
             fuiCreadora = true;
+            System.out.println("Soy creador del registro");
         } catch (RemoteException e) {
+            System.out.println("NO soy creador del registro");
+            fuiCreadora = false;
             registro = LocateRegistry.getRegistry(1099);
         }
     }
@@ -75,9 +79,9 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     }
 
     Replica(int id) throws RemoteException {
-        this.id = id;
         init();
         localizarRegistro();
+        this.id = id;
         registrarEnRegistro();
     }
 
@@ -293,8 +297,9 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     public void conectarReplicas() throws RemoteException {
         if (!fuiCreadora) {
             String[] nombres = registro.list();
-            if (nombres.length > 0)
-                addReplica(nombres[0]);
+            for (String n : nombres){
+                addReplica(n);
+            }
         }
 
     }

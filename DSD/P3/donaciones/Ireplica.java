@@ -15,43 +15,21 @@ public interface Ireplica extends Remote {
     public float getTotal() throws RemoteException;
 
     /**
-     * Metodo para obtener el total de donaciones de todas las replicas
-     * @return -1 si no se puede comprobar el total
-     */
-
-    public float getTotalGlobal() throws RemoteException;
-    /**
      * Metodo para comprobar si un usuario existe en la replica
      */
 
     public boolean usuarioRegistrado(String user) throws RemoteException;
 
     /**
-     * metodo para iniciar el registro del usuario
-     */
-
-    public Ireplica iniciarRegistro(String user, String passwd) throws RemoteException;
-
-    /**
      * metodo para registrar un usuario en la replica
      */
     public void registrarUsuario(String user, String passwd) throws RemoteException;
 
-
-    /**
-     * metodo para iniciar sesion
-    */
-    public Ireplica iniciarSesion(String user, String passwd) throws RemoteException;
     /**
      * metodo para identificar a un usuario
      */
 
     public boolean identificarUsuario(String user, String passwd) throws RemoteException;
-
-    /**
-     * metodo para que un usuario done dinero
-     */
-    public boolean donar(float cantidad) throws RemoteException;
 
     /**
      * metodo para localizar y conectarse a las replicas anteriores
@@ -75,6 +53,7 @@ public interface Ireplica extends Remote {
 
     /**
      * metodo para obtener la replica en funcion del nombre
+     * 
      * @throws NotBoundException
      */
     public Ireplica getReplica(String nombre) throws RemoteException, NotBoundException;
@@ -91,7 +70,7 @@ public interface Ireplica extends Remote {
 
     /**
      * metodo para saber si tenemos una replica
-    */
+     */
     public boolean tieneReplica(String nombreReplica) throws RemoteException;
 
     /**
@@ -103,11 +82,12 @@ public interface Ireplica extends Remote {
      * metodo para identificarse
      */
 
-     public String identificarse() throws RemoteException;
+    public String identificarse() throws RemoteException;
 
-     /**
-      * metodo para saber si el usuario actual puede comprobar el total (ha donado antes)
-      */
-      public boolean puedeComprobarTotal() throws RemoteException;
+    /**
+     * metodo para saber si el usuario actual puede comprobar el total (ha donado
+     * antes)
+     */
+    public boolean puedeComprobarTotal() throws RemoteException;
 
 }

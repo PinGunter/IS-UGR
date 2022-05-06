@@ -50,7 +50,7 @@ public class Cliente {
                             user = scanner.nextLine();
                             System.out.println("Introduce la contraseña");
                             passwd = scanner.nextLine();
-                            r = (Ireplica) r.iniciarRegistro(user, passwd);
+                            r = (Ireplica) ((IClienteServidor) r).iniciarRegistro(user, passwd);
                             if (r != null) {
                                 System.out.println("Registrado correctamente");
                             } else {
@@ -63,7 +63,7 @@ public class Cliente {
                             user = scanner.nextLine();
                             System.out.println("Introduce la contraseña");
                             passwd = scanner.nextLine();
-                            r = (Ireplica) r.iniciarSesion(user, passwd);
+                            r = (Ireplica) ((IClienteServidor) r).iniciarSesion(user, passwd);
                             if (r != null) {
                                 System.out.println("Inicio de sesión correcto");
                                 sesionCorrecta = true;
@@ -95,7 +95,7 @@ public class Cliente {
                                     System.out.println("Introduce la cantidad a donar");
                                     float cantidad = scanner.nextFloat();
                                     scanner.nextLine();
-                                    if (r.donar(cantidad)) {
+                                    if (((IClienteServidor)r).donar(cantidad)) {
                                         System.out.println("Se han donado " + cantidad + " a la causa humanitaria");
                                     } else {
                                         System.out.println("Error al donar: las donaciones no pueden ser negativas");
@@ -106,7 +106,7 @@ public class Cliente {
                                 break;
                             case 2:
                                 if (sesionCorrecta) {
-                                    float total = r.getTotalGlobal();
+                                    float total = ((IClienteServidor)r).getTotalGlobal();
                                     if (total != -1) {
                                         System.out.println("El total de donaciones es " + total);
                                     } else {

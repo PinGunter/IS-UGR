@@ -24,14 +24,15 @@ public class BootReplica {
             System.exit(1);
         }
 
-        if (!replica.fuiCreadora) {
-            try {
-                replica.conectarReplicas();
-            } catch (RemoteException e) {
-                System.err.println("Error añadiendo replica");
-            }
+        // if (!replica.fuiCreadora) {
+        //     try {
+        //         System.out.println("Soy replica " + replica.getId() + " me conecto al resto");
+        //         replica.conectarReplicas();
+        //     } catch (RemoteException e) {
+        //         System.err.println("Error añadiendo replica");
+        //     }
 
-        }
+        // }
 
         try {
             System.out.println(replica.identificarse());
