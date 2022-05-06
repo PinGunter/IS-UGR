@@ -16,6 +16,7 @@ public interface Ireplica extends Remote {
 
     /**
      * Metodo para obtener el total de donaciones de todas las replicas
+     * @return -1 si no se puede comprobar el total
      */
 
     public float getTotalGlobal() throws RemoteException;
@@ -50,7 +51,7 @@ public interface Ireplica extends Remote {
     /**
      * metodo para que un usuario done dinero
      */
-    public void donar(String user, float cantidad) throws RemoteException;
+    public boolean donar(float cantidad) throws RemoteException;
 
     /**
      * metodo para obtener la primera replica libre
@@ -98,5 +99,10 @@ public interface Ireplica extends Remote {
      */
 
      public String identificarse() throws RemoteException;
+
+     /**
+      * metodo para saber si el usuario actual puede comprobar el total (ha donado antes)
+      */
+      public boolean puedeComprobarTotal() throws RemoteException;
 
 }

@@ -73,14 +73,17 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
 
     @Override
     public float getTotalGlobal() throws RemoteException {
-        float suma = total;
-        for (Ireplica replica : replicas) {
-            if (replica != null) {
-                try {
-                    suma += replica.getTotal();
-                } catch (RemoteException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+        float suma = -1;
+        if (puedeComprobarTotal()) { 
+            suma = total;
+            for (Ireplica replica : replicas) {
+                if (replica != null) {
+                    try {
+                        suma += replica.getTotal();
+                    } catch (RemoteException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -101,8 +104,10 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
             replicaUser = buscarUsuario(user);
             if (replicaUser == null) { // es decir, que no haya ninguna replica donde este registrado
                 Ireplica replicaDisponible = getReplicaDisponible();
+                System.out.println("El usuario no esta registrado, registrando en replica " + replicaDisponible.getId());
                 replicaDisponible.registrarUsuario(user, passwd);
-            } else{ // si existe en otra replica, hay error
+                replicaUser = replicaDisponible;
+            } else { // si existe en otra replica, hay error
                 replicaUser = null;
             }
         }
@@ -113,12 +118,18 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     public void registrarUsuario(String user, String passwd) throws RemoteException {
         this.clientes.put(user, passwd);
         this.donacionesClientes.put(user, 0f);
+        System.out.println("Registrado usuario " + user);
     }
 
     @Override
-    public void donar(String user, float cantidad) throws RemoteException {
-        donacionesClientes.put(user, donacionesClientes.get(user) + cantidad);
-        total += cantidad;
+    public boolean donar(float cantidad) throws RemoteException {
+        if (cantidad > 0f){
+            donacionesClientes.put(clienteActual, donacionesClientes.get(clienteActual) + cantidad);
+            total += cantidad;
+            System.out.println("El usuario " + clienteActual + " ha donado " + cantidad + "€");
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -164,32 +175,33 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     }
 
     @Override
-    public Ireplica iniciarSesion(String user, String passwd) throws RemoteException{
+    public Ireplica iniciarSesion(String user, String passwd) throws RemoteException {
         Ireplica replicaUser = null;
 
-        if (usuarioRegistrado(user)){
-            if (identificarUsuario(user, passwd)){
+        if (usuarioRegistrado(user)) {
+            if (identificarUsuario(user, passwd)) {
                 replicaUser = this;
-            } else{
+            } else {
                 replicaUser = null;
             }
-        } else{
+        } else {
             replicaUser = buscarUsuario(user);
-            if (replicaUser != null){
-                if (!replicaUser.identificarUsuario(user, passwd)){
+            System.out.println("El usuario no esta registrado en esta replica, redirigiendo a "  + (replicaUser == null ? "ninguna" : "replica " + replicaUser.getId()));
+            if (replicaUser != null) {
+                if (!replicaUser.identificarUsuario(user, passwd)) {
                     replicaUser = null;
                 }
             }
         }
-
 
         return replicaUser;
     }
 
     @Override
     public boolean identificarUsuario(String user, String passwd) throws RemoteException {
-        if (clientes.get(user).equals(passwd)){
+        if (clientes.get(user).equals(passwd)) {
             clienteActual = user;
+            System.out.println("El usuario " + clienteActual + " ha iniciado sesión");
             return true;
         }
         return false;
@@ -208,14 +220,14 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
             replicas.add(r);
             System.out.println("Nueva replica añadida: " + r.getId());
             System.out.println(getStringReplicas());
-        
+
             if (!r.tieneReplica("replica" + id) && !("replica" + id).equals(nombreReplica)) {
                 System.out.println("Auto-añadiendome a la replica anterior...");
                 r.addReplica("replica" + id);
             }
 
             System.out.println("Propagando nueva replicas a las anteriores...");
-            for (Ireplica replica : replicas){
+            for (Ireplica replica : replicas) {
                 replica.addReplica(nombreReplica);
             }
         }
@@ -231,6 +243,11 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
         String info = "Soy réplica " + id + " y tengo " + donacionesClientes.size() + " clientes\n";
         info += getStringReplicas();
         return info;
+    }
+
+    @Override
+    public boolean puedeComprobarTotal() throws RemoteException {
+        return donacionesClientes.get(clienteActual) > 0f;
     }
 
 }
