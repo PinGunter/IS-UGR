@@ -11,17 +11,21 @@ import java.util.HashMap;
 public class Replica extends UnicastRemoteObject implements Ireplica {
 
     private int id;
-    private HashMap<String, Float> clientes;
+    private HashMap<String, String> clientes;
+    private HashMap<String, Float> donacionesClientes;
     private float total;
     private ArrayList<String> nombreReplicas;
     private ArrayList<Ireplica> replicas;
     private Registry registro = null;
     public boolean fuiCreadora = false;
+    private String clienteActual;
 
     Replica(int id) throws RemoteException {
         this.id = id;
+        clienteActual = "";
         total = 0;
-        clientes = new HashMap<String, Float>();
+        clientes = new HashMap<String, String>();
+        donacionesClientes = new HashMap<String, Float>();
         this.nombreReplicas = new ArrayList<String>();
         this.replicas = new ArrayList<Ireplica>();
 
@@ -59,7 +63,7 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
 
     @Override
     public int getNumClientes() throws RemoteException {
-        return clientes.size();
+        return donacionesClientes.size();
     }
 
     @Override
@@ -68,31 +72,52 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     }
 
     @Override
+    public float getTotalGlobal() throws RemoteException {
+        float suma = total;
+        for (Ireplica replica : replicas) {
+            if (replica != null) {
+                try {
+                    suma += replica.getTotal();
+                } catch (RemoteException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+        return suma;
+    }
+
+    @Override
     public boolean usuarioRegistrado(String user) throws RemoteException {
         return clientes.containsKey(user);
     }
 
     @Override
-    public void iniciarRegistro(String user) throws RemoteException {
+    public Ireplica iniciarRegistro(String user, String passwd) throws RemoteException {
         // Comprobar que exista en esta replica, sino, buscarlo en el resto
         // Si no existe en ninguna replica, se registra en la primera libre
+        Ireplica replicaUser = null;
         if (!usuarioRegistrado(user)) {
-            Ireplica replicaUser = buscarUsuario(user);
+            replicaUser = buscarUsuario(user);
             if (replicaUser == null) { // es decir, que no haya ninguna replica donde este registrado
                 Ireplica replicaDisponible = getReplicaDisponible();
-                replicaDisponible.registrarUsuario(user);
+                replicaDisponible.registrarUsuario(user, passwd);
+            } else{ // si existe en otra replica, hay error
+                replicaUser = null;
             }
         }
+        return replicaUser;
     }
 
     @Override
-    public void registrarUsuario(String user) throws RemoteException {
-        this.clientes.put(user, 0f);
+    public void registrarUsuario(String user, String passwd) throws RemoteException {
+        this.clientes.put(user, passwd);
+        this.donacionesClientes.put(user, 0f);
     }
 
     @Override
     public void donar(String user, float cantidad) throws RemoteException {
-        clientes.put(user, clientes.get(user) + cantidad);
+        donacionesClientes.put(user, donacionesClientes.get(user) + cantidad);
         total += cantidad;
     }
 
@@ -139,11 +164,35 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
     }
 
     @Override
-    public boolean identificarUsuario(String user) throws RemoteException {
-        if (this.usuarioRegistrado(user)) {
+    public Ireplica iniciarSesion(String user, String passwd) throws RemoteException{
+        Ireplica replicaUser = null;
 
+        if (usuarioRegistrado(user)){
+            if (identificarUsuario(user, passwd)){
+                replicaUser = this;
+            } else{
+                replicaUser = null;
+            }
+        } else{
+            replicaUser = buscarUsuario(user);
+            if (replicaUser != null){
+                if (!replicaUser.identificarUsuario(user, passwd)){
+                    replicaUser = null;
+                }
+            }
         }
-        return true;
+
+
+        return replicaUser;
+    }
+
+    @Override
+    public boolean identificarUsuario(String user, String passwd) throws RemoteException {
+        if (clientes.get(user).equals(passwd)){
+            clienteActual = user;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -179,7 +228,7 @@ public class Replica extends UnicastRemoteObject implements Ireplica {
 
     @Override
     public String identificarse() throws RemoteException {
-        String info = "Soy réplica " + id + " y tengo " + clientes.size() + " clientes\n";
+        String info = "Soy réplica " + id + " y tengo " + donacionesClientes.size() + " clientes\n";
         info += getStringReplicas();
         return info;
     }

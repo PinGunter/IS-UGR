@@ -10,10 +10,15 @@ public interface Ireplica extends Remote {
     public int getNumClientes() throws RemoteException;
 
     /**
-     * Metodo para obtener el total de donaciones
+     * Metodo para obtener el total de donaciones de una replica
      */
     public float getTotal() throws RemoteException;
 
+    /**
+     * Metodo para obtener el total de donaciones de todas las replicas
+     */
+
+    public float getTotalGlobal() throws RemoteException;
     /**
      * Metodo para comprobar si un usuario existe en la replica
      */
@@ -24,18 +29,23 @@ public interface Ireplica extends Remote {
      * metodo para iniciar el registro del usuario
      */
 
-    public void iniciarRegistro(String user) throws RemoteException;
+    public Ireplica iniciarRegistro(String user, String passwd) throws RemoteException;
 
     /**
      * metodo para registrar un usuario en la replica
      */
-    public void registrarUsuario(String user) throws RemoteException;
+    public void registrarUsuario(String user, String passwd) throws RemoteException;
 
+
+    /**
+     * metodo para iniciar sesion
+    */
+    public Ireplica iniciarSesion(String user, String passwd) throws RemoteException;
     /**
      * metodo para identificar a un usuario
      */
 
-    public boolean identificarUsuario(String user) throws RemoteException;
+    public boolean identificarUsuario(String user, String passwd) throws RemoteException;
 
     /**
      * metodo para que un usuario done dinero
