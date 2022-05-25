@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Servidor de Domótica</title>
+    <link rel="stylesheet" types="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="divisor">
+        <div class="sensores-actuadores">
+            <div class="sensor-wrap">
+                <h2>Sensores</h2>
+                <div class="sensores">
+                    <div class="sensor">
+                        <form action="javascript:void (0);">
+                            <label for="sensorLuz">Sensor de Luz</label><br />
+                            <input type="number" name="sensorLuz">
+                            <input type="submit" value="Actualizar">
+                        </form>
+                    </div>
+                    <div class="sensor">
+                        <form action="javascript:void (0);">
+                            <label for="sensorTemperatura">Sensor de Temperatura</label><br />
+                            <input type="number" name="sensorTemperatura">
+                            <input type="submit" value="Actualizar">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actuador-wrap">
+                <h2>Actuadores</h2>
+                <div class="actuadores">
+                    <div class="actuador">
+                        <b>Persiana</b><br />
+                        <b>Estado:</b> <span id="estadoPersiana">Desconocido</span><br />
+                    </div>
+                    <div class="actuador">
+                        <b>Aire Acondicionado</b><br />
+                        <b>Estado:</b> <span id="estadoAC">Desconocido</span> <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log">
+            <div class="log-wrap">
+                <h2>Server Log</h2>
+                <div class="log-text">
+                    Registro de ejemplo
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

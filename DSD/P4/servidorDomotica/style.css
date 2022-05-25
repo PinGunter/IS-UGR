@@ -1,0 +1,50 @@
+:root{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.divisor{
+    display: flex;
+}
+
+.sensor-wrap, .actuador-wrap{
+    display: flex;
+    flex-direction: column;
+}
+
+/* .sensor-wrap h2, .actuador-wrap h2{
+    align-self: center;
+} */
+
+.sensores, .actuadores{
+    /* align-self: center; */
+    display: flex;
+}
+
+.sensor, .actuador{
+    padding: 25px;
+    margin: 15px;
+    border: 2px;
+    border-radius: 5px;
+    border-style: solid;
+}
+
+.sensor input{
+    padding: 5px;
+}
+
+.actuador input{
+    padding: 5px;
+}
+
+.sensores-actuadores{
+    flex: 2;
+}
+
+.log{
+    flex: 1;
+    display: flex;
+}
+
+.log-wrap{
+    align-content: center;
+}
