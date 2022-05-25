@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+<section class="producto">
+    <div class="grid-principal">
+        <!-- Informacion del producto (titulo, precio y descripcion) -->
+        <div class="info-producto">
+            {% block producto_principal %}
+                <h1>Administración</h1>
+            {% endblock %}
+        </div>
+        {% block imagenes %}
+        {% endblock %}
+    </div>
+
+</section> <!-- Fin producto principal-->
+{% endblock %}

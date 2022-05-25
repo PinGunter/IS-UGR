@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+<section class="producto">
+    <div class="grid-principal">
+        <!-- Informacion del producto (titulo, precio y descripcion) -->
+        <div class="info-producto">
+            {% block producto_principal %}
+            <h2>Gestión</h2>
+
+                {% if borrado == 2 %}
+                <span class="mensaje">Producto eliminado correctamente</span>
+                {% else %}
+                {% if borrado == 1 %}
+                <span class="mensaje-error">Error eliminando el producto</span>
+                {% endif %}
+                {% endif %}
+                {% endblock %}
+        </div>
+        {% block imagenes %}
+        <a href="nuevo_producto.php" class="nuevo-producto">Nuevo Producto <i class="fa fa-plus"></i></a>
+        {% endblock %}
+    </div>
+    <div id="conjunto-productos">
+    {% for producto in productos %}
+        <div class="producto-inline">
+            <span class="producto-inline-titulo"> {{producto.nombre}} </span>
+            {% if usuario.gestor == 1 or usuario.super == 1 %}
+            <span id="product-id" class="oculto">{{producto.id}}</span>
+            <span class="botones-gestor"><a href="editar_producto.php?pid={{producto.id}}"><i class="fa fa-pencil"></i></a> <i id="eliminar-producto" class="fa fa-trash"></i></span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+</section> <!-- Fin producto principal-->
+{% endblock %}
+
+{% block extraFooter %}
+<script type="text/javascript" src="static/js/gestion.js"></script>
+{% endblock %}

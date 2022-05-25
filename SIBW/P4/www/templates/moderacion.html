@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+<section class="producto">
+    <div class="grid-principal">
+        <!-- Informacion del producto (titulo, precio y descripcion) -->
+        <div class="info-producto">
+            {% block producto_principal %}
+            <h2>Moderación</h2>
+            {% if borrado == 2 %}
+            <span class="mensaje">Comentario eliminado correctamente</span>
+            {% else %}
+            {% if borrado == 1 %}
+            <span class="mensaje-error">Error eliminando el mensaje</span>
+            {% endif %}
+            {% endif %}
+            {% endblock %}
+        </div>
+        {% block imagenes %}
+        {% endblock %}
+    </div>
+    {% for comentario_producto in comentarios %}
+    <h4>Comentarios de {{ comentario_producto[0].nombre_p }}</h4>
+    {% for comentario in comentario_producto %}
+    <div class="comment-div">
+        <div>
+            <span class="comment-date"><i class="fa fa-calendar"></i> {{ comentario.fecha|date('d/m/Y - H:i:s')
+                }}</span>
+            <span class="comment-author">@ {{ comentario.autor }}</span><br>
+            <span class="comment-body">{{ comentario.cuerpo }} </span>
+        </div>
+        <div class="controles-mod">
+            <a href="editar_comentario.php?id={{comentario.id}}" id="boton-editar"><i class="fa fa-pencil"></i> </a>
+            <a href="borrar_comentario.php?id={{comentario.id}}"><i class="fa fa-trash"></i><span id="comment-id">{{comentario.id}}</span></a>
+        </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+
+</section> <!-- Fin producto principal-->
+{% endblock %}

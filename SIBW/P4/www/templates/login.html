@@ -1,0 +1,51 @@
+{% extends "base_entrar.html" %}
+
+
+
+{% block campos %}
+<div class="wrapper-input">
+    <input type="text" name="username" class="input" placeholder="Usuario" required>
+    <span class="focus-input" placeholder="Usuario"></span>
+</div>
+
+<div class="wrapper-input">
+    <input type="password" name="passwd" class="input" placeholder="Contraseña" required>
+    <span class="focus-input" data-placeholder="Contraseña"></span>
+</div>
+
+{% if fallo %}
+<div class="text-center">
+    <span class="txterr">
+        Credenciales incorrectas.
+    </span>
+</div>
+{% endif %}
+
+{% if datosIncorrectos %}
+<div class="text-center">
+    <span class="txterr">
+        Introduce datos correctos
+    </span>
+</div>
+{% endif %}
+
+<div class="container-login-form-boton">
+    <div class="wrapper-login-form-boton">
+        <div class="login-boton-form-boton-fondo">
+            <button class="login-form-boton">
+                Entrar
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra %}
+<div class="text-center">
+    <span class="txt1">
+        ¿No tienes cuenta?
+    </span>
+    <a class="txt2" href="registro.php">
+        Registrarse
+    </a>
+</div>
+{% endblock %}

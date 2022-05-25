@@ -1,0 +1,56 @@
+{% extends "base_producto.html" %}
+{% block producto_principal %}
+<!-- Títulos, subtitulos y precio  -->
+<section class="titulo-precio">
+    <h1 class="product-name">{{ producto.nombre }} 
+        {% if usuario.gestor == 1 or usuario.super == 1 %}
+        <span id="product-id" class="oculto">{{producto.id}}</span>
+        <span class="botones-gestor"><a href="editar_producto.php?pid={{producto.id}}"><i class="fa fa-pencil"></i></a> <i id="eliminar-producto" class="fa fa-trash"></i></span>
+        {% endif %}
+    </h1>
+    <h2 class="brand">{{ producto.marca }} </h2>
+    <h3 class="price">{{ producto.precio }} €/kg</h3>
+    {% if etiquetas %}
+    {% for etiqueta in etiquetas %}<b>#</b>{{ etiqueta }} {% endfor %}
+    {% endif %}
+
+</section>
+<!-- Descripcion del producto -->
+<section class="descripcion">
+    <p>
+        {{ producto.descripcion }}
+    </p>
+</section>
+{% endblock %}
+
+
+{% block imagenes %}
+<div class="imagenes">
+{% for img in imagenes %}
+<figure>
+    <img src={{ img.ruta }} />
+    <figcaption>{{ img.pie }}</figcaption>
+</figure>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block comentarios %}
+{% for comentario in comentarios %}
+<div class="comment-div">
+    <div>
+        <span class="comment-date"><i class="fa fa-calendar"></i> {{ comentario.fecha|date('d/m/Y - H:i:s')
+            }}</span>
+        <span class="comment-author">@ {{ comentario.autor }}</span><br>
+        <span class="comment-body">{{ comentario.cuerpo }} </span>
+    </div>
+    {% if usuario.mod == 1 or usuario.super == 1 %}
+    <div class="controles-mod">
+        <a href="editar_comentario.php?id={{comentario.id}}" id="boton-editar"><i class="fa fa-pencil"></i> </a>
+        <a href="borrar_comentario.php?id={{comentario.id}}"><i class="fa fa-trash"></i><span id="comment-id">{{comentario.id}}</span></a>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock %}
+

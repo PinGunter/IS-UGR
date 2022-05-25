@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="static/css/login.css" />
+    <link rel="icon" type="image/png" href="static/img/logo.png" />
+    <title>Fruity Fruit</title>
+</head>
+
+<body>
+    <div class="limiter">
+        <div class="container-login">
+            <div class="wrapper-login">
+                <form action={{accion}} method="post" class="formulario-login">
+                    <span class="titulo-login-form">
+                        Bienvenido a Fruity Fruit
+                    </span>
+                    {% block campos %}
+                    {% endblock %}
+                    {% block extra %}
+                    {% endblock %}
+                    </form>
+                </div>
+            </div>
+    </div>
+</body>
+</html>
