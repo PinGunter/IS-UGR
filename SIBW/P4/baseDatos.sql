@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql:3306
--- Tiempo de generación: 26-05-2022 a las 01:03:23
+-- Tiempo de generación: 26-05-2022 a las 01:23:35
 -- Versión del servidor: 8.0.28
 -- Versión de PHP: 8.0.15
 
@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `fruity_db`
 --
-
 CREATE DATABASE IF NOT EXISTS `fruity_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `fruity_db`;
 
@@ -371,12 +370,11 @@ ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`);
 COMMIT;
 
-
--- Usuario 
 CREATE USER 'fruity_user'@'%' IDENTIFIED WITH mysql_native_password BY '!RO1MjRTR9Mc[n.Y';GRANT USAGE ON *.* TO 'fruity_user'@'%';
+
 ALTER USER 'fruity_user'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0; 
 
-GRANT SELECT, INSERT, UPDATE ON `fruity\_db`.* TO 'fruity_user'@'%'; ALTER USER 'fruity_user'@'%' ; 
+GRANT SELECT, INSERT, UPDATE, DELETE ON `fruity\_db`.* TO 'fruity_user'@'%'; ALTER USER 'fruity_user'@'%' ; 
 
 insert into usuario(nick, pass, moderador, gestor, super) values ('admin','$2y$10$EqkXBEHVQZHOJgqO2QJUyemQmHn3jEkH5O23Vk8KcbRBiDmKVwoWO',0,0,1);
 
