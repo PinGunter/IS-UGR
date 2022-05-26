@@ -33,21 +33,23 @@
                 $datosIncorrectos = 2;
                 if (isset($_POST['password'])){
                     if (isset($_POST['password-confirm'])){
-                        if ($_POST['password'] === $_POST['password-confirm']){
-                            $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                            if (actualizarPassword($usuario['nick'], $pass)){
-                                $_SESSION['falloUpdate'] = false;
-                                $_SESSION['datosIncorrectos'] = 2;
-                                $datosIncorrectos = 2;
+                        if (!empty($_POST['password'] && !empty($_POST['password-confirm']))){
+                            if ($_POST['password'] === $_POST['password-confirm']){
+                                $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                                if (actualizarPassword($usuario['nick'], $pass)){
+                                    $_SESSION['falloUpdate'] = false;
+                                    $_SESSION['datosIncorrectos'] = 2;
+                                    $datosIncorrectos = 2;
+                                } else{
+                                    $_SESSION['falloUpdate'] = true;
+                                    $_SESSION['datosIncorrectos'] = 1;
+                                    $datosIncorrectos = 1;
+                                }   
                             } else{
                                 $_SESSION['falloUpdate'] = true;
                                 $_SESSION['datosIncorrectos'] = 1;
                                 $datosIncorrectos = 1;
-                            }   
-                        } else{
-                            $_SESSION['falloUpdate'] = true;
-                            $_SESSION['datosIncorrectos'] = 1;
-                            $datosIncorrectos = 1;
+                            }
                         }
                     }else{
                         $_SESSION['falloUpdate'] = true;
