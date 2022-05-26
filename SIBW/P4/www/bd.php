@@ -325,10 +325,27 @@
     function actualizarDetalles($nick, $usuario){
         global $mysqli;
         conectarBD();
-        if (!($stmt = $mysqli->prepare("UPDATE usuario SET nombre=?, apellidos=?, email=?, pass=? WHERE nick=?"))){
+        if (!($stmt = $mysqli->prepare("UPDATE usuario SET nombre=?, apellidos=?, email=? WHERE nick=?"))){
             echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
         }
-        if (!$stmt->bind_param("sssss", $usuario['nombre'], $usuario['apellidos'], $usuario['email'], $usuario['pass'], $nick)){
+        if (!$stmt->bind_param("ssss", $usuario['nombre'], $usuario['apellidos'], $usuario['email'], $nick)){
+            echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+        }
+
+        if (!$stmt->execute()) {
+            echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+        return true;
+    }
+
+    function actualizarPassword($nick, $pass){
+        global $mysqli;
+        conectarBD();
+        if (!($stmt = $mysqli->prepare("UPDATE usuario SET pass=? WHERE nick=?"))){
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        if (!$stmt->bind_param("ss", $pass, $nick)){
             echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
         }
 
@@ -390,6 +407,32 @@
     function borrarProducto($pid){
         global $mysqli;
         conectarBD();
+
+        // primero tenemos que borrar la entrada del producto en etiquetasProductos
+        if (!($stmt = $mysqli->prepare("DELETE FROM etiquetasProductos WHERE id_p=?"))){
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        if (!$stmt->bind_param("i", $pid)){
+            echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+
+        // luego las imagenes
+
+        if (!($stmt = $mysqli->prepare("DELETE FROM imagenes WHERE id_producto=?"))){
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        if (!$stmt->bind_param("i", $pid)){
+            echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+
         if (!($stmt = $mysqli->prepare("DELETE FROM productos WHERE id=?"))){
             echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -630,6 +673,160 @@
                 return false;
             }
         }
+        return true;
+    }
+
+    function nuevaEtiqueta($nombre){
+        global $mysqli;
+        $nuevaEtiqueta = "INSERT INTO etiqueta (nombre) VALUES (?)";
+        if (!($stmt = $mysqli->prepare($nuevaEtiqueta))) {
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+            return false;
+        }
+        if (!$stmt->bind_param("s", $nombre)){
+            echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+        if (!$stmt->execute()) {
+            echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+        return true;
+    }
+
+    function nuevaMarca($nombre){
+        global $mysqli;
+        $nuevaMarca = "INSERT INTO marcas(nombre) VALUES (?)";
+        if (!($stmt = $mysqli->prepare($nuevaMarca))) {
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+            return false;
+        }
+        if (!$stmt->bind_param("s", $nombre)){
+            echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+        if (!$stmt->execute()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function getUsers(){
+        global $mysqli;
+        $getUsers = "SELECT * FROM usuario";
+        if (!($stmt = $mysqli->prepare($getUsers))) {
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+            return false;
+        }
+        if (!$stmt->execute()) {
+            echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+        $result = $stmt->get_result();
+        $usuarios = array();
+        while ($row = $result->fetch_assoc()) {
+            $usuarios[] = $row;
+        }
+        return $usuarios;
+    }
+    
+    function actualizarPermisos($nick, $mod, $gestor, $super){
+        global $mysqli;
+        $actualizarPermisos = "UPDATE usuario SET moderador=?, gestor=?, super=? WHERE nick=?";
+        if (!($stmt = $mysqli->prepare($actualizarPermisos))) {
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+            return false;
+        }
+        if (!$stmt->bind_param("iiis", $mod, $gestor, $super, $nick)){
+            echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+        if (!$stmt->execute()) {
+            echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+        return true;
+    }
+
+
+    function nuevoProducto($datos, $imgs){
+        global $mysqli;
+        conectarBD();
+
+        $pid = -1;
+
+        // primero creamos la entrada del producto
+        $nuevosDatos = "INSERT INTO productos (nombre,descripcion, precio, id_marca) VALUES (?,?,?,?)";
+        if (!($stmt = $mysqli->prepare($nuevosDatos))) {
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+            return false;
+        }
+        if (!$stmt->bind_param("ssdi", $datos["nombre"], $datos["descripcion"], $datos["precio"], $datos["id_marca"])){
+            echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+        if (!$stmt->execute()) {
+            echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+
+        // obtenemos el id del producto
+        $pid = $mysqli->insert_id;
+
+        if (isset($datos['icono'])){
+            $nuevoIcon = "UPDATE productos set icono=? WHERE id=?";
+            if (!($stmt = $mysqli->prepare($nuevoIcon))) {
+                echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+                return false;
+            }
+            if (!$stmt->bind_param("si", $datos["icono"], $pid)){
+                echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+                return false;
+            }
+            if (!$stmt->execute()) {
+                echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+                return false;
+            }
+        }
+
+        if (isset($imgs)){
+            $insertarIMGs = "INSERT INTO imagenes (ruta, id_producto) VALUES (?, ?)";
+            if (!($stmt = $mysqli->prepare($insertarIMGs))) {
+                echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+                return false;
+            }
+            foreach ($imgs as $img){
+                if (!$stmt->bind_param("si", $img, $pid)){
+                    echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+                    return false;
+                }
+                if (!$stmt->execute()) {
+                    echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+                    return false;
+                }
+               }
+        }
+
+        // insertamos las nuevas etiquetas
+
+        $nuevasEtiquetas = "INSERT INTO etiquetasProductos (id_e, id_p) VALUES (?, ?)";
+        if (!($stmt = $mysqli->prepare($nuevasEtiquetas))) {
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+            return false;
+        }
+        $etiquetas = $datos["id_e"];
+        for ($i =0; $i < count($etiquetas); $i++){
+            if (!$stmt->bind_param("ii", $etiquetas[$i], $pid)){
+                echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+                return false;
+            }
+            if (!$stmt->execute()) {
+                echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+                return false;
+            }
+        }
+        
         return true;
     }
 ?>

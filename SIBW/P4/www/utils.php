@@ -1,5 +1,13 @@
 <?php
 
+function censurar($texto, $malsonantes){
+    $censurado = $texto;
+    for ($i = 0; $i < count($malsonantes); $i++){
+        $censurado = str_replace($malsonantes[$i], preg_replace('/./i', '*',$malsonantes[$i]), $censurado);
+    }
+    return $censurado;
+}
+
 function verificarDatosRegistro($datos){
     $datos['nombre'] = trim($datos['nombre']);
     $datos['apellidos'] = trim($datos['apellidos']);
@@ -49,7 +57,6 @@ function verificarDatosUpdate($datos){
     $datos['apellidos'] = trim($datos['apellidos']);
     $datos['username'] = trim($datos['username']);
     $datos['email'] = trim($datos['email']);
-    $datos['passwd'] = trim($datos['passwd']);
     if (empty($datos['nombre'])){
         return false;
     }
@@ -63,18 +70,6 @@ function verificarDatosUpdate($datos){
         if (!filter_var($datos['email'], FILTER_VALIDATE_EMAIL)){
             return false;
         }
-    }
-    
-    if (empty($datos['passwd'])){
-        return false;
-    }
-
-    if (empty($datos['passwd2'])){
-        return false;
-    }
-
-    if ($datos['passwd'] != $datos['passwd2']){
-        return false;
     }
     return true;
 }

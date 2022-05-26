@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql:3306
--- Tiempo de generación: 25-05-2022 a las 11:44:06
+-- Tiempo de generación: 26-05-2022 a las 01:03:23
 -- Versión del servidor: 8.0.28
 -- Versión de PHP: 8.0.15
 
@@ -57,8 +57,7 @@ INSERT INTO `comentarios` (`id`, `autor`, `fecha`, `cuerpo`, `id_producto`) VALU
 (15, 'Amelia Sole', '2022-04-17 18:46:48', 'Siempre he sido muy fan de la berenjena frita', 8),
 (16, 'Maria-Jose Coca', '2022-04-17 11:39:22', 'La berenjena está sobrevalorada.', 8),
 (17, 'Claudia Rovira', '2022-04-17 18:46:48', 'Muy recomendable la fruta del dragón para recetas real-food.', 9),
-(18, 'Oscar Narvaez', '2022-04-14 20:22:33', 'Nunca he visto esta fruta, ¡habrá que probarla! (aunque es cara eso sí)', 9),
-(31, 'Alberto Palomo Campos', '2022-05-23 13:52:34', 'ola buenas', 5);
+(18, 'Oscar Narvaez', '2022-04-14 20:22:33', 'Nunca he visto esta fruta, ¡habrá que probarla! (aunque es cara eso sí)', 9);
 
 -- --------------------------------------------------------
 
@@ -98,11 +97,11 @@ CREATE TABLE `etiquetasProductos` (
 --
 
 INSERT INTO `etiquetasProductos` (`id_e`, `id_p`) VALUES
+(2, 1),
 (3, 2),
 (4, 5),
 (2, 6),
-(1, 14),
-(2, 14);
+(4, 6);
 
 -- --------------------------------------------------------
 
@@ -141,9 +140,7 @@ INSERT INTO `imagenes` (`id`, `ruta`, `pie`, `id_producto`) VALUES
 (17, 'static/img/fruits/dragon-fruit.png', 'Fruta del Dragón 1', 9),
 (18, 'static/img/fruits/dragon-fruit.png', 'Fruta del Dragón 2', 9),
 (19, 'static/img/fruits/plum.png', 'Ciruela 1', 10),
-(20, 'static/img/fruits/plum.png', 'Ciruela 2', 10),
-(45, 'static/img/uploads/upload_1653478376_statue-of-liberty(1).png', NULL, 14),
-(46, 'static/img/uploads/upload_1653478376_calabaza.png', NULL, 14);
+(20, 'static/img/fruits/plum.png', 'Ciruela 2', 10);
 
 -- --------------------------------------------------------
 
@@ -192,8 +189,8 @@ CREATE TABLE `marcas` (
 
 INSERT INTO `marcas` (`id`, `nombre`) VALUES
 (1, 'FreshProducts'),
-(2, 'Paco el Melón'),
-(3, 'Frutas y verduras Ginés');
+(3, 'Frutas y verduras Ginés'),
+(2, 'Paco el Melón');
 
 -- --------------------------------------------------------
 
@@ -204,7 +201,7 @@ INSERT INTO `marcas` (`id`, `nombre`) VALUES
 CREATE TABLE `productos` (
   `id` int NOT NULL,
   `nombre` varchar(100) DEFAULT NULL,
-  `icono` varchar(255) NOT NULL,
+  `icono` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'static/img/none.png',
   `precio` decimal(10,2) DEFAULT NULL,
   `descripcion` mediumtext,
   `id_marca` int NOT NULL
@@ -220,12 +217,11 @@ INSERT INTO `productos` (`id`, `nombre`, `icono`, `precio`, `descripcion`, `id_m
 (3, 'Kiwi', 'static/img/fruits/kiwi.png', '3.00', 'El kiwi es un fruto de forma ovoide, de tamaño variable y recubierto de una piel fina de color marrón, ligeramente vellosa. Puede tener de 4 a 7,5cm de longitud por 3,5 a 5cm de anchura y el peso varía de 30-150g en función de la variedad, las condiciones climáticas y del sistema de cultivo. La pulpa puede ser de color verde de distinta tonalidad según la variedad, tierna, jugosa y de sabor agridulce. Presenta numerosas y pequeñas semillas negras comestibles. El color de la pulpa y el sabor delicado de la misma que recuerda en parte a la uva, a la fresa y a la piña, lo hacen muy agradable.\r\n\r\nDiversas investigaciones científicas indican que el kiwi es una destacada fuente de vitaminas, minerales, fibra y fitoquímicos. El kiwi posee una concentración excepcionalmente alta de vitamina C. Un fruto de tamaño medio puede aportar aproximadamente 90 mg de vitamina C, la cual cosa supera con creces la ingesta diaria recomendada de alrededor de 60 mg.', 2),
 (4, 'Naranja', 'static/img/fruits/orange.png', '1.21', 'La naranja es un fruto redondo, color naranja, consumido mayoritariamente en invierno. La pulpa del interior es también anaranjada y está formada por pequeñas bolsitas llenas de zumo.\r\n\r\nLa naranja se usa para consumo en fresco y, para la industria, principalmente en zumo.\r\n\r\nLa naranja, junto con el plátano y la manzana, es uno de los frutos más consumidos en el mundo.\r\n\r\nLa naranja es un cítrico y su forma suele ser redonda u oval y su piel y carne es generalmente naranja, excepto en las variedades de pulpa roja.\r\n\r\nLa parte comestible de la naranja es la pulpa y se consume fresca o en zumo. La naranja también se utiliza para realizar compotas, mermeladas, para consumo como fruta deshidratada, etc.\r\n\r\nDe la naranja también se extraen los aceites esenciales muy utilizados en perfumería y cosmética.\r\n\r\nEl consumo de naranjas en países en vías de desarrollo ha aumentado más rápidamente que en los países ricos. El mercado norteamericano abarca casi la mitad del consumo de los países desarrollados, debido en gran parte al consumo de zumo. En países como en Japón el consumo es en fresco y de producción propia, es decir no necesitan importar naranjas.\r\n', 3),
 (5, 'Sandía', 'static/img/fruits/watermelon.png', '1.99', 'La sandía es un fruto grande y de forma más o menos esférica que suele consumirse cruda como postre. Su pulpa es de color rojizo o amarillento y de sabor dulce. Resulta un alimento muy refrescante que aporta muy pocas calorías al organismo, también aporta algunas vitaminas y minerales.\r\n\r\nLa sandía es un fruto grande, de hasta 25cm de diámetro, que puede alcanzar los 15kg de peso. La forma es ovalada o esférica, con una corteza lisa y de color verde oscuro, que a veces presenta bandas irregulares más pálidas. La pulpa es dulce, jugosa, refrescante y de color amarillento o rojizo. Contiene muchas pepitas de color negro, marrón o blanco. Algunas variedades cultivadas en los últimos años, cambian estas características clásicas de las sandías, dando frutos sin semillas, variedades con la pulpa amarilla o sandías de menor tamaño.\r\n\r\nLa sandía se consume generalmente en crudo, en rodajas, cuartos o incluso en bolas. También se emplea para elaborar sorbetes, purés, mermeladas y confituras. En Rusia preparan un vino muy popular a partir de zumo de sandía. La corteza se aprovecha a veces encurtida o confitada y en los medios rurales sirve como alimento del ganado. Las semillas se consumen en algunas regiones tostadas y saladas.\r\n\r\nEs un alimento muy rico en agua que apenas contiene grasas y proteínas, por lo que aporta muy pocas calorías. Además es una fuente importante de potasio y vitamina A. Es un fruto refrescante y con propiedades diuréticas. En muchos países americanos es usada con fines medicinales.', 2),
-(6, 'Piña', 'static/img/fruits/pineapple.png', '1.29', 'La piña tropical o piña americana (Ananas comosus) es la fruta obtenida de la planta que recibe el mismo nombre. Su forma es ovalada y gruesa, con aproximadamente 30 cm de largo y 15 cm de diámetro.\n\nLa pulpa comestible se halla rodeada de brácteas verdes que pasan a anaranjadas al madurar, formando la piel del fruto. En el extremo superior las brácteas se transforman en una corona de hojas. La pulpa, amarilla o blanca es carnosa, aromática, jugosa y dulce. En su interior hay un tronco fibroso duro que va desde la corona al pedículo.\n\nLa piña madura tiene una fragancia muy singular. Es de hermoso color y agradable sabor agridulce. Se puede comer cruda o como ingrediente en zumos, conservas, licores, etc. Tanto el fruto como las hojas se usan en la preparación de compuestos medicinales.\n\nLa planta es herbácea y las inflorescencias nacen en lo alto. Estas inflorescencias son ovaladas. El fruto es una infrutescencia que está formado por un conjunto de frutas. Es carnoso y termina en una corona de hojas. Se propaga por esquejes y prefiere el calor.\n\nLa piña tiene un contenido en agua muy alto. Los glúcidos ocupan el segundo lugar y el aporte de proteínas y lípidos es muy escaso. El valor calórico, teniendo en cuenta su composición es muy bajo. Cada 100 g de producto fresco comestible aportan entre 64 y 101 kcal. Por ello es muy adecuada en dietas de adelgazamiento.\n\nLa piña americana se suele consumir fresca, sola o en macedonias. También forma parte de pasteles y diversas preparaciones. Gran parte de la producción mundial se destina a la industria conservera para obtener piña en almíbar. Otro gran uso es para la obtención de zumo de piña. Esta fruta sirve igualmente de materia prima para elaborar compotas, mermeladas y confituras. En la cocina china es un ingrediente principal combinándola con cerdo y pato.\n\nEs una fruta muy sensible a los cambios bruscos de temperatura. Las temperaturas aconsejadas para piñas parcialmente maduras son entre 10-13ºC y para piñas maduras de 7-10ºC. Así. las humedades relativas óptimas de esta fruta son entre 85 y 90%.', 2),
+(6, 'Piña', 'static/img/fruits/pineapple.png', '1.29', 'La piña tropical o piña americana (Ananas comosus) es la fruta obtenida de la planta que recibe el mismo nombre. Su forma es ovalada y gruesa, con aproximadamente 30 cm de largo y 15 cm de diámetro.\r\n\r\nLa pulpa comestible se halla rodeada de brácteas verdes que pasan a anaranjadas al madurar, formando la piel del fruto. En el extremo superior las brácteas se transforman en una corona de hojas. La pulpa, amarilla o blanca es carnosa, aromática, jugosa y dulce. En su interior hay un tronco fibroso duro que va desde la corona al pedículo.\r\n\r\nLa piña madura tiene una fragancia muy singular. Es de hermoso color y agradable sabor agridulce. Se puede comer cruda o como ingrediente en zumos, conservas, licores, etc. Tanto el fruto como las hojas se usan en la preparación de compuestos medicinales.\r\n\r\nLa planta es herbácea y las inflorescencias nacen en lo alto. Estas inflorescencias son ovaladas. El fruto es una infrutescencia que está formado por un conjunto de frutas. Es carnoso y termina en una corona de hojas. Se propaga por esquejes y prefiere el calor.\r\n\r\nLa piña tiene un contenido en agua muy alto. Los glúcidos ocupan el segundo lugar y el aporte de proteínas y lípidos es muy escaso. El valor calórico, teniendo en cuenta su composición es muy bajo. Cada 100 g de producto fresco comestible aportan entre 64 y 101 kcal. Por ello es muy adecuada en dietas de adelgazamiento.\r\n\r\nLa piña americana se suele consumir fresca, sola o en macedonias. También forma parte de pasteles y diversas preparaciones. Gran parte de la producción mundial se destina a la industria conservera para obtener piña en almíbar. Otro gran uso es para la obtención de zumo de piña. Esta fruta sirve igualmente de materia prima para elaborar compotas, mermeladas y confituras. En la cocina china es un ingrediente principal combinándola con cerdo y pato.\r\n\r\nEs una fruta muy sensible a los cambios bruscos de temperatura. Las temperaturas aconsejadas para piñas parcialmente maduras son entre 10-13ºC y para piñas maduras de 7-10ºC. Así. las humedades relativas óptimas de esta fruta son entre 85 y 90%.', 2),
 (7, 'Granada', 'static/img/fruits/pomegranate.png', '1.79', 'La granada es una infrutescencia, fruto de un árbol llamado granado que alcanza hasta cuatro metros de altura, de la familia de las Punicáceas; pequeña familia de árboles y arbustos, cuyos frutos tienen semillas prismáticas y rugosas.\r\n\r\nLa fruta posee una piel gruesa de color escarlata o dorada con tono carmesí en el exterior y una gran cantidad de semillas internas rodeadas de una jugosa pulpa de color rubí. En oriente es considerada como un símbolo del amor y de la fecundidad y sus virtudes han sido difundidas por poetas tan conocidos como García Lorca.\r\n\r\nEs una fruta de muy bajo valor calórico debido a su escaso contenido de hidratos de carbono. El componente mayoritario es el agua y en lo que se refiere a otros nutrientes, tan sólo destaca su aporte mineral de potasio y su aporte de vitamina C. El potasio es necesario para la transmisión y generación del impulso nervioso, y para la actividad muscular normal interviene en el equilibrio de agua dentro y fuera de la célula.\r\n\r\nLa vitamina C interviene en la formación de colágeno, huesos y dientes, glóbulos rojos, y favorece la absorción del hierro de los alimentos y la resistencia a las infecciones. Otros componentes destacables son el ácido cítrico (de acción desinfectante, alcaliniza la orina y potencia la acción de la vitamina C), folatos (intervienen en la producción de glóbulos rojos y blancos, en la síntesis de material genético y formación de anticuerpos del sistema inmunológico), el ácido málico, los flavonoides (pigmentos de acción antioxidante) y los taninos. Estos últimos son sustancias con propiedades astringentes y antiinflamatorias. Algunas de las acciones de los taninos son secar y desinflamar la mucosa intestinal (capa que tapiza el interior del conducto digestivo), por lo que resultan eficaces en el tratamiento de la diarrea. Los taninos se reconocen rápidamente por la sensación áspera que producen al paladar.', 1),
 (8, 'Berenjena', 'static/img/fruits/aubergine.png', '1.90', 'La berenjena (Solanum melongena) es un fruto de forma variable que puede ir de esférica a ovoide y oblonga. El color es morado y más o menos intenso, blanca con bandas blancas moradas, amarillas, anaranjadas o incluso negras. La carne firme y suave es siempre blanca y contiene numerosas semillas comestibles del mismo color. Su carne se consume a modo de verdura, frita o rebozada en rodajas.\r\n\r\nEn su composición posee un elevado porcentaje de agua, siendo su contenido en glúcidos, proteínas y lípidos muy bajo. La berenjena cocida y pelada es muy digestible. Generalmente las berenjenas más sabrosas son las más tiernas y firmes, de unos 5-8 cm de diámetro. Las piezas más grandes y maduras suelen resultar más fibrosas y amargas. Así, el fruto se suele cosechar cuando aún no está maduro para evitar la amargura, que crezcan semillas y la dureza de la piel.\r\n\r\nEs muy sensible a los cambios de temperatura, por lo que es conveniente conservarla en el refrigerador. Nunca se debe envolver en un film alimentario, ya que éste impide su respiración. Conviene mantenerla en un lugar lo más aislado posible, puesto que reacciona con el etileno producido por otras verduras y frutas de manera que se acelera su envejecimiento y además el pedúnculo pierde su color verde que es síntoma de frescura. Manteniéndolas a 4-6ºC se pueden conservar en perfectas condiciones durante unos 7 días.\r\n\r\nSu valor calórico es muy escaso, aportando 15-17 kcal por cada 100 g de producto fresco, siendo muy utilizada en dietas de adelgazamiento. Es una buena fuente de potasio.\r\n\r\nLa berenjena se caracteriza por su suave sabor y por lo versátil que resulta para ser combinada. Se aconseja salarla antes de su cocción para eliminar los jugos amargos y reducir su humedad. Así se consigue una pulpa más densa que absorbe menos cantidad de aceite. También se puede añadir un poco de zumo de limón con el fin de eliminar este contenido en jugos amargos. Es muy tradicional en la cocina griega y francesa. En nuestro país, forma parte del plato catalán conocido como escalivada, donde se asa con otras hortalizas como el pimiento y la cebolla. Suelen ser consumidas rellenas de carne, verduras, jamón, etc, que finalmente se pueden gratinar con queso antes de ser servidas. Pueden ser utilizadas para preparar cremas y purés y además se elaboran numerosas conservas, tanto dulces como saladas, como la confitura de berenjenas y las conservas de berenjenas al natural o en aceite.\r\n\r\nLa berenjena es muy clásica en la cocina árabe. En zonas del sur de España es también muy habitual su consumo.', 3),
 (9, 'Fruta del Dragón', 'static/img/fruits/dragon-fruit.png', '15.00', 'La pitahaya o fruta dragón es una fruta exótica de color intenso, rojo oscuro, rosa o amarillo, con un interior que puede ser de color blanco o rosa, en función de la variedad de cactus de la que sea recogida. Su sabor es extremadamente dulce y con un toque que recuerda al kiwi o la papaya, e incluso al aguacate.\r\n\r\nEl origen de esta nueva fruta se sitúa en Latinoamérica, principalmente en México, a pesar de que hoy en día su cultivo se ha extendido a más países de la zona e incluso a regiones de China y Vietnam. Hace siglos que los colonos de estos países se enamoraron de esta fruta y las exportaron a otras de las zonas que iban conquistando.\r\n\r\nPodemos distinguir dos tipos principales de fruta dragón:\r\n\r\nPitahaya amarilla: De color amarillo y con espinas . Tiene un mayor contenido en azúcar, por lo que su sabor es más dulce. Por su forma y color, suele recordar a las piñas.\r\nPitahaya roja: A diferencia de la variedad amarilla, no tiene espinas sino brácteas. Tiene un tamaño ligeramente superior y una corteza más dura.\r\n\r\nOtra de las peculiaridades de esta fruta dragón es que su período de floración dura una noche, tiempo en el que poliniza y crece el fruto.\r\n\r\nLas flores emiten un olor muy agradable que puede ser percibido fácilmente allí dónde crezca la planta pero que, sin embargo, nada más ser cortada pierde de golpe.\r\n \r\nAlgunas propiedades de la fruta dragón\r\n\r\nCompuesta principalmente de agua, la pitahaya contiene importantes minerales como hierro, calcio y fósforo, así como infinidad de vitaminas (vitaminas B1, B2, B3 y C) perfectas para mantener nuestro organismo sano. De hecho, está especialmente indicada para las personas que sufren de elevado colesterol y para aquellas que están preocupadas por fortalecer su sistema inmunológico.\r\n\r\nLa pitaya es una fruta diurética que, además de impedir que retengas líquidos, te mantendrá hidratado.\r\nAl ser una fuente de vitamina C es considerada una fruta con propiedades antioxidantes, lo que significa que retrasará los signos de envejecimiento en tu piel. Igualmente combate el riesgo de padecer enfermedades crónicas degenerativas y cardiovasculares.\r\nSi quieres perder peso será una de tus mejores aliadas porque su perfil calórico es mínimo.\r\nLas semillas que están presentes en el 60 % de la pulpa de esta fruta exótica mejoran el proceso intestinal y evitan el estreñimiento.\r\nLa captina es el componente dominante en las semillas de la fruta del dragón o pitaya, y reduce el riesgo de sufrir arritmias, además de mejorar el funcionamiento del corazón.\r\n', 1),
-(10, 'Ciruela', 'static/img/fruits/plum.png', '1.99', 'La ciruela es una fruta de hueso, redonda o alargada que puede ser de color amarillo, verde, rojo o lila. En general es muy nutritiva y rica en vitaminas, destacando la vitamina C. Según su contenido en agua es más o menos jugosa. Las ciruelas pasas o deshidratadas se conservan más tiempo y son muy dulces.\r\n\r\nEn el mercado hay otros productos elaborados con ciruela como son mermeladas, zumos y licores.\r\n\r\nLas ciruelas se pueden consumir frescas como postre o se puede utilizar para elaborar pasteles rellenos, mermelada, gelatina, zumo, licores, etc. Algunas especies pueden desecarse sin fermentar, como las ciruelas pasas, de las cuales hay en el mercado unas menos deshidratadas de sabor muy agradable. La ciruela pasa se conserva durante más tiempo que la ciruela fresca.\r\n\r\nEs un alimento muy energético, ya que tiene entre 36 y 52kcal/100g. Además, cien gramos aportan unos 5mg de vitamina C.\r\n\r\nLa ciruela, junto con el melocotón, la pera y la almendra, pertenece a la familia de las Rosáceas y al género Prunus, el cuál incluye algunos árboles y arbustos que son puramente ornamentales.\r\n\r\nLa estructura de todos los frutos pertenecientes al género Prunus es, de hecho, similar a los frutos individuales de zarzamoras o frambuesas; el hueso que hay en su interior es la parte más dura del ovario, y la más carnosa es la capa más externa del ovario. La semilla está dentro del hueso. Los botánicos se refieren a tales frutos como ‘frutos de hueso’. Sólo la semilla o almendra del almendro dulce se come normalmente; en otros frutos del género Prunus la almendra es desagradablemente amarga y usualmente se desecha.\r\n\r\nExisten distintas variedades de ciruela, pueden ser redondas o alargadas, de diferentes sabores y colores, pueden ser de color amarillo, verde, rojo o lila y pueden variar en tamaño y textura; así como su contenido en agua también es variable y los diferentes usos de cada una de las variedades.\r\n\r\nLa época de cosecha va desde mediados de junio hasta agosto, aunque la recolección puede ser más temprana en algunas variedades más precoces y en determinados lugares. Las ciruelas se pueden conservar en cámaras frigoríficas durante un tiempo y una práctica útil, aún poco extendida, es la de la pre-refrigeración.', 2),
-(14, 'Amongus2.1', 'static/img/uploads/upload_1653478998_cursed.jpeg', '69420.00', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mollis leo sit amet sem auctor, vel faucibus turpis faucibus. Donec suscipit viverra accumsan. Nam at urna et urna elementum pellentesque. Phasellus sed neque nec sem volutpat congue vel vitae arcu. Ut lacinia in nunc eget faucibus. Integer iaculis, ipsum id lacinia fermentum, ipsum nisi semper elit, in blandit mauris arcu sed nisl. Aliquam dignissim orci in justo interdum, quis varius lorem pretium.\r\n\r\nInteger auctor finibus nulla, vitae ultricies justo pharetra nec. Praesent eget venenatis nunc. Quisque ut nibh ligula. Maecenas at bibendum tellus. Cras quis ex quis lacus egestas dignissim vitae eu turpis. Vestibulum auctor massa varius neque aliquet, rutrum hendrerit leo iaculis. Sed lacus leo, vulputate sit amet justo sed, malesuada auctor nisi. Pellentesque facilisis gravida tincidunt. Quisque lacinia arcu ut metus maximus ullamcorper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer condimentum dui id ipsum varius congue. Phasellus eu mollis nisl, eget iaculis diam.\r\n\r\nOrci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vehicula, lacus sed ultricies fringilla, lacus odio pellentesque purus, in tempor odio lorem sit amet ipsum. Vivamus at placerat neque, nec varius dui. Pellentesque varius sagittis augue id volutpat. Pellentesque egestas hendrerit felis. Cras consequat justo vel odio elementum tincidunt. Phasellus ultrices ultricies cursus. Aenean ut neque ullamcorper, mattis dui quis, imperdiet dui. Nullam a maximus sem. Nulla ac augue a metus semper bibendum. Maecenas tempor, augue et consequat pellentesque, mi nisi imperdiet odio, at pellentesque enim magna a risus. Sed ultricies lacus nec porta viverra. Duis molestie vitae eros quis rhoncus. Morbi tristique ac eros et imperdiet. ', 2);
+(10, 'Ciruela', 'static/img/fruits/plum.png', '1.99', 'La ciruela es una fruta de hueso, redonda o alargada que puede ser de color amarillo, verde, rojo o lila. En general es muy nutritiva y rica en vitaminas, destacando la vitamina C. Según su contenido en agua es más o menos jugosa. Las ciruelas pasas o deshidratadas se conservan más tiempo y son muy dulces.\r\n\r\nEn el mercado hay otros productos elaborados con ciruela como son mermeladas, zumos y licores.\r\n\r\nLas ciruelas se pueden consumir frescas como postre o se puede utilizar para elaborar pasteles rellenos, mermelada, gelatina, zumo, licores, etc. Algunas especies pueden desecarse sin fermentar, como las ciruelas pasas, de las cuales hay en el mercado unas menos deshidratadas de sabor muy agradable. La ciruela pasa se conserva durante más tiempo que la ciruela fresca.\r\n\r\nEs un alimento muy energético, ya que tiene entre 36 y 52kcal/100g. Además, cien gramos aportan unos 5mg de vitamina C.\r\n\r\nLa ciruela, junto con el melocotón, la pera y la almendra, pertenece a la familia de las Rosáceas y al género Prunus, el cuál incluye algunos árboles y arbustos que son puramente ornamentales.\r\n\r\nLa estructura de todos los frutos pertenecientes al género Prunus es, de hecho, similar a los frutos individuales de zarzamoras o frambuesas; el hueso que hay en su interior es la parte más dura del ovario, y la más carnosa es la capa más externa del ovario. La semilla está dentro del hueso. Los botánicos se refieren a tales frutos como ‘frutos de hueso’. Sólo la semilla o almendra del almendro dulce se come normalmente; en otros frutos del género Prunus la almendra es desagradablemente amarga y usualmente se desecha.\r\n\r\nExisten distintas variedades de ciruela, pueden ser redondas o alargadas, de diferentes sabores y colores, pueden ser de color amarillo, verde, rojo o lila y pueden variar en tamaño y textura; así como su contenido en agua también es variable y los diferentes usos de cada una de las variedades.\r\n\r\nLa época de cosecha va desde mediados de junio hasta agosto, aunque la recolección puede ser más temprana en algunas variedades más precoces y en determinados lugares. Las ciruelas se pueden conservar en cámaras frigoríficas durante un tiempo y una práctica útil, aún poco extendida, es la de la pre-refrigeración.', 2);
 
 -- --------------------------------------------------------
 
@@ -243,18 +239,6 @@ CREATE TABLE `usuario` (
   `gestor` tinyint(1) NOT NULL,
   `super` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`nick`, `nombre`, `apellidos`, `email`, `pass`, `moderador`, `gestor`, `super`) VALUES
-('admin', 'admin', 'apellidoAdmin', 'ad.min@ad.min11', '$2y$10$NGX7/.AZoP9u8ZnP3gmQu.4bG2K/eDeyg4QdrhwxB1BkwUpCU6MGW', 0, 0, 1),
-('apm', 'Alberto', 'Palomo Campos', 'apm@gmail.com', '$2y$10$Ioj3enkg5I8ivs01P5W0.eS6O.ZIBxgWMfOsKG9TOVYlUuxVfuxL6', 0, 0, 0),
-('hector', 'hector', 'al\'gestor', 'heck2@moon.to', '$2y$10$91s0kCNtYmJEecLzLct.2ufM1qMtTKDcOsyVH6OzOjKoLMSllfibi', 0, 1, 0),
-('nick', 'Nombre', 'Apellidos', 'nick@elode.on', '$2y$10$IE.Tc8v774.7THr9D/yWJ.0HzzS5TPrkC3GpHRXAwf/u34cyZN9eS', 0, 0, 0),
-('olioli', 'Ali', 'Oli', 'olali@elperro.com', '$2y$10$CaLXZ3B7tufxPcsTjrom5.FgFXQqyoQK7NpaomjVrbSg81DSKj6TG', 1, 0, 0),
-('Repollo', 'Juan', 'de Cañete', 'a@a.a', '$2y$10$/4xNeii/iRos6Z5Rvm/MUeqOL8JmP0YOyaQyxV2ZhgYBaXaPvTfDG', 0, 0, 0);
 
 --
 -- Índices para tablas volcadas
@@ -298,7 +282,8 @@ ALTER TABLE `malsonantes`
 -- Indices de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uniqueNombre` (`nombre`);
 
 --
 -- Indices de la tabla `productos`
@@ -321,19 +306,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `etiqueta`
 --
 ALTER TABLE `etiqueta`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT de la tabla `malsonantes`
@@ -345,13 +330,13 @@ ALTER TABLE `malsonantes`
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
@@ -389,6 +374,8 @@ CREATE USER 'fruity_user'@'%' IDENTIFIED WITH mysql_native_password BY '!RO1MjRT
 ALTER USER 'fruity_user'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0; 
 
 GRANT SELECT, INSERT, UPDATE ON `fruity\_db`.* TO 'fruity_user'@'%'; ALTER USER 'fruity_user'@'%' ; 
+
+insert into usuario(nick, pass, moderador, gestor, super) values ('admin','$2y$10$EqkXBEHVQZHOJgqO2QJUyemQmHn3jEkH5O23Vk8KcbRBiDmKVwoWO',0,0,1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

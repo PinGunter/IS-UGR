@@ -27,16 +27,41 @@
                        'passwd2' => $_POST['password-confirm']);
         $valido = verificarDatosUpdate($datos);
         if ($valido){ // si los datos son correctos (formato y contraseñas iguales)
-            $pass = password_hash($datos['passwd'], PASSWORD_DEFAULT);
-            $datos['pass'] = $pass;
             if (actualizarDetalles($usuario['nick'], $datos)){ // comprobar si falla al insertar
                 $_SESSION['falloUpdate'] = false;
                 $_SESSION['datosIncorrectos'] = 2;
                 $datosIncorrectos = 2;
+                if (isset($_POST['password'])){
+                    if (isset($_POST['password-confirm'])){
+                        if ($_POST['password'] === $_POST['password-confirm']){
+                            $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                            if (actualizarPassword($usuario['nick'], $pass)){
+                                $_SESSION['falloUpdate'] = false;
+                                $_SESSION['datosIncorrectos'] = 2;
+                                $datosIncorrectos = 2;
+                            } else{
+                                $_SESSION['falloUpdate'] = true;
+                                $_SESSION['datosIncorrectos'] = 1;
+                                $datosIncorrectos = 1;
+                            }   
+                        } else{
+                            $_SESSION['falloUpdate'] = true;
+                            $_SESSION['datosIncorrectos'] = 1;
+                            $datosIncorrectos = 1;
+                        }
+                    }else{
+                        $_SESSION['falloUpdate'] = true;
+                        $_SESSION['datosIncorrectos'] = 1;
+                        $datosIncorrectos = 1;
+                }
+            }
+
             } else{ // falla al actualizar la bd
                 $_SESSION['falloUpdate'] = true;
 
             }
+
+
         } else{
             $_SESSION['datosIncorrectos'] = 1;
             $datosIncorrectos = 1;
@@ -47,6 +72,8 @@
     }
 
     $falloUpdate = $_SESSION['falloUpdate'];
+    //actualizamos los datos del usuario
+    $usuario = getUser($_SESSION['username']);
 
     echo $twig->render('personal.html', ['usuario' => $usuario, 'fallo' => $falloUpdate, 'datosIncorrectos' => $datosIncorrectos]);
 

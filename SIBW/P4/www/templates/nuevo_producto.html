@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+<section class="pagina-informacion">
+    <div class="grid-principal">
+        <div>
+            {% block producto_principal %}
+                <h2>Nuevos items</h2>
+                <form method="post" enctype="multipart/form-data">
+                    <fieldset class="editar-producto">
+                        <legend>Nueva etiqueta</legend>
+                        <label for="new-tag">Nombre:</label><br/>
+                        <input type="text" name="new-tag" id="new-tag" /><br/>
+                        <input type="submit" value="Crear" />
+                        {% if mensajeEtiqueta %}
+                        {% if mensajeEtiqueta.exito == 1 %}
+                        <span class="mensaje">{{mensajeEtiqueta.msg}}</span>
+                        {% else %}
+                        <span class="mensaje-error">{{mensajeEtiqueta.msg}}</span>
+                        {% endif %}
+                        {% endif %}
+                    </fieldset>
+                </form>
+                <br/>
+                <form method="post" enctype="multipart/form-data">
+                    <fieldset class="editar-producto">
+                        <legend>Nueva marca</legend>
+                        <label for="new-brand">Nombre:</label><br/>
+                        <input type="text" name="new-brand" id="new-brand" /><br/>
+                        <input type="submit" value="Crear" />
+                        {% if mensajeMarca %}
+                        {% if mensajeMarca.exito == 1 %}
+                        <span class="mensaje">{{mensajeMarca.msg}}</span>
+                        {% else %}
+                        <span class="mensaje-error">{{mensajeMarca.msg}}</span>
+                        {% endif %}
+                        {% endif %}
+                    </fieldset>
+                </form>
+                <br/>
+                <form method="post" enctype="multipart/form-data">
+                    <fieldset class="editar-producto">
+                        <legend>Nuevo producto</legend>
+                        <label for="icono">Icono</label>
+                        <input type="file" name="icono" id="icono" accept=".png,.jpeg,.jpg,.gif"  required/><br/>
+                        <label for="nombre">Nombre</label><br/>
+                        <input type="text" name="nombre" id="nombre" required /><br/>
+                        <label for="marca">Marca</label><br/>
+                        <select name="marca">
+                            {% for marca in marcas %}
+                                <option value="{{ marca.id }}" {% if marca.id == 1 %}selected{% endif %}>{{ marca.nombre }}</option>
+                            {% endfor %}
+                        </select> <br/>
+                        <label for="precio">Precio</label><br/>
+                        <input type="text" name="precio" id="precio" required /><br/>
+                        <label for="imgs[]">Imágenes</label>
+                        <input type="file" name="imgs[]" multiple accept=".png,.jpeg,.jpg,.gif"/><br/>
+                        <label for="desc">Descripción</label><br/>
+                        <textarea name="desc" id="desc" required></textarea><br/>
+                        <label for="etiqueta">Etiquetas</label><br/>
+                        {% for etit in etiquetas %}
+                            <input type="checkbox" name="etiquetas[]" value="{{ etit.id_e }}" {% if etit.id_e in etiquetasProducto %}checked{% endif %}/> {{ etit.nombre }} <br/>
+                        {% endfor %}
+                        <br/><input type="submit" value="Crear">
+                        {% for err in errors %}
+                        <br/><span class="mensaje-error">{{err}}</span>
+                        {% endfor %}
+                        {% if errors %}
+                        {% else %} 
+                        {% for ex in exitos %}
+                        <br/><span class="mensaje">{{ex}}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </fieldset>
+                </form>
+                
+            {% endblock %}
+        </div>
+    </div>
+
+</section> <!-- Fin producto principal-->
+{% endblock %}

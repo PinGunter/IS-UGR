@@ -1,6 +1,7 @@
 <?php
     require_once "/usr/local/lib/php/vendor/autoload.php";
     include ("./bd.php");
+    include("./utils.php");
 
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     $twig = new \Twig\Environment($loader);
@@ -27,8 +28,8 @@
     // comentarios
     $comentarios = getComentarios($pid);
 
-    // palabras feas
-    $palabrasFeas = getPalabrasFeas();
+    //palabras feas
+    $malsonantes = getPalabrasFeas();
 
     // etiquetas
     $etiquetas = getEtiquetasNombre($pid);
@@ -49,6 +50,7 @@
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $comentario = $_POST['comentario'];
             $valido = !empty($comentario);
+            $comentario = censurar($comentario, $malsonantes);
             if ($valido){
                 if (registrarComentario($pid, $comentario, $usuario)){
                     $_SESSION['comentarioVacio'] = false;

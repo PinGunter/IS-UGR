@@ -21,9 +21,9 @@
                         <label for="edit-email">Email</label><br/>
                         <input type="email" name="email" id="edit-email" value="{{usuario.email}}" required><br/>
                         <label for="edit-password">Nueva Contraseña</label><br/>
-                        <input type="password" name="password" id="edit-password" required><br/>
+                        <input type="password" name="password" id="edit-password"><br/>
                         <label for="edit-password-confirm">Confirmar nueva contraseña</label><br/>
-                        <input type="password" name="password-confirm" id="edit-password-confirm" required><br/>
+                        <input type="password" name="password-confirm" id="edit-password-confirm"><br/>
                         <input type="submit" value="Guardar cambios">
                         {% if datosIncorrectos==1 %}
                         <span class="mensaje-error">Las contraseñas no coinciden o el email no es correcto</span>

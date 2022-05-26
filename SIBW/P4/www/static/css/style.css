@@ -244,7 +244,7 @@ a{
     padding: 0.5vw;
 }
 
-nav a {
+.menu a {
   color: var(--negro);
   text-transform: uppercase;
   text-decoration: none;
@@ -254,7 +254,7 @@ nav a {
   padding: 15px 20px;
   position: relative;
 }
-nav a:after {    
+.menu a:after {    
   background: none repeat scroll 0 0 transparent;
   bottom: 0;
   content: "";
@@ -266,7 +266,7 @@ nav a:after {
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
-nav a:hover:after { 
+.menu a:hover:after { 
   width: 100%; 
   left: 0; 
 }
@@ -530,4 +530,33 @@ h5{
     padding: 0.5em;
     margin-top: 1em;
     margin-right: 1em;
+}
+
+.admin-task button{
+    border-radius: 0.4em;
+    padding: 1.2em;
+    margin: 1.3em;
+}
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid var(--negro);
+    text-align: left;
+    padding: 8px;
+} 
+
+th{
+    background-color: var(--secundario);
+}
+
+tr:nth-child(even) {
+    background-color: var(--quinto);
+}
+
+.enviar-permisos{
+    padding: 0.4em;
 }
