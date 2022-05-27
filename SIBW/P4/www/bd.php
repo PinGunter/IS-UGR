@@ -433,6 +433,18 @@
             return false;
         }
 
+        //finalmente, los comentarios
+        if (!($stmt = $mysqli->prepare("DELETE FROM comentarios WHERE id_producto=?"))){
+            echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        if (!$stmt->bind_param("i", $pid)){
+            echo "Falló la vinculación de parámetros: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+            return false;
+        }
+
         if (!($stmt = $mysqli->prepare("DELETE FROM productos WHERE id=?"))){
             echo "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
         }
