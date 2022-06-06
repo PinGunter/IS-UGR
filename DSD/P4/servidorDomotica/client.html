@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Servidor de Domótica</title>
+    <link rel="stylesheet" types="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="divisor">
+        <div class="sensores-actuadores">
+            <div class="actuador-wrap">
+                <h2>Actuadores</h2>
+                <div class="actuadores">
+                    <div class="actuador">
+                        <b>Persiana</b><br />
+                        <b>Estado:</b> <span id="estadoPersiana">Desconocido</span>
+                        <br/>
+                        <b>Luz Actual: </b>
+                        <span id="luz-actual">Desconocida</span>
+                        <br/>
+                        <button id="toggle-persiana">Encender/Apagar</button>
+                    </div>
+                    <div class="actuador">
+                        <b>Aire Acondicionado</b><br />
+                        <b>Estado:</b> <span id="estadoAC">Desconocido</span>
+                        <br/>
+                        <b>Temperatura Actual: </b>
+                        <span id="temp-actual">Desconocida</span>
+                        <br/>
+                        <button id="toggle-ac">Encender/Apagar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log">
+            <div class="log-wrap">
+                <h2>Histórico de eventos</h2>
+                <div class="log-text">
+                    Registro de ejemplo
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

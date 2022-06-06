@@ -14,32 +14,24 @@
                 <h2>Sensores</h2>
                 <div class="sensores">
                     <div class="sensor">
-                        <form action="javascript:void (0);">
+                        <form action="javascript:void (0);" onsubmit="javascript:nuevaLuz();">
                             <label for="sensorLuz">Sensor de Luz</label><br />
-                            <input type="number" name="sensorLuz">
+                            <input type="number" name="sensorLuz" min="0" max="10">
                             <input type="submit" value="Actualizar">
                         </form>
+                        <br/>
+                        <b>Luz Actual: </b>
+                        <span id="luz-actual">No hay datos del sensor</span>
                     </div>
                     <div class="sensor">
-                        <form action="javascript:void (0);">
+                        <form action="javascript:void (0);" onsubmit="javascript:nuevaTemp();">
                             <label for="sensorTemperatura">Sensor de Temperatura</label><br />
                             <input type="number" name="sensorTemperatura">
                             <input type="submit" value="Actualizar">
                         </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="actuador-wrap">
-                <h2>Actuadores</h2>
-                <div class="actuadores">
-                    <div class="actuador">
-                        <b>Persiana</b><br />
-                        <b>Estado:</b> <span id="estadoPersiana">Desconocido</span><br />
-                    </div>
-                    <div class="actuador">
-                        <b>Aire Acondicionado</b><br />
-                        <b>Estado:</b> <span id="estadoAC">Desconocido</span> <br />
+                        <br/>
+                        <b>Temperatura Actual: </b>
+                        <span id="temp-actual">No hay datos del sensor</span>
                     </div>
                 </div>
             </div>
@@ -47,13 +39,61 @@
 
         <div class="log">
             <div class="log-wrap">
-                <h2>Server Log</h2>
-                <div class="log-text">
-                    Registro de ejemplo
+                <h2>Eventos</h2>
+                <div id="log-server">
+                    
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+    var serviceURL = document.URL.slice(0, document.URL.indexOf('/server'));
+    var socket = io.connect(serviceURL);
+    socket.emit("obtener")
+
+    function actualizarLista(mensajes){
+        var listaContainer = document.getElementById('log-server');
+        listaContainer.innerHTML = '';
+        console.log("antes del for")
+        mensajes.forEach(mensaje => {
+            var listaItem = document.createElement('li');
+            listaItem.innerHTML = `[${mensaje.tipo}] - ${mensaje.msg}`;
+            listaContainer.insertBefore(listaItem, listaContainer.firstChild);            
+        });
+    }
+
+    function nuevaLuz() {
+        var luz = document.getElementsByName("sensorLuz")[0].value;
+        var t = new Date();
+        socket.emit("nueva-luz", {
+            fecha: t,
+            luz: luz
+        })
+    }
+
+    function nuevaTemp(){
+        var temp = document.getElementsByName("sensorTemperatura")[0].value;
+        var t = new Date();
+        socket.emit("nueva-temp", {
+            fecha: t,
+            temp: temp
+        })
+    }
+
+    socket.on("actualizarBD", function(data){
+        socket.emit("obtener");
+    })
+
+    socket.on("nuevosDatos", function(data){
+        actualizarLista(data);
+    })
+
+    socket.on("temperatura", function(temp){
+        document.getElementById("temp-actual").innerText = temp + "ºC";
+    })
+</script>
 
 </html>

@@ -37,14 +37,19 @@
 }
 
 .sensores-actuadores{
-    flex: 2;
+    padding: 25px;
 }
 
 .log{
-    flex: 1;
     display: flex;
+    padding: 25px;
 }
 
 .log-wrap{
     align-content: center;
+}
+
+.actuador button{
+    margin: 5px;
+    padding: 5px;
 }
