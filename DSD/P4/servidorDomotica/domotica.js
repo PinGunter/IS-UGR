@@ -10,6 +10,8 @@ var MongoServer = require('mongodb').MongoServer;
 
 const MAX_TEMP = 40;
 const MIN_TEMP = 15;
+const MAX_LUZ = 10;
+const MIN_LUZ = 1;
 
 var allClients = new Array();
 
@@ -79,9 +81,6 @@ function prepararSocketIO(dbo) {
                 console.log('El usuario ' + client.request.connection.remoteAddress + ' se ha desconectado');
             });
 
-            client.on('poner', function (data) {
-            });
-
             client.on('obtener', function (data) {
                 dbo.collection("alertas").find({}, { proyection: { tipo: 1, msg: 1, fecha: 1 } }).toArray(function (err, result) {
                     client.emit('nuevosDatos', result);
@@ -91,23 +90,67 @@ function prepararSocketIO(dbo) {
             client.on('nueva-temp', function (data) {
                 var temperatura = data.temp;
                 if (temperatura > MAX_TEMP) {
-                    insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `La temperatura es de ${temperatura} ºC, esta por encima del limite de ${MAX_TEMP} ºC || Se enciende AC` })
-                    io.sockets.emit("actualizarBD"); // avisamos al cliente de que consulte la bd
+                    insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `La temperatura es de ${temperatura} ºC, está por encima del limite de ${MAX_TEMP} ºC` })
+                    insertar(dbo.collection("alertas"), { tipo: "AC", msg: `El AC se ha encendido`, valor: true })
                     // como ha superado la temperatura máxima se enciende el ac
                     io.sockets.emit("AC", true);
                     io.sockets.emit("temperatura", MAX_TEMP);
-                } else if (temperatura < MIN_TEMP) {
-                    insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `La temperatura es de ${temperatura} ºC, esta por debajo del limite de ${MIN_TEMP} ºC || Se apaga AC` })
                     io.sockets.emit("actualizarBD"); // avisamos al cliente de que consulte la bd
+                } else if (temperatura < MIN_TEMP) {
+                    insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `La temperatura es de ${temperatura} ºC, está por debajo del limite de ${MIN_TEMP} ºC ` })
+                    insertar(dbo.collection("alertas"), { tipo: "AC", msg: `El AC se ha apagado`, valor: false })
                     io.sockets.emit("AC", false);
                     io.sockets.emit("temperatura", MIN_TEMP);
+                    io.sockets.emit("actualizarBD"); // avisamos al cliente de que consulte la bd
                 } else {
                     insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `La temperatura es de ${temperatura} ºC` })
                     insertar(dbo.collection("sensores"), { tipo: "Temperatura", fecha: data.fecha, valor: temperatura })
-                    io.sockets.emit("actualizarBD"); // avisamos al cliente de que consulte la bd
                     io.sockets.emit("temperatura", temperatura);
+                    io.sockets.emit("actualizarBD"); // avisamos al cliente de que consulte la bd
                 }
             });
+
+
+
+            client.on("nueva-luz", function(data){
+                var luz = data.luz;
+                if (luz > MAX_LUZ) {
+                    insertar(dbo.collection("alertas"), { tipo: "Luz", msg: `La luz es de ${luz}, está por encima del limite de ${MAX_LUZ}` })
+                    insertar(dbo.collection("alertas"), { tipo: "Persianas", msg: `Las persianas se han bajado`, valor: false })
+                    // como ha superado la luz máxima se cierran las persianas
+                    io.sockets.emit("persianas", false);
+                    io.sockets.emit("luz", MAX_LUZ);
+                    io.sockets.emit("actualizarBD"); // avisamos al cliente de que consulte la bd
+                }
+                else if (luz < MIN_LUZ) {
+                    insertar(dbo.collection("alertas"), { tipo: "Luz", msg: `La luz es de ${luz}, está por debajo del limite de ${MIN_LUZ}` })
+                    insertar(dbo.collection("alertas"), { tipo: "Persianas", msg: `Las persianas se han subido`, valor: true })
+                    // como ha superado la luz máxima se cierran las persianas
+                    io.sockets.emit("persianas", true);
+                    io.sockets.emit("luz", MIN_LUZ);
+                    io.sockets.emit("actualizarBD"); // avisamos al cliente de que consulte la bd
+                }
+                else {
+                    insertar(dbo.collection("alertas"), { tipo: "Luz", msg: `La luz es de ${luz}` })
+                    insertar(dbo.collection("sensores"), { tipo: "Luz", fecha: data.fecha, valor: luz })
+                    io.sockets.emit("luz", luz);
+                    io.sockets.emit("actualizarBD"); // avisamos al cliente de que consulte la bd
+                }
+            })
+
+
+            client.on("AC", function (data) {
+                insertar(dbo.collection("alertas"), { tipo: "AC", msg: `El AC se ha ${data ? "encendido" : "apagado"}`, valor: data })
+                io.sockets.emit("actualizarBD"); 
+                io.sockets.emit("AC", data);
+            });
+
+            client.on("persianas", function (data) {
+                insertar(dbo.collection("alertas"), { tipo: "Persianas", msg: `Las persianas se han ${data ? "subido" : "bajado"}`, valor: data })
+                io.sockets.emit("actualizarBD");
+                io.sockets.emit("persianas", data);
+            });
+
         }
     );
 

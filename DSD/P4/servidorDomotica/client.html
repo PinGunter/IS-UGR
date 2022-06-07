@@ -20,16 +20,16 @@
                         <b>Luz Actual: </b>
                         <span id="luz-actual">Desconocida</span>
                         <br/>
-                        <button id="toggle-persiana">Encender/Apagar</button>
+                        <button id="toggle-persiana" onclick="javascript:togglePersiana();">Abrir/Cerrar</button>
                     </div>
                     <div class="actuador">
                         <b>Aire Acondicionado</b><br />
-                        <b>Estado:</b> <span id="estadoAC">Desconocido</span>
+                        <b>Estado:</b> <span id="estadoAC">Apagado</span>
                         <br/>
                         <b>Temperatura Actual: </b>
                         <span id="temp-actual">Desconocida</span>
                         <br/>
-                        <button id="toggle-ac">Encender/Apagar</button>
+                        <button id="toggle-ac" onclick="javascript:toggleAC();">Encender/Apagar</button>
                     </div>
                 </div>
             </div>
@@ -37,13 +37,84 @@
 
         <div class="log">
             <div class="log-wrap">
-                <h2>Histórico de eventos</h2>
-                <div class="log-text">
-                    Registro de ejemplo
+                <h2>Eventos</h2>
+                <div id="log-server">
+                    
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+    var serviceURL = document.URL.slice(0, document.URL.indexOf('/client'));
+    var socket = io.connect(serviceURL);
+    socket.emit("obtener")
+
+    function togglePersiana(){
+        var estadoActual = document.getElementById("estadoPersiana").innerText;
+        if (estadoActual === "Desconocido" || estadoActual === "Cerrada"){
+            socket.emit("persianas", true);
+        } else {
+            socket.emit("persianas", false);
+        }
+    }
+
+    function toggleAC(){
+        var estadoActual = document.getElementById("estadoAC").innerText;
+        if (estadoActual === "Desconocido" || estadoActual === "Apagado"){
+            socket.emit("AC", true);
+        } else {
+            socket.emit("AC", false);
+        }
+
+    }
+
+
+    function actualizarLista(mensajes){
+        var listaContainer = document.getElementById('log-server');
+        listaContainer.innerHTML = '';
+        mensajes.forEach(mensaje => {
+            var listaItem = document.createElement('li');
+            listaItem.style.listStyleType = "none";
+            var color = "black";
+            if (mensaje.tipo === "AC") color = "red";
+            if (mensaje.tipo === "Persianas") color = "blue";
+            if (mensaje.tipo === "Luz") color = "brown";
+            if (mensaje.tipo === "Temperatura") color = "green";
+            
+            listaItem.innerHTML = `[<strong><span style="color:${color};">${mensaje.tipo}</span></strong>] - ${mensaje.msg}`;
+            listaContainer.insertBefore(listaItem, listaContainer.firstChild);            
+        });
+    }
+
+
+    socket.on("actualizarBD", function(data){
+        socket.emit("obtener");
+    })
+
+    socket.on("nuevosDatos", function(data){
+        actualizarLista(data);
+    })
+
+    socket.on("temperatura", function(temp){
+        document.getElementById("temp-actual").innerText = temp + "ºC";
+    })
+
+    socket.on("luz", function(luz){
+        document.getElementById("luz-actual").innerText = luz;
+    })
+
+    socket.on("AC", function(data){
+        document.getElementById("estadoAC").innerText = (data == true) ? "Encendido" : "Apagado";
+    })
+
+    socket.on("persianas",function(data){
+        document.getElementById("estadoPersiana").innerText = (data == true) ? "Abierta" : "Cerrada";
+    })
+</script>
+
 
 </html>

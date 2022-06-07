@@ -16,7 +16,7 @@
                     <div class="sensor">
                         <form action="javascript:void (0);" onsubmit="javascript:nuevaLuz();">
                             <label for="sensorLuz">Sensor de Luz</label><br />
-                            <input type="number" name="sensorLuz" min="0" max="10">
+                            <input type="number" name="sensorLuz">
                             <input type="submit" value="Actualizar">
                         </form>
                         <br/>
@@ -57,10 +57,16 @@
     function actualizarLista(mensajes){
         var listaContainer = document.getElementById('log-server');
         listaContainer.innerHTML = '';
-        console.log("antes del for")
         mensajes.forEach(mensaje => {
             var listaItem = document.createElement('li');
-            listaItem.innerHTML = `[${mensaje.tipo}] - ${mensaje.msg}`;
+            listaItem.style.listStyleType = "none";
+            var color = "black";
+            if (mensaje.tipo === "AC") color = "red";
+            if (mensaje.tipo === "Persianas") color = "blue";
+            if (mensaje.tipo === "Luz") color = "brown";
+            if (mensaje.tipo === "Temperatura") color = "green";
+            
+            listaItem.innerHTML = `[<strong><span style="color:${color};">${mensaje.tipo}</span></strong>] - ${mensaje.msg}`;
             listaContainer.insertBefore(listaItem, listaContainer.firstChild);            
         });
     }
@@ -93,6 +99,10 @@
 
     socket.on("temperatura", function(temp){
         document.getElementById("temp-actual").innerText = temp + "ºC";
+    })
+
+    socket.on("luz", function(luz){
+        document.getElementById("luz-actual").innerText = luz;
     })
 </script>
 
