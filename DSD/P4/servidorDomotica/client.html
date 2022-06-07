@@ -21,6 +21,13 @@
                         <span id="luz-actual">Desconocida</span>
                         <br/>
                         <button id="toggle-persiana" onclick="javascript:togglePersiana();">Abrir/Cerrar</button>
+                        <br/><br/><b>Luz Mínima</b>
+                        <input type="number" id="min-luz" value="0"/>
+                        <input type="button" onclick="javascript:setMinLuz();" value="Actualizar" /> <br/> <br/>
+                        <b>Luz Máxima</b>
+                        <input type="number" id="max-luz" value="10"/>
+                        <input type="button" onclick="javascript:setMaxLuz();" value="Actualizar" /> <br/>
+
                     </div>
                     <div class="actuador">
                         <b>Aire Acondicionado</b><br />
@@ -30,6 +37,12 @@
                         <span id="temp-actual">Desconocida</span>
                         <br/>
                         <button id="toggle-ac" onclick="javascript:toggleAC();">Encender/Apagar</button>
+                        <br/><br/><b>Temperatura Mínima</b>
+                        <input type="number" id="min-temp" value="15"/>
+                        <input type="button" onclick="javascript:setMinTemp();" value="Actualizar" /> <br/> <br/>
+                        <b>Temperatura Máxima</b>
+                        <input type="number" id="max-temp" value="40"/>
+                        <input type="button" onclick="javascript:setMaxTemp();" value="Actualizar" /> <br/>
                     </div>
                 </div>
             </div>
@@ -52,6 +65,56 @@
     var serviceURL = document.URL.slice(0, document.URL.indexOf('/client'));
     var socket = io.connect(serviceURL);
     socket.emit("obtener")
+
+    function setMinLuz(){
+        var minLuz = document.getElementById("min-luz").value;
+        socket.emit("min-luz", minLuz);
+        var luzActual = document.getElementById("luz-actual");
+        // manadamos de nuevo la luz actual para que revise si se cumplen los minmos
+        socket.emit("nueva-luz",
+        {
+            fecha: new Date(),
+            luz: luzActual.innerHTML
+        });
+    }
+
+    function setMaxLuz(){
+        var maxLuz = document.getElementById("max-luz").value;
+        socket.emit("max-luz", maxLuz);
+        var luzActual = document.getElementById("luz-actual");
+        // manadamos de nuevo la luz actual para que revise si se cumplen los minmos
+        socket.emit("nueva-luz",
+        {
+            fecha: new Date(),
+            luz: luzActual.innerHTML
+        });
+    }
+
+    function setMinTemp(){
+        var minTemp = document.getElementById("min-temp").value;
+        socket.emit("min-temp", minTemp);
+        var tempActual = document.getElementById("temp-actual");
+        // manadamos de nuevo la temperatura actual para que revise si se cumplen los minmos
+        socket.emit("nueva-temp",
+        {
+            fecha: new Date(),
+            temp: tempActual.innerHTML
+        });
+
+    }
+
+    function setMaxTemp(){
+        var maxTemp = document.getElementById("max-temp").value;
+        socket.emit("max-temp", maxTemp);
+        var tempActual = document.getElementById("temp-actual");
+        // manadamos de nuevo la temperatura actual para que revise si se cumplen los minmos
+        socket.emit("nueva-temp",
+        {
+            fecha: new Date(),
+            temp: tempActual.innerHTML
+        });
+        
+    }
 
     function togglePersiana(){
         var estadoActual = document.getElementById("estadoPersiana").innerText;

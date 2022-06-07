@@ -8,10 +8,10 @@ var mimeTypes = { "html": "text/html", "jpeg": "image/jpeg", "jpg": "image/jpeg"
 var MongoClient = require('mongodb').MongoClient;
 var MongoServer = require('mongodb').MongoServer;
 
-const MAX_TEMP = 40;
-const MIN_TEMP = 15;
-const MAX_LUZ = 10;
-const MIN_LUZ = 1;
+var MAX_TEMP = 40;
+var MIN_TEMP = 15;
+var MAX_LUZ = 10;
+var MIN_LUZ = 1;
 
 var allClients = new Array();
 
@@ -149,6 +149,30 @@ function prepararSocketIO(dbo) {
                 insertar(dbo.collection("alertas"), { tipo: "Persianas", msg: `Las persianas se han ${data ? "subido" : "bajado"}`, valor: data })
                 io.sockets.emit("actualizarBD");
                 io.sockets.emit("persianas", data);
+            });
+
+            client.on("min-luz", function(data){
+                MIN_LUZ = data;
+                insertar(dbo.collection("alertas"), { tipo: "Luz", msg: `El límite mínimo de luz es de ${data}` })
+                io.sockets.emit("actualizarBD");
+            });
+
+            client.on("max-luz", function(data){
+                MAX_LUZ = data;
+                insertar(dbo.collection("alertas"), { tipo: "Luz", msg: `El límite máximo de luz es de ${data}` })
+                io.sockets.emit("actualizarBD");
+            });
+
+            client.on("min-temp", function(data){
+                MIN_TEMP = data;
+                insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `El límite mínimo de temperatura es de ${data} ºC` })
+                io.sockets.emit("actualizarBD");
+            });
+
+            client.on("max-temp", function(data){
+                MAX_TEMP = data;
+                insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `El límite máximo de temperatura es de ${data} ºC` })
+                io.sockets.emit("actualizarBD");
             });
 
         }

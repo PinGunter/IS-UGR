@@ -99,10 +99,12 @@
 
     socket.on("temperatura", function(temp){
         document.getElementById("temp-actual").innerText = temp + "ºC";
+        document.getElementsByName("sensorTemperatura")[0].value = temp;
     })
 
     socket.on("luz", function(luz){
         document.getElementById("luz-actual").innerText = luz;
+        document.getElementsByName("sensorLuz")[0].value = luz;
     })
 </script>
 
