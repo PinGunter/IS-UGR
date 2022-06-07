@@ -20,7 +20,7 @@
     display: flex;
 }
 
-.sensor, .actuador{
+.sensor, .actuador, .tiempo{
     padding: 25px;
     margin: 15px;
     border: 2px;

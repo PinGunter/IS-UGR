@@ -41,7 +41,7 @@
                         <input type="number" id="min-temp" value="15"/>
                         <input type="button" onclick="javascript:setMinTemp();" value="Actualizar" /> <br/> <br/>
                         <b>Temperatura Máxima</b>
-                        <input type="number" id="max-temp" value="40"/>
+                        <input type="number" id="max-temp" value="30"/>
                         <input type="button" onclick="javascript:setMaxTemp();" value="Actualizar" /> <br/>
                     </div>
                 </div>
@@ -57,6 +57,17 @@
             </div>
         </div>
     </div>
+    <div class="actuador-wrap">
+        <h2>Datos reales</h2>
+        <div class="tiempo">
+            <b>Tiempo: </b> <span id="tiempo">No hay datos</span><br/>
+            <b>Temperatura: </b> <span id="temperaturaReal">No hay datos</span><br/>
+            <b>Sensación térmica: </b> <span id="sensacionTermica">No hay datos</span><br/>
+            <b>Humedad: </b> <span id="humedad">No hay datos</span><br/>
+        </div>
+        
+    </div>
+
 </body>
 
 
@@ -65,6 +76,22 @@
     var serviceURL = document.URL.slice(0, document.URL.indexOf('/client'));
     var socket = io.connect(serviceURL);
     socket.emit("obtener")
+    socket.emit("weather")
+
+    socket.on("tiempo", function(data){
+        datosJSON = JSON.parse(data);
+        console.log(datosJSON)
+        var tiempo = datosJSON.weather[0].main;
+        var temperatura = datosJSON.main.temp;
+        var sensacionTermica = datosJSON.main.feels_like;
+        var humedad = datosJSON.main.humidity;
+
+        document.getElementById("tiempo").innerHTML = tiempo;
+        document.getElementById("temperaturaReal").innerHTML = temperatura + "°C";
+        document.getElementById("sensacionTermica").innerHTML = sensacionTermica + "°C";
+        document.getElementById("humedad").innerHTML = humedad + "%";
+
+    })
 
     function setMinLuz(){
         var minLuz = document.getElementById("min-luz").value;
@@ -113,7 +140,7 @@
             fecha: new Date(),
             temp: tempActual.innerHTML
         });
-        
+
     }
 
     function togglePersiana(){

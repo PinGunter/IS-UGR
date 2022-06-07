@@ -3,17 +3,22 @@ var url = require("url");
 var fs = require("fs");
 var path = require("path");
 var socketio = require("socket.io");
+var request = require("request");
 var mimeTypes = { "html": "text/html", "jpeg": "image/jpeg", "jpg": "image/jpeg", "png": "image/png", "js": "text/javascript", "css": "text/css", "swf": "application/x-shockwave-flash" };
 
 var MongoClient = require('mongodb').MongoClient;
 var MongoServer = require('mongodb').MongoServer;
 
-var MAX_TEMP = 40;
+var MAX_TEMP = 30;
 var MIN_TEMP = 15;
 var MAX_LUZ = 10;
 var MIN_LUZ = 1;
 
 var allClients = new Array();
+
+const apiKey = '07d4ba6d16de78c9a746ffdec69d0514';
+let ciudad = "Granada";
+let weatherURL = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&units=metric&appid=${apiKey}`;
 
 // Servidor Web
 var httpServer = http.createServer(
@@ -112,7 +117,7 @@ function prepararSocketIO(dbo) {
 
 
 
-            client.on("nueva-luz", function(data){
+            client.on("nueva-luz", function (data) {
                 var luz = data.luz;
                 if (luz > MAX_LUZ) {
                     insertar(dbo.collection("alertas"), { tipo: "Luz", msg: `La luz es de ${luz}, está por encima del limite de ${MAX_LUZ}` })
@@ -141,7 +146,7 @@ function prepararSocketIO(dbo) {
 
             client.on("AC", function (data) {
                 insertar(dbo.collection("alertas"), { tipo: "AC", msg: `El AC se ha ${data ? "encendido" : "apagado"}`, valor: data })
-                io.sockets.emit("actualizarBD"); 
+                io.sockets.emit("actualizarBD");
                 io.sockets.emit("AC", data);
             });
 
@@ -151,29 +156,40 @@ function prepararSocketIO(dbo) {
                 io.sockets.emit("persianas", data);
             });
 
-            client.on("min-luz", function(data){
+            client.on("min-luz", function (data) {
                 MIN_LUZ = data;
                 insertar(dbo.collection("alertas"), { tipo: "Luz", msg: `El límite mínimo de luz es de ${data}` })
                 io.sockets.emit("actualizarBD");
             });
 
-            client.on("max-luz", function(data){
+            client.on("max-luz", function (data) {
                 MAX_LUZ = data;
                 insertar(dbo.collection("alertas"), { tipo: "Luz", msg: `El límite máximo de luz es de ${data}` })
                 io.sockets.emit("actualizarBD");
             });
 
-            client.on("min-temp", function(data){
+            client.on("min-temp", function (data) {
                 MIN_TEMP = data;
                 insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `El límite mínimo de temperatura es de ${data} ºC` })
                 io.sockets.emit("actualizarBD");
             });
 
-            client.on("max-temp", function(data){
+            client.on("max-temp", function (data) {
                 MAX_TEMP = data;
                 insertar(dbo.collection("alertas"), { tipo: "Temperatura", msg: `El límite máximo de temperatura es de ${data} ºC` })
                 io.sockets.emit("actualizarBD");
             });
+
+            client.on("weather", function (data) {
+                console.log("obteniendo datos de la API")
+                request(weatherURL, function (err, response, body) {
+                    if (err) console.log ("error:", err);
+                    else  {
+                        console.log("respuesta de api: " + body)
+                        io.sockets.emit("tiempo", body);
+                    }
+                })
+            })
 
         }
     );
