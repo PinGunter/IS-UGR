@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+<section class="pagina-informacion">
+    <div class="grid-principal">
+        <div>
+            {% block producto_principal %}
+                <h2>Edición de comentario</h2>
+                <form method="post">
+                    <fieldset class="editar-comentario">
+                        <label for="nuevo-comment">Comentario nuevo</label><br/>
+                        <textarea name="nuevo-comment" id="nuevo-comment">{{comentario.cuerpo}}</textarea>
+                        <input type="submit" value="Editar">
+                        <legend>Editar comentario</legend>
+                        {% if editado == 2 %}
+                        <span class="mensaje">Comentario editado correctamente</span>
+                        {% else %}
+                        {% if editado == 1 %}
+                        <span class="mensaje-error">Error al editar comentario</span>
+                        {% else %}
+                        {% if editado == 3 %}
+                        <span class="mensaje-error">No puede ser vacío el mensaje</span>
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                    </fieldset>
+                </form>
+            {% endblock %}
+        </div>
+    </div>
+
+</section> <!-- Fin producto principal-->
+{% endblock %}

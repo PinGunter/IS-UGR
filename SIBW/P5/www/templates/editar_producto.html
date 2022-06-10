@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+<section class="pagina-informacion">
+    <div class="grid-principal">
+        <div>
+            {% block producto_principal %}
+                <h2>Edición de producto</h2>
+                <form method="post" enctype="multipart/form-data">
+                    <fieldset class="editar-producto">
+                        <label for="icono">Icono</label>
+                        <input type="file" name="icono" id="icono" accept=".png,.jpeg,.jpg,.gif" /><br/>
+                        <label for="nombre">Nombre</label><br/>
+                        <input type="text" name="nombre" id="nombre" value="{{ producto.nombre }}" required /><br/>
+                        <label for="marca">Marca</label><br/>
+                        <select name="marca">
+                            {% for marca in marcas %}
+                                <option value="{{ marca.id }}" {% if marca.nombre == producto.marca %}selected{% endif %}>{{ marca.nombre }}</option>
+                            {% endfor %}
+                        </select> <br/>
+                        <label for="precio">Precio</label><br/>
+                        <input type="text" name="precio" id="precio" value="{{ producto.precio }}" required /><br/>
+                        <label for="imgs[]">Imágenes</label>
+                        <input type="file" name="imgs[]" multiple accept=".png,.jpeg,.jpg,.gif"/><br/>
+                        <label for="desc">Descripción</label><br/>
+                        <textarea name="desc" id="desc" required>{{producto.descripcion}}</textarea><br/>
+                        <label for="publicado">Publicado</label><br/>
+                        <input type="checkbox" name="publicado" id="publicado" value="1" {% if producto.publicado %}checked{% endif %}/><br/>
+                        <label for="etiqueta">Etiquetas</label><br/>
+                        {% for etit in etiquetas %}
+                            <input type="checkbox" name="etiquetas[]" value="{{ etit.id_e }}" {% if etit.id_e in etiquetasProducto %}checked{% endif %}/> {{ etit.nombre }} <br/>
+                        {% endfor %}
+                        <br/><input type="submit" value="Editar">
+                        <legend>Editar producto</legend>
+                        {% for err in errors %}
+                        <br/><span class="mensaje-error">{{err}}</span>
+                        {% endfor %}
+                        {% if errors %}
+                        {% else %} 
+                        {% for ex in exitos %}
+                        <br/><span class="mensaje">{{ex}}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </fieldset>
+                </form>
+                
+            {% endblock %}
+        </div>
+    </div>
+
+</section> <!-- Fin producto principal-->
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base_portada.html" %}
+{% block contenido %}
+{% for producto in productos %}
+{% if producto.publicado or usuario.super or usuario.gestor %}
+<a href="producto.php?pid={{producto.id}}">
+    <div class="producto-individual">
+        <img class="imagen-producto" src={{ producto.icono }}>
+        <h3 class="fruit-title">{{ producto.nombre }}</h4>
+    </div>
+</a>
+{% endif %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+<section class="producto">
+    <div class="grid-principal">
+        <!-- Informacion del producto (titulo, precio y descripcion) -->
+        <div class="info-producto">
+            {% block producto_principal %}
+            <h1>Administración</h1>
+            <h3>Gestión de permisos de Usuarios</h3>
+            <form method="post">
+                <table>
+                    <tr>
+                        <th>Nick</th>
+                        <th>Moderador</th>
+                        <th>Gestor</th>
+                        <th>Administrador</th>
+                    </tr>
+                    {% for user in usuarios %}
+                    <tr>
+                        <td>{{ user.nick }}</td>
+                        <td>
+                            <input type="checkbox" name="{{user.nick}}-perm-mod" value="mod" {% if user.moderador %}checked{% endif
+                                %}>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="{{user.nick}}-perm-gestor" value="gestor" {% if user.gestor %}checked{% endif %}>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="{{user.nick}}-perm-super" value="super" {% if user.super %}checked{% endif
+                                %} {% if user.nick==usuario.nick %} disabled {% endif %}>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table><br/>
+                <input class="enviar-permisos" type="submit" value="Guardar"></input>
+                {% if exito %}
+                <span class="mensaje">{{exito}}</span>
+                {% endif %}
+                {% if error %}
+                <span class="mensaje-error">{{error}}</span>
+                {% endif %}
+            </form>
+            <div class="navegacion-admin">
+                <h4>Otras tareas administrativas:</h4>
+                <nav>
+                    <a href="moderacion.php" class="admin-task"><button>Moderación</button></a>
+                    <a href="gestion.php" class="admin-task"><button>Gestión</button></a>
+                </nav>
+            </div>
+            {% endblock %}
+        </div>
+        {% block imagenes %}
+        {% endblock %}
+    </div>
+
+</section> <!-- Fin producto principal-->
+{% endblock %}

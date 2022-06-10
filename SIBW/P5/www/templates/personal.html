@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block extraHeader %}
+<link rel="stylesheet" href="static/css/font-awesome.css" />
+{% endblock %}
+
+
+{% block principal %}
+<section class="pagina-informacion">
+    <div class="grid-principal">
+        <div>
+            {% block producto_principal %}
+                <h2>Información de tu cuenta</h2>
+                <form method="post">
+                    <fieldset class="editar-perfil">
+                        <legend>Editar tus datos</legend>
+                        <label for="edit-nombre">Nombre</label><br/>
+                        <input type="text" name="nombre" id="edit-nombre" value="{{usuario.nombre}}" required><br/>
+                        <label for="edit-apellidos">Apellidos</label><br/>
+                        <input type="text" name="apellidos" id="edit-apellidos" value="{{usuario.apellidos}}" required><br/>
+                        <label for="edit-email">Email</label><br/>
+                        <input type="email" name="email" id="edit-email" value="{{usuario.email}}" required><br/>
+                        <label for="edit-password">Nueva Contraseña</label><br/>
+                        <input type="password" name="password" id="edit-password"><br/>
+                        <label for="edit-password-confirm">Confirmar nueva contraseña</label><br/>
+                        <input type="password" name="password-confirm" id="edit-password-confirm"><br/>
+                        <input type="submit" value="Guardar cambios">
+                        {% if datosIncorrectos==1 %}
+                        <span class="mensaje-error">Las contraseñas no coinciden o el email no es correcto</span>
+                        {% else %}
+                        {% if datosIncorrectos==2 %}
+                        <span class="mensaje">Tus datos se han actualizado correctamente</span>
+                        {% endif %}
+                        {% endif %}
+                        {% if fallo %}
+                        <span class="mensaje-error">Se produjo un error actualizando la base de datos</span>
+                        {% endif %}
+                    </fieldset>
+                </form>
+            {% endblock %}
+        </div>
+    </div>
+
+</section> <!-- Fin producto principal-->
+{% endblock %}
